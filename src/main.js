@@ -135,6 +135,7 @@ function renderCompMetadata(shot) {
   const side = shot.paddle_side?.value ?? '—';
   const dist = shot.paddle_distance?.value ?? '—';
   const vert = shot.face_orientation?.vertical_angle?.value ?? '—';
+  const vertDeg = shot.face_orientation?.vertical_angle_degrees_estimate;
   const lat = shot.face_orientation?.lateral_angle?.value ?? '—';
   const hDir = shot.motion?.horizontal_direction?.value ?? '—';
   const vComp = shot.motion?.vertical_component?.value ?? '—';
@@ -153,7 +154,7 @@ function renderCompMetadata(shot) {
       <dt>Handedness</dt><dd>${hand}</dd>
       <dt>Paddle side (red/black)</dt><dd>${side}</dd>
       <dt>Paddle distance</dt><dd>${dist}</dd>
-      <dt>Face vertical</dt><dd>${vert}</dd>
+      <dt>Face vertical</dt><dd>${vert}${vertDeg != null ? ` (~${vertDeg}°)` : ''}</dd>
       <dt>Face lateral</dt><dd>${lat}</dd>
       <dt>Motion horizontal</dt><dd>${hDir}</dd>
       <dt>Motion vertical</dt><dd>${vComp}</dd>

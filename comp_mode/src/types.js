@@ -11,8 +11,9 @@
 
 /**
  * @typedef {Object} FaceOrientation
- * @property {ValueConfidence} vertical_angle
+ * @property {ValueConfidence} vertical_angle - closed_0_to_45 | neutral_45_to_90 | vertical_near_90 | open_90_to_135 | strongly_open_135_to_180
  * @property {ValueConfidence} lateral_angle
+ * @property {number|null} [vertical_angle_degrees_estimate] - optional 0-180 estimate
  */
 
 /**
