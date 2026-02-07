@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training Mode (OpenCV) — Ball Tracking</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      color: #1a1a1a;
+      background: #f5f5f5;
+    }
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    h1 {
+      font-size: 1.25rem;
+      margin: 0 0 1rem;
+    }
+    .upload-wrap {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+    .upload-wrap input[type="file"] {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+    }
+    button:hover {
+      background: #f0f0f0;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    #status {
+      font-size: 0.875rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+    .error-msg {
+      font-size: 0.875rem;
+      color: #c00;
+      margin-top: 0.5rem;
+    }
+    .result-panel {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+    .result-panel h2 {
+      font-size: 1rem;
+      margin: 0 0 0.5rem;
+    }
+    .result-panel pre {
+      font-size: 0.75rem;
+      overflow: auto;
+      max-height: 360px;
+      padding: 0.75rem;
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .summary {
+      font-size: 0.875rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+    .source-choice {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .source-choice label {
+      margin-right: 1rem;
+    }
+    .source-choice input { margin: 0; }
+    .camera-wrap {
+      margin-bottom: 0.75rem;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      min-height: 180px;
+      position: relative;
+    }
+    .camera-wrap .tracking-overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+    }
+    .camera-wrap .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    #panel-live button { margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .preview-wrap { margin-top: 1rem; }
+    .preview-label { font-size: 0.875rem; color: #555; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Training Mode (OpenCV) — Ball Tracking Only</h1>
+  <p style="font-size: 0.9rem; color: #555;">
+    Recorded video or live camera. Backend detects the ball per frame and returns position + speed (JSON). No player or shot analysis.
+  </p>
+  <div class="source-choice">
+    <label><input type="radio" name="source" value="file" checked /> Recorded video</label>
+    <label><input type="radio" name="source" value="live" /> Live camera</label>
+  </div>
+  <div id="panel-file" class="upload-wrap">
+    <input type="file" id="video-file" accept=".mp4,.mov,.avi,.webm,.mkv" />
+    <br />
+    <button id="btn-process" type="button" disabled>Process video</button>
+    <div id="preview-wrap" class="preview-wrap" style="display: none;">
+      <p class="preview-label">Preview with ball position (dot)</p>
+      <div class="camera-wrap">
+        <video id="preview-video" controls muted playsinline style="width: 100%; max-height: 240px; background: #111;"></video>
+        <canvas id="preview-overlay" class="tracking-overlay" aria-hidden="true"></canvas>
+      </div>
+    </div>
+  </div>
+  <div id="panel-live" class="upload-wrap" style="display: none;">
+    <div class="camera-wrap">
+      <video id="live-video" muted playsinline style="display: none; width: 100%; max-height: 240px; background: #111;"></video>
+      <canvas id="live-overlay" class="tracking-overlay" aria-hidden="true"></canvas>
+      <div id="live-placeholder" class="placeholder">Start camera to preview</div>
+    </div>
+    <button id="btn-start-camera" type="button">Start camera</button>
+    <button id="btn-stop-camera" type="button" disabled>Stop camera</button>
+    <button id="btn-start-tracking" type="button" disabled>Start tracking</button>
+    <button id="btn-stop-tracking" type="button" disabled>Stop tracking</button>
+  </div>
+  <div id="status"></div>
+  <div id="error" class="error-msg" style="display: none;"></div>
+  <div class="result-panel">
+    <h2>Output (JSON)</h2>
+    <p class="summary" id="summary">—</p>
+    <pre id="json-output">No result yet. Choose source: recorded video (upload + Process) or live camera (Start camera → Start tracking).</pre>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
