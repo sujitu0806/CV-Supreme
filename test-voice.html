@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoiceService Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+      color: #1a1a1a;
+    }
+    .section {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 6px;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    textarea {
+      min-height: 100px;
+      font-family: inherit;
+      resize: vertical;
+    }
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      background: #1a1a1a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    button:hover {
+      background: #333;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    button.secondary {
+      background: #666;
+    }
+    button.secondary:hover {
+      background: #888;
+    }
+    .status {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    .status.info {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+    .status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .status.warning {
+      background: #fff3e0;
+      color: #e65100;
+    }
+    .preset-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .preset-buttons button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      background: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    .preset-buttons button:hover {
+      background: #e0e0e0;
+    }
+    .config-section {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+    }
+    code {
+      background: #f5f5f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎤 VoiceService Test</h1>
+    
+    <div class="section config-section">
+      <h2>Configuration</h2>
+      <label>
+        Provider:
+        <select id="provider-select">
+          <option value="native">Native (Web Speech API)</option>
+          <option value="elevenlabs">ElevenLabs (requires API key)</option>
+        </select>
+      </label>
+      <label style="margin-top: 1rem;">
+        ElevenLabs API Key:
+        <input type="text" id="api-key" placeholder="Enter your ElevenLabs API key (optional)" />
+      </label>
+      <button onclick="updateConfig()" class="secondary">Update Config</button>
+    </div>
+
+    <div class="section">
+      <h2>Test Speech</h2>
+      <label>
+        Text to Speak:
+        <textarea id="text-input" placeholder="Enter text to speak...">Your opponent is favoring their backhand. Try a cross-court shot to their forehand.</textarea>
+      </label>
+      
+      <div class="preset-buttons">
+        <button onclick="setPreset('sports')">Sports Tip</button>
+        <button onclick="setPreset('alert')">System Alert</button>
+        <button onclick="setPreset('rally')">Rally Summary</button>
+        <button onclick="setPreset('training')">Training Feedback</button>
+      </div>
+
+      <div style="margin-top: 1rem;">
+        <button id="speak-btn" onclick="speakText()">Speak</button>
+        <button id="stop-btn" onclick="stopSpeech()" disabled>Stop</button>
+        <button onclick="testMultiple()" class="secondary">Test Multiple (Queue)</button>
+      </div>
+
+      <div id="status" class="status info" style="display: none;"></div>
+    </div>
+
+    <div class="section">
+      <h2>Status</h2>
+      <p><strong>Is Speaking:</strong> <span id="is-speaking">false</span></p>
+      <p><strong>Current Provider:</strong> <span id="current-provider">native</span></p>
+      <p><strong>Selected Voice:</strong> <span id="selected-voice">Loading...</span></p>
+    </div>
+
+    <div class="section">
+      <h2>Available Voices (Native Only)</h2>
+      <select id="voice-select" onchange="changeVoice()">
+        <option>Loading voices...</option>
+      </select>
+    </div>
+  </div>
+
+  <script type="module">
+    import voiceService from './src/services/VoiceService.js';
+
+    // Make voiceService available globally for the test page
+    window.voiceService = voiceService;
+
+    // Initialize UI
+    function updateStatus(message, type = 'info') {
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = message;
+      statusEl.className = `status ${type}`;
+      statusEl.style.display = 'block';
+      
+      if (type === 'success' || type === 'info') {
+        setTimeout(() => {
+          statusEl.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    function updateUI() {
+      document.getElementById('is-speaking').textContent = voiceService.isSpeaking;
+      document.getElementById('current-provider').textContent = voiceService.getConfig().provider;
+      
+      const selectedVoice = voiceService.selectedVoice;
+      if (selectedVoice) {
+        document.getElementById('selected-voice').textContent = `${selectedVoice.name} (${selectedVoice.lang})`;
+      } else {
+        document.getElementById('selected-voice').textContent = 'Not available';
+      }
+
+      document.getElementById('speak-btn').disabled = voiceService.isSpeaking;
+      document.getElementById('stop-btn').disabled = !voiceService.isSpeaking;
+    }
+
+    // Update UI every 100ms
+    setInterval(updateUI, 100);
+
+    // Load voices for native provider
+    function loadVoices() {
+      const voices = voiceService.getAvailableVoices();
+      const select = document.getElementById('voice-select');
+      select.innerHTML = '';
+      
+      if (voices.length === 0) {
+        select.innerHTML = '<option>No voices available</option>';
+        return;
+      }
+
+      voices.forEach((voice, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${voice.name} (${voice.lang})`;
+        if (voice === voiceService.selectedVoice) {
+          option.selected = true;
+        }
+        select.appendChild(option);
+      });
+    }
+
+    // Wait for voices to load
+    setTimeout(() => {
+      loadVoices();
+      updateUI();
+    }, 1000);
+
+    // Expose functions to global scope
+    window.updateConfig = function() {
+      const provider = document.getElementById('provider-select').value;
+      const apiKey = document.getElementById('api-key').value;
+      
+      voiceService.configure({
+        provider: provider,
+        elevenlabsApiKey: apiKey || undefined,
+      });
+      
+      updateStatus(`Configuration updated: ${provider}`, 'success');
+      updateUI();
+      
+      if (provider === 'native') {
+        loadVoices();
+      }
+    };
+
+    window.speakText = async function() {
+      const text = document.getElementById('text-input').value.trim();
+      if (!text) {
+        updateStatus('Please enter some text to speak', 'warning');
+        return;
+      }
+
+      try {
+        updateStatus('Speaking...', 'info');
+        await voiceService.speak(text);
+        updateStatus('Speech completed', 'success');
+      } catch (error) {
+        updateStatus(`Error: ${error.message}`, 'error');
+        console.error('Speech error:', error);
+      }
+      updateUI();
+    };
+
+    window.stopSpeech = function() {
+      voiceService.stop();
+      updateStatus('Speech stopped', 'info');
+      updateUI();
+    };
+
+    window.testMultiple = async function() {
+      const texts = [
+        'First message',
+        'Second message',
+        'Third message'
+      ];
+
+      for (const text of texts) {
+        if (voiceService.isSpeaking) {
+          voiceService.stop();
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        await voiceService.speak(text);
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      updateStatus('Multiple test completed', 'success');
+    };
+
+    window.setPreset = function(type) {
+      const presets = {
+        sports: 'Your opponent is favoring their backhand. Try a cross-court shot to their forehand.',
+        alert: 'Camera connection lost. Please check your camera settings.',
+        rally: 'Rally complete. 12 shots exchanged. Player A wins the point.',
+        training: 'Good form on that serve. Try to follow through more completely on your next shot.'
+      };
+      document.getElementById('text-input').value = presets[type] || '';
+    };
+
+    window.changeVoice = function() {
+      const select = document.getElementById('voice-select');
+      const voices = voiceService.getAvailableVoices();
+      const selectedIndex = parseInt(select.value);
+      if (voices[selectedIndex]) {
+        // Note: VoiceService doesn't have a setVoice method, but we can configure
+        // For now, this is informational - the service auto-selects the best voice
+        updateStatus(`Voice selection: ${voices[selectedIndex].name}`, 'info');
+      }
+    };
+
+    // Load API key from env if available
+    if (import.meta.env?.VITE_ELEVENLABS_API_KEY) {
+      document.getElementById('api-key').value = import.meta.env.VITE_ELEVENLABS_API_KEY;
+    }
+
+    updateUI();
+  </script>
+</body>
+</html>
