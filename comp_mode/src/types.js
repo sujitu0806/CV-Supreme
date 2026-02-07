@@ -1,39 +1,41 @@
 /**
+ * Paddle-focused competition mode: observable paddle motion primitives.
+ * Consumed by downstream LLM for shot type / spin / strategy diagnosis.
+ */
+
+/**
  * @typedef {Object} ValueConfidence
  * @property {string} value
  * @property {number} confidence
  */
 
 /**
- * @typedef {Object} BallLanding
- * @property {string} zone
- * @property {string} angle
- * @property {number} confidence
+ * @typedef {Object} FaceOrientation
+ * @property {ValueConfidence} vertical_angle
+ * @property {ValueConfidence} lateral_angle
  */
 
 /**
- * @typedef {Object} OpponentPosition
- * @property {string} distance_from_table
- * @property {string} lateral_position
- * @property {number} confidence
+ * @typedef {Object} Motion
+ * @property {ValueConfidence} horizontal_direction
+ * @property {ValueConfidence} vertical_component
+ * @property {ValueConfidence} plane
  */
 
 /**
- * @typedef {Object} JointAngles
- * @property {string} shoulder
- * @property {string} elbow
- * @property {string} wrist
- * @property {number} confidence
- */
-
-/**
- * One opponent shot observation emitted when a shot is detected.
- * Consumed by downstream aggregator for playstyle inference.
+ * One paddle-strike observation emitted when paddle is visible and/or strike detected.
  * @typedef {Object} ShotObservation
- * @property {string} shot_timestamp - Client-side time when result was received (e.g. "14:32:01.234")
- * @property {ValueConfidence} serve_type
- * @property {ValueConfidence} spin_type
- * @property {BallLanding} ball_landing
- * @property {OpponentPosition} opponent_position
- * @property {JointAngles} joint_angles
+ * @property {string} shot_timestamp
+ * @property {boolean} paddle_visible
+ * @property {boolean} strike_detected
+ * @property {ValueConfidence} handedness
+ * @property {ValueConfidence} paddle_distance
+ * @property {ValueConfidence} paddle_side - red (forehand face) or black (backhand face)
+ * @property {FaceOrientation} face_orientation
+ * @property {Motion} motion
+ * @property {ValueConfidence} speed
+ * @property {ValueConfidence} follow_through
+ * @property {ValueConfidence} rotation
+ * @property {string} [strike_height]
+ * @property {string} [swing_timing]
  */

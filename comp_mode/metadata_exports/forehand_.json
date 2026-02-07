@@ -1,0 +1,558 @@
+{
+  "sessionId": "1770432696997",
+  "startedAt": "2026-02-07T02:51:36.997Z",
+  "endedAt": "2026-02-07T02:51:54.795Z",
+  "shots": [
+    {
+      "shot_timestamp": "21:51:39.994",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:40.929",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.85
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.88
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:45.315",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.85
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.78
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:47.151",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.92
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.78
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.7
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.73
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.6
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:48.949",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.92
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.78
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:50.277",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.92
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.78
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.7
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.73
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.6
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:51.829",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.92
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.78
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:52.619",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:53.246",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.92
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.78
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "angled_up",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.7
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.65
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "21:51:54.315",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.85
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.7
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.75
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.77
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    }
+  ],
+  "updatedAt": "2026-02-07T02:51:54.795Z"
+}

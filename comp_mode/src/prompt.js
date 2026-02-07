@@ -1,31 +1,227 @@
 /**
- * Single prompt for the vision model: detect hitting/striking motion and extract metadata per window.
- * Tune this file without changing stream logic.
- * Kept permissive for MVP: works with hand/arm motion only (no paddle or ball required).
+ * Paddle-focused vision prompt for Live Competition Mode.
+ *
+ * Purpose:
+ * Extract low-level, observable paddle motion primitives from a short
+ * video clip. These primitives will be consumed by a downstream LLM
+ * to diagnose shot type, spin, and strategy.
+ *
+ * This prompt intentionally avoids naming shot types or tactics.
+ * It focuses ONLY on what can be visually observed from the paddle.
  */
-export const SHOT_ANALYSIS_PROMPT = `You are analyzing video of a person who may be playing or mimicking table tennis (ping pong). The camera faces the person. They may or may not have a paddle or ball visible.
+export const SHOT_ANALYSIS_PROMPT = `
+You are analyzing a short video clip from a live, front-facing camera.
+The camera faces an opponent actively playing ping pong.
 
-Your task: In this short clip, did the person make a HITTING or STRIKING motion (e.g. arm swing, hand swing, or paddle stroke)? Any clear forward or sideways striking motion counts—with or without a paddle or ball.
+IMPORTANT:
+Your task is NOT to analyze the full body or infer intent.
+Your task is to focus ONLY on the PADDLE and its motion over time.
 
-If you do NOT see any hitting/striking motion in this clip:
-- Set "shot_detected" to false.
-- Do not fill any other fields.
+You MUST reason TEMPORALLY.
+Compare earlier frames to later frames to detect motion, orientation
+changes, and follow-through.
 
-If you DO see a hitting or striking motion (hand, arm, or paddle) in this clip:
-- Set "shot_detected" to true.
-- Fill ONLY the metadata you can actually see or infer. You do NOT need to fill every field. Omit fields or use "uncertain" / "not visible" when you cannot tell. Even one or two fields is enough.
-- If there are multiple motions, describe the most recent or clearest one.
-- For each field you do fill, provide a value and a confidence score from 0 to 1. Use low confidence when evidence is weak.
-- Do NOT invent details. Do NOT assume intent. Best-effort estimates are fine.
+Assume the paddle may be partially occluded at times.
+Best-effort estimates are acceptable.
 
-Optional metadata (fill only what you can observe):
+========================
+PRIMARY OBJECT OF INTEREST
+========================
+- The ping pong paddle (if visible)
+- The hand holding the paddle
+- Ignore facial expression, stance, or full-body pose
+- Ignore ball unless it clearly aids paddle motion inference
 
-1. serve_type: Only if you can tell—e.g. "serve", "not a serve", "uncertain".
+========================
+STEP 1 — PADDLE VISIBILITY
+========================
+Determine whether a paddle is visible at any point in the clip.
 
-2. spin_type: Only if you can infer from arm/wrist motion or paddle angle—e.g. "topspin", "backspin", "sidespin", "flat", "uncertain".
+If NO paddle is visible:
+- Set "paddle_visible" to false
+- Do NOT fill any other fields
+- Return immediately
 
-3. ball_landing: Only if a table and ball path are visible—e.g. zone "near net", "mid-table", "deep corner"; angle "low and fast", "medium arc". Otherwise "not visible" or omit.
+If paddle IS visible:
+- Set "paddle_visible" to true
+- Continue to motion analysis
 
-4. opponent_position: Approximate distance ("close", "mid-distance", "far back") and lateral position ("left", "center", "right") if visible.
+========================
+STEP 2 — STRIKING MOTION
+========================
+Determine whether the paddle undergoes a STRIKING MOTION.
 
-5. joint_angles: Best-effort from what you see: shoulder (e.g. "open", "closed"), elbow (e.g. "bent", "extended"), wrist (e.g. "neutral", "flexed"). Qualitative only—omit if not visible.`;
+A striking motion is defined as:
+- Rapid movement of the paddle over a short time window
+- Clear acceleration followed by deceleration or follow-through
+- Linear or rotational motion consistent with hitting a ball
+
+Slow repositioning or idle holding does NOT count.
+
+If NO striking motion is detected:
+- Set "strike_detected" to false
+- Do NOT fill any other fields
+- Return immediately
+
+If a striking motion IS detected:
+- Set "strike_detected" to true
+- Analyze ONLY the clearest or most recent striking motion
+
+========================
+STEP 3 — STATIC PADDLE CONTEXT
+========================
+Extract context that does NOT require knowing the shot outcome.
+
+--- Handedness ---
+Which hand is holding the paddle?
+- "left_hand"
+- "right_hand"
+- "uncertain"
+
+--- Paddle distance from camera ---
+Approximate distance of the paddle at strike moment:
+- "close" (dominates frame, near camera)
+- "medium"
+- "far" (small in frame, near table or body)
+- "uncertain"
+
+--- Paddle side ---
+If visible, identify which side of the paddle faces the camera:
+- "red"
+- "black"
+- "uncertain"
+
+========================
+STEP 4 — MOTION PRIMITIVES
+========================
+Extract ONLY what you can directly observe.
+Do NOT infer shot names, intent, or strategy.
+
+For each field you include:
+- Provide a value
+- Provide a confidence score (0.0–1.0)
+- Use "uncertain" or omit fields if evidence is weak
+
+--- Paddle face orientation (near contact moment) ---
+Vertical angle relative to table:
+- "angled_up"
+- "angled_down"
+- "mostly_vertical"
+- "uncertain"
+
+Lateral orientation:
+- "inward" (toward player’s body)
+- "neutral"
+- "outward"
+- "uncertain"
+
+--- Motion direction ---
+Dominant paddle movement:
+- Horizontal direction: "left_to_right", "right_to_left", "none"
+- Vertical component: "upward", "downward", "minimal"
+- Motion plane: "mostly_horizontal", "mostly_vertical", "diagonal"
+
+--- Speed (qualitative) ---
+Relative speed of the striking motion:
+- "very_slow"
+- "slow"
+- "medium"
+- "fast"
+- "very_fast"
+
+--- Follow-through ---
+Motion after the main strike:
+- "long_forward"
+- "short_cutoff"
+- "rotational"
+- "none_visible"
+- "uncertain"
+
+--- Rotation / wrist action (if visible) ---
+Observed rotational behavior:
+- "pronation"
+- "supination"
+- "wrist_snap"
+- "none_visible"
+- "uncertain"
+
+========================
+OPTIONAL ADDITIONAL SIGNALS
+========================
+Include ONLY if clearly visible:
+
+- Approximate strike height relative to table:
+  "below_table", "near_table", "above_table"
+
+- Swing timing within arc:
+  "early", "on_time", "late"
+
+========================
+OUTPUT FORMAT
+========================
+Return a single structured object.
+
+Example (illustrative only):
+
+{
+  "paddle_visible": true,
+  "strike_detected": true,
+  "handedness": {
+    "value": "right_hand",
+    "confidence": 0.86
+  },
+  "paddle_distance": {
+    "value": "medium",
+    "confidence": 0.73
+  },
+  "paddle_side": {
+    "value": "red",
+    "confidence": 0.80
+  },
+  "face_orientation": {
+    "vertical_angle": {
+      "value": "angled_up",
+      "confidence": 0.69
+    },
+    "lateral_angle": {
+      "value": "inward",
+      "confidence": 0.66
+    }
+  },
+  "motion": {
+    "horizontal_direction": {
+      "value": "left_to_right",
+      "confidence": 0.78
+    },
+    "vertical_component": {
+      "value": "upward",
+      "confidence": 0.61
+    },
+    "plane": {
+      "value": "diagonal",
+      "confidence": 0.72
+    }
+  },
+  "speed": {
+    "value": "fast",
+    "confidence": 0.75
+  },
+  "follow_through": {
+    "value": "long_forward",
+    "confidence": 0.70
+  },
+  "rotation": {
+    "value": "wrist_snap",
+    "confidence": 0.64
+  }
+}
+
+========================
+RULES
+========================
+- Focus on observable paddle motion only
+- Do NOT name shot types or spins
+- Do NOT hallucinate ball trajectory
+- Conservative estimates are preferred
+- Motion primitives are more important than completeness
+`;

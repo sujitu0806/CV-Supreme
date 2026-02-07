@@ -1,53 +1,53 @@
 /**
- * JSON Schema for Overshoot outputSchema.
- * Only shot_detected is required. All other fields are optional—partial data still counts as a detection.
+ * JSON Schema for Overshoot outputSchema (paddle-focused competition mode).
+ * Matches prompt.js: paddle_visible, strike_detected, then optional motion primitives.
  */
 export const SHOT_OUTPUT_SCHEMA = {
   type: 'object',
   properties: {
-    shot_detected: {
-      type: 'boolean',
-      description: 'True if the person made a hitting or striking motion (hand, arm, or paddle) in this clip, false otherwise.',
+    paddle_visible: { type: 'boolean', description: 'True if paddle is visible in the clip' },
+    strike_detected: { type: 'boolean', description: 'True if a striking motion of the paddle was detected' },
+    handedness: {
+      type: 'object',
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
     },
-    serve_type: {
+    paddle_distance: {
+      type: 'object',
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
+    },
+    paddle_side: {
+      type: 'object',
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
+    },
+    face_orientation: {
       type: 'object',
       properties: {
-        value: { type: 'string', description: 'e.g. "short backspin serve", "not a serve"' },
-        confidence: { type: 'number', description: '0-1' },
+        vertical_angle: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
+        lateral_angle: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
       },
     },
-    spin_type: {
+    motion: {
       type: 'object',
       properties: {
-        value: { type: 'string', description: 'e.g. topspin, backspin, sidespin, flat, uncertain' },
-        confidence: { type: 'number', description: '0-1' },
+        horizontal_direction: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
+        vertical_component: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
+        plane: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
       },
     },
-    ball_landing: {
+    speed: {
       type: 'object',
-      properties: {
-        zone: { type: 'string', description: 'e.g. near net, mid-table, deep right corner' },
-        angle: { type: 'string', description: 'e.g. low and fast, medium arc' },
-        confidence: { type: 'number', description: '0-1' },
-      },
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
     },
-    opponent_position: {
+    follow_through: {
       type: 'object',
-      properties: {
-        distance_from_table: { type: 'string', description: 'e.g. close, mid-distance, far back' },
-        lateral_position: { type: 'string', description: 'left, center, or right' },
-        confidence: { type: 'number', description: '0-1' },
-      },
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
     },
-    joint_angles: {
+    rotation: {
       type: 'object',
-      properties: {
-        shoulder: { type: 'string', description: 'e.g. open, closed' },
-        elbow: { type: 'string', description: 'e.g. bent ~90 degrees, extended' },
-        wrist: { type: 'string', description: 'e.g. neutral, slightly flexed' },
-        confidence: { type: 'number', description: '0-1' },
-      },
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
     },
+    strike_height: { type: 'string' },
+    swing_timing: { type: 'string' },
   },
-  required: ['shot_detected'],
+  required: ['paddle_visible'],
 };

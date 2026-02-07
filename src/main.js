@@ -97,11 +97,16 @@ async function stopActive() {
   btnStop.disabled = true;
 }
 
-// ---------- Comp Mode UI ----------
+// ---------- Comp Mode UI (paddle-focused) ----------
 function showLastAnalysis(data) {
   if (!lastAnalysisEl) return;
-  const shot = data?.shot_detected === true;
-  lastAnalysisEl.innerHTML = shot ? 'Last result: <strong>shot detected</strong>' : 'Last result: <code>no shot</code>';
+  const paddle = data?.paddle_visible === true;
+  const strike = data?.strike_detected === true;
+  let msg = 'Last result: ';
+  if (paddle && strike) msg += '<strong>paddle visible, strike detected</strong>';
+  else if (paddle) msg += 'paddle visible, <code>no strike</code>';
+  else msg += '<code>no paddle / no strike</code>';
+  lastAnalysisEl.innerHTML = msg;
   lastAnalysisEl.style.display = 'block';
 }
 
@@ -121,22 +126,41 @@ function showDebugResult(info) {
 
 function renderCompMetadata(shot) {
   if (!shot) {
-    metadataDisplay.innerHTML = '<p class="none">No shots detected yet.</p>';
+    metadataDisplay.innerHTML = '<p class="none">No paddle strike detected yet. Point camera at the paddle and make a strike.</p>';
     metadataJson.style.display = 'none';
     return;
   }
-  const s = shot.serve_type?.value ?? '—';
-  const spin = shot.spin_type?.value ?? '—';
-  const zone = shot.ball_landing?.zone ?? '—';
-  const dist = shot.opponent_position?.distance_from_table ?? '—';
-  const lat = shot.opponent_position?.lateral_position ?? '—';
+  const hand = shot.handedness?.value ?? '—';
+  const side = shot.paddle_side?.value ?? '—';
+  const dist = shot.paddle_distance?.value ?? '—';
+  const vert = shot.face_orientation?.vertical_angle?.value ?? '—';
+  const lat = shot.face_orientation?.lateral_angle?.value ?? '—';
+  const hDir = shot.motion?.horizontal_direction?.value ?? '—';
+  const vComp = shot.motion?.vertical_component?.value ?? '—';
+  const plane = shot.motion?.plane?.value ?? '—';
+  const speed = shot.speed?.value ?? '—';
+  const follow = shot.follow_through?.value ?? '—';
+  const rot = shot.rotation?.value ?? '—';
+  const height = shot.strike_height ?? '—';
+  const timing = shot.swing_timing ?? '—';
   metadataDisplay.innerHTML = `
     <dl class="metadata-grid">
       <dt>Timestamp</dt><dd>${shot.shot_timestamp}</dd>
-      <dt>Serve</dt><dd>${s}</dd>
-      <dt>Spin</dt><dd>${spin}</dd>
-      <dt>Ball zone</dt><dd>${zone}</dd>
-      <dt>Position</dt><dd>${dist} / ${lat}</dd>
+      <dt>Paddle visible</dt><dd>${shot.paddle_visible ? 'yes' : 'no'}</dd>
+      <dt>Strike detected</dt><dd>${shot.strike_detected ? 'yes' : 'no'}</dd>
+      <dt>Handedness</dt><dd>${hand}</dd>
+      <dt>Paddle side (red/black)</dt><dd>${side}</dd>
+      <dt>Paddle distance</dt><dd>${dist}</dd>
+      <dt>Face vertical</dt><dd>${vert}</dd>
+      <dt>Face lateral</dt><dd>${lat}</dd>
+      <dt>Motion horizontal</dt><dd>${hDir}</dd>
+      <dt>Motion vertical</dt><dd>${vComp}</dd>
+      <dt>Motion plane</dt><dd>${plane}</dd>
+      <dt>Speed</dt><dd>${speed}</dd>
+      <dt>Follow-through</dt><dd>${follow}</dd>
+      <dt>Rotation / wrist</dt><dd>${rot}</dd>
+      <dt>Strike height</dt><dd>${height}</dd>
+      <dt>Swing timing</dt><dd>${timing}</dd>
     </dl>
   `;
   metadataJson.textContent = JSON.stringify(shot, null, 2);
@@ -147,10 +171,11 @@ function renderShots() {
   const shots = compMode.shots || [];
   const recent = shots.slice(-MAX_SHOTS).reverse();
   shotList.innerHTML = recent.map((s) => {
-    const serve = s.serve_type?.value ?? '—';
-    const spin = s.spin_type?.value ?? '—';
-    const zone = s.ball_landing?.zone ?? '—';
-    return `<li><strong>${s.shot_timestamp}</strong> Serve: ${serve} · Spin: ${spin} · Zone: ${zone}</li>`;
+    const side = s.paddle_side?.value ?? '—';
+    const speed = s.speed?.value ?? '—';
+    const follow = s.follow_through?.value ?? '—';
+    const hand = s.handedness?.value ?? '—';
+    return `<li><strong>${s.shot_timestamp}</strong> Side: ${side} · Speed: ${speed} · Follow: ${follow} · Hand: ${hand}</li>`;
   }).join('');
   renderCompMetadata(shots[shots.length - 1]);
 }
