@@ -165,10 +165,10 @@ export async function start(options = {}) {
         cameraFacing: 'environment',
       },
       processing: {
-        clip_length_seconds: 1,
-        delay_seconds: 1,
-        fps: 30,
-        sampling_ratio: 0.1,
+        clip_length_seconds: 0.6,
+        delay_seconds: 0.7,
+        fps: 45,
+        sampling_ratio: 0.7,
       },
       onResult(result) {
         resultCount += 1;
