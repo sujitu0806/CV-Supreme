@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training Mode — Ping Pong Analysis</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      color: #1a1a1a;
+      background: #f5f5f5;
+    }
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    h1 {
+      font-size: 1.25rem;
+      margin: 0 0 1rem;
+    }
+    .camera-wrap {
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 16/10;
+      max-height: 280px;
+    }
+    .camera-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .camera-wrap .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+    }
+    button:hover {
+      background: #f0f0f0;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    #status {
+      font-size: 0.875rem;
+      color: #555;
+    }
+    .error-msg {
+      font-size: 0.875rem;
+      color: #c00;
+      margin-top: 0.5rem;
+    }
+    .observations-panel {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+    .observations-panel h2 {
+      font-size: 1rem;
+      margin: 0 0 0.5rem;
+    }
+    .observations-panel .desc {
+      font-size: 0.85rem;
+      color: #666;
+      margin: 0 0 0.75rem;
+    }
+    .observation-block {
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: #fafafa;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+    .observation-block .ts {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.35rem;
+    }
+    .observation-block .row {
+      margin: 0.2rem 0;
+      color: #555;
+    }
+    .observation-block .confidence {
+      color: #666;
+      font-size: 0.75rem;
+    }
+    .debug-panel {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+    .debug-panel h2 { font-size: 1rem; margin: 0 0 0.5rem; }
+    .debug-panel pre {
+      font-size: 0.75rem;
+      overflow: auto;
+      max-height: 160px;
+      margin: 0.5rem 0 0;
+      padding: 0.5rem;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Training Mode — Ping Pong Analysis</h1>
+  <p style="font-size: 0.9rem; color: #555;">
+    Side-camera view: both players visible. Extracts ball placement, spin, shot type, and player locations (data only).
+  </p>
+  <div class="camera-wrap">
+    <div id="camera-placeholder" class="placeholder">Start to show camera</div>
+    <video id="camera-video" style="display: none;" muted playsinline autoplay></video>
+  </div>
+  <div class="controls">
+    <button id="btn-start" type="button">Start</button>
+    <button id="btn-stop" type="button" disabled>Stop</button>
+    <span id="status">Stopped</span>
+  </div>
+  <div id="error" class="error-msg" style="display: none;"></div>
+  <div class="observations-panel">
+    <h2>Observations</h2>
+    <p class="desc">Structured metadata per clip (for later aggregation and training feedback).</p>
+    <div id="observations-list"></div>
+  </div>
+  <div class="debug-panel">
+    <h2>Last API result (debug)</h2>
+    <pre id="debug-pre">—</pre>
+  </div>
+  <script type="module">
+    import * as training from './src/main.js';
+
+    const cameraPlaceholder = document.getElementById('camera-placeholder');
+    const cameraVideo = document.getElementById('camera-video');
+    const btnStart = document.getElementById('btn-start');
+    const btnStop = document.getElementById('btn-stop');
+    const statusEl = document.getElementById('status');
+    const errorEl = document.getElementById('error');
+    const observationsList = document.getElementById('observations-list');
+    const debugPre = document.getElementById('debug-pre');
+
+    const MAX_OBSERVATIONS_SHOWN = 8;
+
+    function hideError() {
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+    }
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+    }
+    function setStatus(s) {
+      statusEl.textContent = s;
+    }
+
+    function renderObservation(obs) {
+      const div = document.createElement('div');
+      div.className = 'observation-block';
+      const ball = obs.ball_placement || {};
+      const spin = obs.spin_type || {};
+      const shot = obs.shot_type || {};
+      const loc = obs.player_locations || {};
+      const pa = loc.player_a || {};
+      const pb = loc.player_b || {};
+      div.innerHTML = `
+        <div class="ts">${obs.timestamp || '—'}</div>
+        <div class="row">Ball: ${ball.zone ?? '—'} <span class="confidence">(${(ball.confidence ?? 0).toFixed(2)})</span></div>
+        <div class="row">Spin: ${spin.value ?? '—'} <span class="confidence">(${(spin.confidence ?? 0).toFixed(2)})</span></div>
+        <div class="row">Shot: ${shot.value ?? '—'} <span class="confidence">(${(shot.confidence ?? 0).toFixed(2)})</span></div>
+        <div class="row">Player A: ${pa.distance_from_table ?? '—'} / ${pa.lateral_position ?? '—'} <span class="confidence">(${(pa.confidence ?? 0).toFixed(2)})</span></div>
+        <div class="row">Player B: ${pb.distance_from_table ?? '—'} / ${pb.lateral_position ?? '—'} <span class="confidence">(${(pb.confidence ?? 0).toFixed(2)})</span></div>
+      `;
+      return div;
+    }
+
+    function refreshObservationsList() {
+      const list = training.observations || [];
+      const slice = list.slice(-MAX_OBSERVATIONS_SHOWN).reverse();
+      observationsList.innerHTML = '';
+      if (slice.length === 0) {
+        observationsList.innerHTML = '<p style="color:#888;font-size:0.85rem;">No observations yet. Start the stream to analyze clips.</p>';
+        return;
+      }
+      slice.forEach((obs) => observationsList.appendChild(renderObservation(obs)));
+    }
+
+    training.onObservation(() => {
+      refreshObservationsList();
+    });
+
+    btnStart.addEventListener('click', async () => {
+      hideError();
+      btnStart.disabled = true;
+      btnStop.disabled = false;
+      setStatus('Starting…');
+      try {
+        await training.start({
+          onStatus(s) {
+            setStatus(s);
+          },
+          onStream(stream) {
+            cameraPlaceholder.style.display = 'none';
+            cameraVideo.style.display = 'block';
+            cameraVideo.srcObject = stream;
+          },
+          onError(msg) {
+            showError(msg);
+            setStatus('Error');
+            btnStart.disabled = false;
+            btnStop.disabled = true;
+          },
+          onRawResult(data) {
+            debugPre.textContent = JSON.stringify(data, null, 2);
+          },
+          onDebugResult(info) {
+            debugPre.textContent = `Count: ${info.count} | OK: ${info.ok}\nRaw (truncated): ${(info.raw || '').slice(0, 400)}…\nParsed: ${JSON.stringify(info.parsed, null, 2)}`;
+          },
+        });
+      } catch (e) {
+        showError(e?.message ?? String(e));
+        setStatus('Error');
+        btnStart.disabled = false;
+        btnStop.disabled = true;
+      }
+    });
+
+    btnStop.addEventListener('click', async () => {
+      await training.stop({ onStatus: setStatus });
+      btnStart.disabled = false;
+      btnStop.disabled = true;
+      setStatus('Stopped');
+      if (cameraVideo.srcObject) {
+        cameraVideo.srcObject.getTracks().forEach((t) => t.stop());
+        cameraVideo.srcObject = null;
+      }
+      cameraVideo.style.display = 'none';
+      cameraPlaceholder.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
