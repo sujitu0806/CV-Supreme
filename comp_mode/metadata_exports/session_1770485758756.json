@@ -1,0 +1,613 @@
+{
+  "sessionId": "1770485758756",
+  "startedAt": "2026-02-07T17:35:58.756Z",
+  "endedAt": "2026-02-07T17:36:07.215Z",
+  "shots": [],
+  "observations": [
+    {
+      "timestamp": "12:36:02.407",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:36:03.724",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:36:04.544",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:36:05.834",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:36:06.698",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    }
+  ],
+  "mediapipe": {
+    "rom": {
+      "leftElbow": {
+        "min": 5.033822951978369,
+        "max": 178.4479740971305,
+        "range": 173.41415114515212,
+        "sampleCount": 79
+      },
+      "rightElbow": {
+        "min": 2.3242502472792403,
+        "max": 173.01873055413373,
+        "range": 170.69448030685447,
+        "sampleCount": 107
+      },
+      "leftWrist": {
+        "min": 137.01381812461085,
+        "max": 179.47220215770963,
+        "range": 42.45838403309878,
+        "sampleCount": 79
+      },
+      "rightWrist": {
+        "min": 113.42968031949768,
+        "max": 177.30108430665717,
+        "range": 63.871403987159496,
+        "sampleCount": 107
+      },
+      "leftKnee": {
+        "min": 5.81098506487354,
+        "max": 63.22675036727442,
+        "range": 57.41576530240088,
+        "sampleCount": 56
+      },
+      "rightKnee": {
+        "min": 5.910308008012681,
+        "max": 110.07542599010583,
+        "range": 104.16511798209315,
+        "sampleCount": 56
+      },
+      "leftShoulder": {
+        "min": 8.364604654353123,
+        "max": 112.66136682269489,
+        "range": 104.29676216834176,
+        "sampleCount": 56
+      },
+      "rightShoulder": {
+        "min": 37.52770685592434,
+        "max": 115.08116233189953,
+        "range": 77.5534554759752,
+        "sampleCount": 56
+      },
+      "leftHip": {
+        "min": 8.55688101946924,
+        "max": 58.83273503304429,
+        "range": 50.27585401357505,
+        "sampleCount": 56
+      },
+      "rightHip": {
+        "min": 13.03947784767561,
+        "max": 128.57231854632914,
+        "range": 115.53284069865353,
+        "sampleCount": 56
+      }
+    },
+    "paddle": {
+      "faceAngle": null,
+      "wristPitch": null,
+      "strokeSpeedMps": null,
+      "grip": null,
+      "detected": false,
+      "timestamp": 24640
+    },
+    "frameSample": [
+      {
+        "timestamp": 16612.80000001192,
+        "jointAngles": {
+          "leftElbow": 28.491599512869552,
+          "rightElbow": 2.3242502472792403,
+          "leftWrist": 174.57997039772835,
+          "rightWrist": 164.81380089782073
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 163.7677496099467,
+          "rightElbow": -43.27108906655128,
+          "leftKnee": 94.4235600203016,
+          "rightKnee": 83.64429693836715,
+          "leftShoulder": 58.3562133911682,
+          "rightShoulder": 143.9870297319759,
+          "leftHip": -83.14995291731528,
+          "rightHip": -112.14357175508867,
+          "leftWrist": 163.7677496099467,
+          "rightWrist": -43.27108906655128,
+          "leftHand": 176.89686551894826,
+          "rightHand": -35.801868904862225
+        },
+        "symmetry": {
+          "leftElbow_rightElbow": {
+            "absoluteDifference": 26.16734926559031,
+            "averageDifference": 26.16734926559031,
+            "romDifference": 39.855484175845575,
+            "asymmetryFlagged": true
+          },
+          "leftWrist_rightWrist": {
+            "absoluteDifference": 9.766169499907619,
+            "averageDifference": 9.766169499907619,
+            "romDifference": 2.5460803761046407,
+            "asymmetryFlagged": false
+          }
+        }
+      },
+      {
+        "timestamp": 17979.30000001192,
+        "jointAngles": {
+          "leftElbow": 36.212497379477114,
+          "rightElbow": 51.299929378404386,
+          "leftWrist": 173.03174621495043,
+          "rightWrist": 168.45951155753943
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": -135.57457527105322,
+          "rightElbow": -48.66450300364611,
+          "leftKnee": 95.93896690418187,
+          "rightKnee": 89.8920286288858,
+          "leftShoulder": -11.329173492788001,
+          "rightShoulder": -164.08122472331385,
+          "leftHip": -70.97082785366801,
+          "rightHip": -160.60374111283997,
+          "leftWrist": -135.57457527105322,
+          "rightWrist": -48.66450300364611,
+          "leftHand": -153.83488088439645,
+          "rightHand": -37.79083080559376
+        },
+        "symmetry": {
+          "leftElbow_rightElbow": {
+            "absoluteDifference": 15.087431998927272,
+            "averageDifference": 15.350215665464646,
+            "romDifference": 36.87182417916989,
+            "asymmetryFlagged": true
+          },
+          "leftWrist_rightWrist": {
+            "absoluteDifference": 4.572234657411002,
+            "averageDifference": 4.72201663969638,
+            "romDifference": 8.770715676783169,
+            "asymmetryFlagged": false
+          }
+        }
+      },
+      {
+        "timestamp": 18441.30000001192,
+        "jointAngles": {
+          "leftElbow": 7.055641595422669,
+          "rightElbow": 6.844278385188417,
+          "leftWrist": 174.1930415352431,
+          "rightWrist": 175.19086255523735
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": -166.57680319638834,
+          "rightElbow": -37.44869596541131,
+          "leftKnee": 95.1530639304579,
+          "rightKnee": 82.49892704829865,
+          "leftShoulder": 23.736751003065084,
+          "rightShoulder": 142.43658653544287,
+          "leftHip": -71.34417520941015,
+          "rightHip": -132.80997135235077,
+          "leftWrist": -166.57680319638834,
+          "rightWrist": -37.44869596541131,
+          "leftHand": -138.22903313220996,
+          "rightHand": -25.100359365151693
+        },
+        "symmetry": {
+          "leftElbow_rightElbow": {
+            "absoluteDifference": 0.21136321023425175,
+            "averageDifference": 11.039282244610774,
+            "romDifference": 13.414047618278701,
+            "asymmetryFlagged": false
+          },
+          "leftWrist_rightWrist": {
+            "absoluteDifference": 0.9978210199942339,
+            "averageDifference": 3.879047348968852,
+            "romDifference": 0.38714407524028616,
+            "asymmetryFlagged": false
+          }
+        }
+      },
+      {
+        "timestamp": 18998.09999999404,
+        "jointAngles": {
+          "leftElbow": 172.7288150525684,
+          "rightElbow": 117.05764442992678,
+          "leftWrist": 178.5717837546703,
+          "rightWrist": 159.7429417554531
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 73.94262542083905,
+          "rightElbow": -153.58311322655203,
+          "leftKnee": 87.38422274037174,
+          "rightKnee": 91.06677421575078,
+          "leftShoulder": 72.83627655280507,
+          "rightShoulder": 170.5415253782412,
+          "leftHip": -124.42288480272853,
+          "rightHip": 130.29441408424725,
+          "leftWrist": 73.94262542083905,
+          "rightWrist": -153.58311322655203,
+          "leftHand": 85.8114147254699,
+          "rightHand": -140.32565251662456
+        },
+        "symmetry": {
+          "leftElbow_rightElbow": {
+            "absoluteDifference": 55.67117062264161,
+            "averageDifference": 21.87272105843056,
+            "romDifference": 32.13168394937628,
+            "asymmetryFlagged": true
+          },
+          "leftWrist_rightWrist": {
+            "absoluteDifference": 18.82884199921719,
+            "averageDifference": 9.169984737067098,
+            "romDifference": 2.211682321557504,
+            "asymmetryFlagged": false
+          }
+        }
+      },
+      {
+        "timestamp": 19473.30000001192,
+        "jointAngles": {
+          "leftElbow": 177.53785622348474,
+          "rightElbow": 59.31352595479456,
+          "leftWrist": 175.52270274288813,
+          "rightWrist": 165.9612376177825
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 76.30625426345783,
+          "rightElbow": -83.05516100387088,
+          "leftKnee": 92.8833969813899,
+          "rightKnee": 90.72486675598896,
+          "leftShoulder": 85.18761634731696,
+          "rightShoulder": 176.19878256329582,
+          "leftHip": -106.98405685540519,
+          "rightHip": -125.56375646448024,
+          "leftWrist": 76.30625426345783,
+          "rightWrist": -83.05516100387088,
+          "leftHand": 100.22426917765415,
+          "rightHand": -41.79374839968433
+        },
+        "symmetry": {
+          "leftElbow_rightElbow": {
+            "absoluteDifference": 118.22433026869018,
+            "averageDifference": 36.817178516710285,
+            "romDifference": 35.849344190119126,
+            "asymmetryFlagged": true
+          },
+          "leftWrist_rightWrist": {
+            "absoluteDifference": 9.561465125105627,
+            "averageDifference": 8.851753476027358,
+            "romDifference": 5.224698199426371,
+            "asymmetryFlagged": false
+          }
+        }
+      },
+      {
+        "timestamp": 19981.20000001788,
+        "jointAngles": {
+          "leftElbow": 178.4479740971305,
+          "rightElbow": 85.69412440040378,
+          "leftWrist": 178.88100313918602,
+          "rightWrist": 171.18759257800218
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 71.74511823671466,
+          "rightElbow": -130.48928440750063,
+          "leftKnee": 89.34784063462604,
+          "rightKnee": 89.65772651317455,
+          "leftShoulder": 78.73216994717674,
+          "rightShoulder": 173.4218100298253,
+          "leftHip": -116.22332606923274,
+          "rightHip": 123.41997083288123,
+          "leftWrist": 71.74511823671466,
+          "rightWrist": -130.48928440750063,
+          "leftHand": 89.72984772991722,
+          "rightHand": -117.95918740898479
+        },
+        "symmetry": {
+          "leftElbow_rightElbow": {
+            "absoluteDifference": 92.75384969672672,
+            "averageDifference": 52.86577107315399,
+            "romDifference": 36.759462063764886,
+            "asymmetryFlagged": true
+          },
+          "leftWrist_rightWrist": {
+            "absoluteDifference": 7.693410561183839,
+            "averageDifference": 8.974318156139704,
+            "romDifference": 5.224698199426371,
+            "asymmetryFlagged": false
+          }
+        }
+      },
+      {
+        "timestamp": 21251.90000000596,
+        "jointAngles": {
+          "rightElbow": 144.5103632893628,
+          "rightWrist": 166.44832849959755
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 80.97708800246384,
+          "rightElbow": 92.39601925613694,
+          "leftKnee": 84.96149500761015,
+          "rightKnee": 92.46036791381219,
+          "leftShoulder": 82.41320323039518,
+          "rightShoulder": 146.0166523831814,
+          "leftHip": -118.84947371633709,
+          "rightHip": 67.96299582971207,
+          "leftWrist": 80.97708800246384,
+          "rightWrist": 92.39601925613694,
+          "leftHand": 98.352152562881,
+          "rightHand": 71.13031233678632
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 21660.40000000596,
+        "jointAngles": {
+          "rightElbow": 153.73831167113462,
+          "rightWrist": 169.42928256444486
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 75.81156780298491,
+          "rightElbow": 154.58124210411557,
+          "leftKnee": 80.97990168844923,
+          "rightKnee": 94.86176489454859,
+          "leftShoulder": 78.5023360394103,
+          "rightShoulder": 154.42595755832662,
+          "leftHip": -125.98996022073086,
+          "rightHip": 105.95840509377592,
+          "leftWrist": 75.81156780298491,
+          "rightWrist": 154.58124210411557,
+          "leftHand": 92.04118609658781,
+          "rightHand": -96.31101658302786
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 22107.90000000596,
+        "jointAngles": {
+          "rightElbow": 100.00405349973869,
+          "rightWrist": 171.5757807015719
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 71.05961930084484,
+          "rightElbow": -122.96152016379573,
+          "leftKnee": 84.68437037738606,
+          "rightKnee": 91.57588148553909,
+          "leftShoulder": 70.4343656122668,
+          "rightShoulder": 168.9550458869369,
+          "leftHip": -129.85080082764964,
+          "rightHip": 110.18081208123779,
+          "leftWrist": 71.05961930084484,
+          "rightWrist": -122.96152016379573,
+          "leftHand": 97.72560473751994,
+          "rightHand": -140.037716213212
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 22605,
+        "jointAngles": {
+          "rightElbow": 37.3694084515714,
+          "rightWrist": 173.99679266569564
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 77.5450278882233,
+          "rightElbow": -71.41017869895731,
+          "leftKnee": 91.98217517220962,
+          "rightKnee": 90.33077460599851,
+          "leftShoulder": 82.8714402052332,
+          "rightShoulder": 165.30676858647988,
+          "leftHip": -103.62447708730961,
+          "rightHip": -142.46694181616476,
+          "leftWrist": 77.5450278882233,
+          "rightWrist": -71.41017869895731,
+          "leftHand": 104.6351780350037,
+          "rightHand": -44.90758130106478
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 23058.40000000596,
+        "jointAngles": {
+          "rightElbow": 144.66217031115468,
+          "rightWrist": 169.4595295881959
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 82.48125007684666,
+          "rightElbow": 15.78423776963217,
+          "leftKnee": 83.47276878303774,
+          "rightKnee": 93.21073162987508,
+          "leftShoulder": 74.00322375734562,
+          "rightShoulder": 144.03325133906765,
+          "leftHip": -114.11865704887299,
+          "rightHip": 123.42051880425225,
+          "leftWrist": 82.48125007684666,
+          "rightWrist": 15.78423776963217,
+          "leftHand": 107.53157930303365,
+          "rightHand": 13.09595092531194
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 23511.20000001788,
+        "jointAngles": {
+          "rightElbow": 162.95297355008842,
+          "rightWrist": 169.8994975546782
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 93.37765384202663,
+          "rightElbow": 83.10732731269323,
+          "leftKnee": 78.30095206574487,
+          "rightKnee": 88.30806866536304,
+          "leftShoulder": 82.47783472081126,
+          "rightShoulder": 122.50058055948114,
+          "leftHip": -109.79207424002888,
+          "rightHip": -119.73084757443151,
+          "leftWrist": 93.37765384202663,
+          "rightWrist": 83.10732731269323,
+          "leftHand": 113.19161052592526,
+          "rightHand": 70.8164533830853
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 23913.70000001788,
+        "jointAngles": {
+          "rightElbow": 149.09721637654354,
+          "rightWrist": 158.43204734209385
+        },
+        "jointAnglesHorizontal": {
+          "leftElbow": 76.02858973101576,
+          "rightElbow": 71.39850732024325,
+          "leftKnee": 87.37730811491039,
+          "rightKnee": 87.70017531726266,
+          "leftShoulder": 80.24419723080877,
+          "rightShoulder": 129.082761658514,
+          "leftHip": -87.49442477444741,
+          "rightHip": -94.85230565153354,
+          "leftWrist": 76.02858973101576,
+          "rightWrist": 71.39850732024325,
+          "leftHand": 96.14835163291242,
+          "rightHand": 38.43513159749894
+        },
+        "symmetry": {}
+      },
+      {
+        "timestamp": 24327.20000001788,
+        "jointAngles": {},
+        "jointAnglesHorizontal": {
+          "leftElbow": 75.125653474166,
+          "rightElbow": 67.96206325653895,
+          "leftKnee": 83.61910764459655,
+          "rightKnee": 90.8203472977675,
+          "leftShoulder": 82.7734486211923,
+          "rightShoulder": 118.68496009114509,
+          "leftHip": -85.44159303481914,
+          "rightHip": -92.27943553595532,
+          "leftWrist": 75.125653474166,
+          "rightWrist": 67.96206325653895,
+          "leftHand": 111.42217592152333,
+          "rightHand": 51.991961704757095
+        },
+        "symmetry": {}
+      }
+    ]
+  },
+  "updatedAt": "2026-02-07T17:36:07.215Z"
+}

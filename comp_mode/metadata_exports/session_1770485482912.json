@@ -1,0 +1,270 @@
+{
+  "sessionId": "1770485482912",
+  "startedAt": "2026-02-07T17:31:22.912Z",
+  "endedAt": "2026-02-07T17:31:34.138Z",
+  "shots": [],
+  "observations": [
+    {
+      "timestamp": "12:31:26.862",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:31:28.225",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:31:29.373",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:31:30.383",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:31:31.463",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:31:32.567",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "timestamp": "12:31:33.565",
+      "ball_placement": {
+        "zone": "unknown",
+        "confidence": 0
+      },
+      "spin_type": {
+        "value": "uncertain",
+        "confidence": 0
+      },
+      "shot_type": {
+        "value": "unknown",
+        "confidence": 0
+      },
+      "player_locations": {
+        "player_a": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        },
+        "player_b": {
+          "distance_from_table": "unknown",
+          "lateral_position": "unknown",
+          "confidence": 0
+        }
+      }
+    }
+  ],
+  "mediapipe": {
+    "rom": {
+      "leftElbow": {
+        "min": 0.6671062097652564,
+        "max": 179.32213399456896,
+        "range": 178.6550277848037,
+        "sampleCount": 141
+      },
+      "rightElbow": {
+        "min": 4.046787095524914,
+        "max": 163.19932128868075,
+        "range": 159.15253419315584,
+        "sampleCount": 125
+      },
+      "leftWrist": {
+        "min": 50.89898067687655,
+        "max": 179.08627828753833,
+        "range": 128.1872976106618,
+        "sampleCount": 141
+      },
+      "rightWrist": {
+        "min": 53.76560622065966,
+        "max": 178.76857256093658,
+        "range": 125.00296634027691,
+        "sampleCount": 125
+      },
+      "leftShoulder": {
+        "min": 1.6000245492978324,
+        "max": 108.14837954648875,
+        "range": 106.54835499719093,
+        "sampleCount": 102
+      },
+      "rightShoulder": {
+        "min": 5.912434590118266,
+        "max": 106.46317740167721,
+        "range": 100.55074281155895,
+        "sampleCount": 99
+      },
+      "rightHip": {
+        "min": 13.513888893680697,
+        "max": 164.65239315403275,
+        "range": 151.13850426035205,
+        "sampleCount": 93
+      },
+      "leftKnee": {
+        "min": 6.903860319050764,
+        "max": 160.73782580296495,
+        "range": 153.8339654839142,
+        "sampleCount": 91
+      },
+      "rightKnee": {
+        "min": 5.9738974539083465,
+        "max": 172.24469542036402,
+        "range": 166.2707979664557,
+        "sampleCount": 91
+      },
+      "leftHip": {
+        "min": 6.489755868515685,
+        "max": 150.00662524687056,
+        "range": 143.51686937835487,
+        "sampleCount": 91
+      }
+    },
+    "paddle": {
+      "faceAngle": null,
+      "wristPitch": null,
+      "strokeSpeedMps": null,
+      "grip": null,
+      "detected": false,
+      "timestamp": 21911.899999976158
+    }
+  },
+  "updatedAt": "2026-02-07T17:31:34.138Z"
+}
