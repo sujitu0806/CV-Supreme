@@ -7,7 +7,6 @@ All code and outputs stay inside training-mode-openCV/.
 import json
 import os
 import tempfile
-from datetime import datetime
 from pathlib import Path
 
 import time
@@ -20,17 +19,10 @@ import numpy as np
 from ball_tracker import process_video, process_frame
 
 app = Flask(__name__)
+# Keep uploads inside this directory
 BASE = Path(__file__).resolve().parent
 UPLOAD_DIR = BASE / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
-METADATA_EXPORT_DIR = (BASE / "metadata-export").resolve()
-METADATA_EXPORT_DIR.mkdir(exist_ok=True)
-
-# One active export per server: frames collected until end_export
-_export_session = None
-
-# Per-stream state for motion prediction (prev position, velocity for temporal tracking)
-_track_state = {"prev_xy": None, "prev_ts": None, "velocity": None}
 
 
 @app.route("/health", methods=["GET"])
@@ -100,21 +92,12 @@ def process_frame_endpoint():
     prev_y = request.form.get("previous_y", type=float)
     prev_ts = request.form.get("previous_timestamp_sec", type=float)
 
-    prev_xy = None
-    velocity = None
-    dt_sec = None
-    if prev_x is not None and prev_y is not None and prev_ts is not None:
-        prev_xy = (float(prev_x), float(prev_y))
-        dt_sec = timestamp_sec - prev_ts
-        if dt_sec > 0:
-            velocity = _track_state.get("velocity")
-
     try:
         buf = np.frombuffer(f.read(), dtype=np.uint8)
         frame_bgr = cv2.imdecode(buf, cv2.IMREAD_COLOR)
         if frame_bgr is None:
             return jsonify({"ok": False, "error": "Could not decode image"}), 400
-        x, y, confidence = process_frame(frame_bgr, prev_xy=prev_xy, prev_velocity_px_per_sec=velocity, dt_sec=dt_sec)
+        x, y, confidence = process_frame(frame_bgr)
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)}), 500
 
@@ -134,19 +117,6 @@ def process_frame_endpoint():
     sec = s % 60
     timestamp_str = f"{h:02d}:{m:02d}:{sec:05.2f}"
 
-    if ball_position and prev_x is not None and prev_y is not None and prev_ts is not None:
-        dt = timestamp_sec - prev_ts
-        if dt > 0:
-            _track_state["prev_xy"] = (float(x), float(y))
-            _track_state["prev_ts"] = timestamp_sec
-            _track_state["velocity"] = ((x - prev_x) / dt, (y - prev_y) / dt)
-    elif ball_position:
-        _track_state["prev_xy"] = (float(x), float(y))
-        _track_state["prev_ts"] = timestamp_sec
-    else:
-        _track_state["prev_xy"] = (prev_x, prev_y) if prev_x is not None else None
-        _track_state["prev_ts"] = prev_ts
-
     return jsonify({
         "ok": True,
         "frame_index": frame_index,
@@ -155,80 +125,6 @@ def process_frame_endpoint():
         "ball_speed_px_per_sec": ball_speed_px_per_sec,
         "confidence": conf,
     })
-
-
-@app.route("/start_export", methods=["POST"])
-def start_export():
-    """
-    Start a new metadata export (call when webcam starts).
-    Creates a new JSON file in metadata-export/ and begins collecting frames at 8 Hz from the client.
-    """
-    global _export_session
-    if _export_session is not None:
-        # End previous session before starting new one
-        _write_export_session()
-        _export_session = None
-    name = datetime.utcnow().strftime("export_%Y%m%d_%H%M%S.json")
-    path = METADATA_EXPORT_DIR / name
-    _export_session = {"path": path, "frames": []}
-    return jsonify({"ok": True, "filename": name})
-
-
-@app.route("/export_frame", methods=["POST"])
-def export_frame():
-    """
-    Append one frame of metadata (8 Hz from client). Body: JSON with
-    timestamp, frame_index, ball_position, confidence, ball_bounced_this_frame.
-    """
-    global _export_session
-    if _export_session is None:
-        return jsonify({"ok": False, "error": "No export session"}), 400
-    try:
-        data = request.get_json(force=True, silent=True) or {}
-        frame = {
-            "timestamp": data.get("timestamp"),
-            "frame_index": data.get("frame_index"),
-            "ball_position": data.get("ball_position"),
-            "confidence": data.get("confidence"),
-            "ball_bounced_this_frame": data.get("ball_bounced_this_frame", False),
-        }
-        _export_session["frames"].append(frame)
-        return jsonify({"ok": True})
-    except Exception as e:
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-
-@app.route("/end_export", methods=["POST"])
-def end_export():
-    """
-    Write collected frames to the JSON file and close the session (call when webcam stops).
-    """
-    global _export_session
-    if _export_session is None:
-        return jsonify({"ok": True, "message": "No active export"})
-    path = _export_session["path"]
-    frames = _export_session["frames"]
-    _export_session = None
-    try:
-        path_abs = path.resolve() if hasattr(path, "resolve") else Path(path).resolve()
-        with open(path_abs, "w", encoding="utf-8") as f:
-            json.dump({"frames": frames, "export_fps": 8}, f, indent=2)
-        return jsonify({"ok": True, "path": str(path_abs), "frames_written": len(frames)})
-    except Exception as e:
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-
-def _write_export_session():
-    """Write current session to file and clear (internal)."""
-    global _export_session
-    if _export_session is None:
-        return
-    path = _export_session["path"]
-    frames = _export_session["frames"]
-    _export_session = None
-    path_abs = path.resolve() if hasattr(path, "resolve") else Path(path).resolve()
-    with open(path_abs, "w", encoding="utf-8") as f:
-        json.dump({"frames": frames, "export_fps": 8}, f, indent=2)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,2255 @@
+{
+  "frames": [
+    {
+      "timestamp": "00:00:6.07",
+      "frame_index": 3,
+      "ball_position": {
+        "x": 174,
+        "y": 196
+      },
+      "confidence": 0.857,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:6.20",
+      "frame_index": 7,
+      "ball_position": {
+        "x": 174,
+        "y": 194
+      },
+      "confidence": 0.834,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:6.30",
+      "frame_index": 10,
+      "ball_position": {
+        "x": 173,
+        "y": 196
+      },
+      "confidence": 0.854,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:6.43",
+      "frame_index": 14,
+      "ball_position": {
+        "x": 168,
+        "y": 197
+      },
+      "confidence": 0.817,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:6.56",
+      "frame_index": 18,
+      "ball_position": {
+        "x": 176,
+        "y": 190
+      },
+      "confidence": 0.778,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:6.79",
+      "frame_index": 25,
+      "ball_position": {
+        "x": 453,
+        "y": 340
+      },
+      "confidence": 0.689,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:6.92",
+      "frame_index": 29,
+      "ball_position": {
+        "x": 406,
+        "y": 289
+      },
+      "confidence": 0.807,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:7.06",
+      "frame_index": 33,
+      "ball_position": {
+        "x": 252,
+        "y": 189
+      },
+      "confidence": 0.781,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:7.19",
+      "frame_index": 37,
+      "ball_position": {
+        "x": 233,
+        "y": 174
+      },
+      "confidence": 0.782,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:7.29",
+      "frame_index": 40,
+      "ball_position": {
+        "x": 222,
+        "y": 178
+      },
+      "confidence": 0.84,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:7.42",
+      "frame_index": 44,
+      "ball_position": {
+        "x": 185,
+        "y": 174
+      },
+      "confidence": 0.815,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:7.55",
+      "frame_index": 48,
+      "ball_position": {
+        "x": 165,
+        "y": 180
+      },
+      "confidence": 0.816,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:7.68",
+      "frame_index": 52,
+      "ball_position": {
+        "x": 210,
+        "y": 213
+      },
+      "confidence": 0.736,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:7.81",
+      "frame_index": 56,
+      "ball_position": {
+        "x": 412,
+        "y": 302
+      },
+      "confidence": 0.795,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:7.91",
+      "frame_index": 59,
+      "ball_position": {
+        "x": 422,
+        "y": 268
+      },
+      "confidence": 0.828,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.05",
+      "frame_index": 63,
+      "ball_position": {
+        "x": 374,
+        "y": 166
+      },
+      "confidence": 0.882,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.18",
+      "frame_index": 67,
+      "ball_position": {
+        "x": 380,
+        "y": 129
+      },
+      "confidence": 0.861,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.31",
+      "frame_index": 71,
+      "ball_position": {
+        "x": 409,
+        "y": 140
+      },
+      "confidence": 0.877,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.44",
+      "frame_index": 75,
+      "ball_position": {
+        "x": 485,
+        "y": 170
+      },
+      "confidence": 0.873,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.54",
+      "frame_index": 78,
+      "ball_position": {
+        "x": 549,
+        "y": 204
+      },
+      "confidence": 0.846,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.67",
+      "frame_index": 82,
+      "ball_position": {
+        "x": 553,
+        "y": 206
+      },
+      "confidence": 0.864,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.81",
+      "frame_index": 86,
+      "ball_position": {
+        "x": 453,
+        "y": 180
+      },
+      "confidence": 0.87,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:8.94",
+      "frame_index": 90,
+      "ball_position": {
+        "x": 284,
+        "y": 161
+      },
+      "confidence": 0.831,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:9.07",
+      "frame_index": 94,
+      "ball_position": {
+        "x": 206,
+        "y": 161
+      },
+      "confidence": 0.863,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:9.17",
+      "frame_index": 97,
+      "ball_position": {
+        "x": 193,
+        "y": 161
+      },
+      "confidence": 0.881,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:9.30",
+      "frame_index": 101,
+      "ball_position": {
+        "x": 166,
+        "y": 164
+      },
+      "confidence": 0.868,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:9.43",
+      "frame_index": 105,
+      "ball_position": {
+        "x": 137,
+        "y": 173
+      },
+      "confidence": 0.877,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:9.56",
+      "frame_index": 109,
+      "ball_position": {
+        "x": 160,
+        "y": 242
+      },
+      "confidence": 0.809,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:9.93",
+      "frame_index": 120,
+      "ball_position": {
+        "x": 598,
+        "y": 173
+      },
+      "confidence": 0.847,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:10.06",
+      "frame_index": 124,
+      "ball_position": {
+        "x": 602,
+        "y": 196
+      },
+      "confidence": 0.862,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:10.32",
+      "frame_index": 132,
+      "ball_position": {
+        "x": 354,
+        "y": 396
+      },
+      "confidence": 0.766,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:10.42",
+      "frame_index": 135,
+      "ball_position": {
+        "x": 272,
+        "y": 349
+      },
+      "confidence": 0.843,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:10.56",
+      "frame_index": 139,
+      "ball_position": {
+        "x": 177,
+        "y": 312
+      },
+      "confidence": 0.878,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:10.68",
+      "frame_index": 143,
+      "ball_position": {
+        "x": 109,
+        "y": 236
+      },
+      "confidence": 0.88,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:10.82",
+      "frame_index": 147,
+      "ball_position": {
+        "x": 81,
+        "y": 234
+      },
+      "confidence": 0.876,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:10.92",
+      "frame_index": 150,
+      "ball_position": {
+        "x": 82,
+        "y": 246
+      },
+      "confidence": 0.878,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.05",
+      "frame_index": 154,
+      "ball_position": {
+        "x": 85,
+        "y": 238
+      },
+      "confidence": 0.875,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.18",
+      "frame_index": 158,
+      "ball_position": {
+        "x": 80,
+        "y": 216
+      },
+      "confidence": 0.876,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.31",
+      "frame_index": 162,
+      "ball_position": {
+        "x": 89,
+        "y": 201
+      },
+      "confidence": 0.873,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.45",
+      "frame_index": 166,
+      "ball_position": {
+        "x": 93,
+        "y": 193
+      },
+      "confidence": 0.868,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.54",
+      "frame_index": 169,
+      "ball_position": {
+        "x": 92,
+        "y": 186
+      },
+      "confidence": 0.857,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.67",
+      "frame_index": 173,
+      "ball_position": {
+        "x": 97,
+        "y": 202
+      },
+      "confidence": 0.824,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.81",
+      "frame_index": 177,
+      "ball_position": {
+        "x": 157,
+        "y": 356
+      },
+      "confidence": 0.869,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:11.94",
+      "frame_index": 181,
+      "ball_position": {
+        "x": 264,
+        "y": 256
+      },
+      "confidence": 0.805,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:12.07",
+      "frame_index": 185,
+      "ball_position": {
+        "x": 348,
+        "y": 134
+      },
+      "confidence": 0.876,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.17",
+      "frame_index": 188,
+      "ball_position": {
+        "x": 382,
+        "y": 129
+      },
+      "confidence": 0.861,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.30",
+      "frame_index": 192,
+      "ball_position": {
+        "x": 430,
+        "y": 154
+      },
+      "confidence": 0.901,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.43",
+      "frame_index": 196,
+      "ball_position": {
+        "x": 430,
+        "y": 164
+      },
+      "confidence": 0.898,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.56",
+      "frame_index": 200,
+      "ball_position": {
+        "x": 417,
+        "y": 165
+      },
+      "confidence": 0.888,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.70",
+      "frame_index": 204,
+      "ball_position": {
+        "x": 249,
+        "y": 181
+      },
+      "confidence": 0.859,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.80",
+      "frame_index": 207,
+      "ball_position": {
+        "x": 188,
+        "y": 193
+      },
+      "confidence": 0.863,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:12.93",
+      "frame_index": 211,
+      "ball_position": {
+        "x": 97,
+        "y": 210
+      },
+      "confidence": 0.88,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:13.06",
+      "frame_index": 215,
+      "ball_position": {
+        "x": 80,
+        "y": 210
+      },
+      "confidence": 0.882,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:13.19",
+      "frame_index": 219,
+      "ball_position": {
+        "x": 74,
+        "y": 226
+      },
+      "confidence": 0.89,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:13.55",
+      "frame_index": 230,
+      "ball_position": {
+        "x": 580,
+        "y": 148
+      },
+      "confidence": 0.841,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:13.69",
+      "frame_index": 234,
+      "ball_position": {
+        "x": 605,
+        "y": 116
+      },
+      "confidence": 0.773,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:13.82",
+      "frame_index": 238,
+      "ball_position": {
+        "x": 604,
+        "y": 133
+      },
+      "confidence": 0.77,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.05",
+      "frame_index": 245,
+      "ball_position": {
+        "x": 308,
+        "y": 332
+      },
+      "confidence": 0.844,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.32",
+      "frame_index": 253,
+      "ball_position": {
+        "x": 68,
+        "y": 229
+      },
+      "confidence": 0.878,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.45",
+      "frame_index": 257,
+      "ball_position": {
+        "x": 64,
+        "y": 202
+      },
+      "confidence": 0.86,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.55",
+      "frame_index": 260,
+      "ball_position": {
+        "x": 62,
+        "y": 205
+      },
+      "confidence": 0.862,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.68",
+      "frame_index": 264,
+      "ball_position": {
+        "x": 65,
+        "y": 208
+      },
+      "confidence": 0.878,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.81",
+      "frame_index": 268,
+      "ball_position": {
+        "x": 78,
+        "y": 192
+      },
+      "confidence": 0.875,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:14.95",
+      "frame_index": 272,
+      "ball_position": {
+        "x": 77,
+        "y": 193
+      },
+      "confidence": 0.849,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:15.07",
+      "frame_index": 276,
+      "ball_position": {
+        "x": 58,
+        "y": 340
+      },
+      "confidence": 0.842,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:15.17",
+      "frame_index": 279,
+      "ball_position": {
+        "x": 64,
+        "y": 353
+      },
+      "confidence": 0.852,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:15.44",
+      "frame_index": 287,
+      "ball_position": {
+        "x": 464,
+        "y": 133
+      },
+      "confidence": 0.897,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:15.54",
+      "frame_index": 290,
+      "ball_position": {
+        "x": 520,
+        "y": 142
+      },
+      "confidence": 0.845,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:15.67",
+      "frame_index": 294,
+      "ball_position": {
+        "x": 542,
+        "y": 166
+      },
+      "confidence": 0.837,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:15.80",
+      "frame_index": 298,
+      "ball_position": {
+        "x": 542,
+        "y": 182
+      },
+      "confidence": 0.848,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:15.93",
+      "frame_index": 302,
+      "ball_position": {
+        "x": 549,
+        "y": 236
+      },
+      "confidence": 0.812,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:16.06",
+      "frame_index": 306,
+      "ball_position": {
+        "x": 553,
+        "y": 437
+      },
+      "confidence": 0.826,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:17.95",
+      "frame_index": 363,
+      "ball_position": {
+        "x": 240,
+        "y": 380
+      },
+      "confidence": 0.792,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:18.05",
+      "frame_index": 366,
+      "ball_position": {
+        "x": 113,
+        "y": 253
+      },
+      "confidence": 0.85,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.18",
+      "frame_index": 370,
+      "ball_position": {
+        "x": 70,
+        "y": 194
+      },
+      "confidence": 0.858,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.31",
+      "frame_index": 374,
+      "ball_position": {
+        "x": 81,
+        "y": 176
+      },
+      "confidence": 0.876,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.44",
+      "frame_index": 378,
+      "ball_position": {
+        "x": 74,
+        "y": 165
+      },
+      "confidence": 0.866,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.57",
+      "frame_index": 382,
+      "ball_position": {
+        "x": 138,
+        "y": 221
+      },
+      "confidence": 0.765,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.67",
+      "frame_index": 385,
+      "ball_position": {
+        "x": 269,
+        "y": 314
+      },
+      "confidence": 0.832,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.81",
+      "frame_index": 389,
+      "ball_position": {
+        "x": 346,
+        "y": 292
+      },
+      "confidence": 0.764,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:18.94",
+      "frame_index": 393,
+      "ball_position": {
+        "x": 468,
+        "y": 204
+      },
+      "confidence": 0.885,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:19.07",
+      "frame_index": 397,
+      "ball_position": {
+        "x": 498,
+        "y": 165
+      },
+      "confidence": 0.895,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:19.20",
+      "frame_index": 401,
+      "ball_position": {
+        "x": 494,
+        "y": 169
+      },
+      "confidence": 0.88,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:19.43",
+      "frame_index": 408,
+      "ball_position": {
+        "x": 180,
+        "y": 354
+      },
+      "confidence": 0.857,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:19.56",
+      "frame_index": 412,
+      "ball_position": {
+        "x": 101,
+        "y": 256
+      },
+      "confidence": 0.888,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:19.70",
+      "frame_index": 416,
+      "ball_position": {
+        "x": 74,
+        "y": 196
+      },
+      "confidence": 0.878,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:19.79",
+      "frame_index": 419,
+      "ball_position": {
+        "x": 78,
+        "y": 189
+      },
+      "confidence": 0.852,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:19.92",
+      "frame_index": 423,
+      "ball_position": {
+        "x": 78,
+        "y": 184
+      },
+      "confidence": 0.86,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.06",
+      "frame_index": 427,
+      "ball_position": {
+        "x": 62,
+        "y": 166
+      },
+      "confidence": 0.833,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.19",
+      "frame_index": 431,
+      "ball_position": {
+        "x": 53,
+        "y": 149
+      },
+      "confidence": 0.825,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.42",
+      "frame_index": 438,
+      "ball_position": {
+        "x": 252,
+        "y": 286
+      },
+      "confidence": 0.804,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.55",
+      "frame_index": 442,
+      "ball_position": {
+        "x": 292,
+        "y": 161
+      },
+      "confidence": 0.762,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.68",
+      "frame_index": 446,
+      "ball_position": {
+        "x": 298,
+        "y": 84
+      },
+      "confidence": 0.844,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.82",
+      "frame_index": 450,
+      "ball_position": {
+        "x": 325,
+        "y": 96
+      },
+      "confidence": 0.876,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:20.95",
+      "frame_index": 454,
+      "ball_position": {
+        "x": 378,
+        "y": 122
+      },
+      "confidence": 0.871,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.05",
+      "frame_index": 457,
+      "ball_position": {
+        "x": 466,
+        "y": 170
+      },
+      "confidence": 0.891,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.18",
+      "frame_index": 461,
+      "ball_position": {
+        "x": 505,
+        "y": 201
+      },
+      "confidence": 0.801,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.31",
+      "frame_index": 465,
+      "ball_position": {
+        "x": 488,
+        "y": 192
+      },
+      "confidence": 0.887,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.44",
+      "frame_index": 469,
+      "ball_position": {
+        "x": 497,
+        "y": 196
+      },
+      "confidence": 0.858,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.57",
+      "frame_index": 473,
+      "ball_position": {
+        "x": 537,
+        "y": 189
+      },
+      "confidence": 0.801,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.67",
+      "frame_index": 476,
+      "ball_position": {
+        "x": 581,
+        "y": 184
+      },
+      "confidence": 0.784,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.81",
+      "frame_index": 480,
+      "ball_position": {
+        "x": 594,
+        "y": 173
+      },
+      "confidence": 0.801,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:21.94",
+      "frame_index": 484,
+      "ball_position": {
+        "x": 565,
+        "y": 189
+      },
+      "confidence": 0.785,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:22.20",
+      "frame_index": 492,
+      "ball_position": {
+        "x": 165,
+        "y": 160
+      },
+      "confidence": 0.734,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:22.30",
+      "frame_index": 495,
+      "ball_position": {
+        "x": 154,
+        "y": 109
+      },
+      "confidence": 0.762,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:22.43",
+      "frame_index": 499,
+      "ball_position": {
+        "x": 146,
+        "y": 109
+      },
+      "confidence": 0.82,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:22.57",
+      "frame_index": 503,
+      "ball_position": {
+        "x": 112,
+        "y": 136
+      },
+      "confidence": 0.721,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:22.80",
+      "frame_index": 510,
+      "ball_position": {
+        "x": 406,
+        "y": 329
+      },
+      "confidence": 0.807,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:23.06",
+      "frame_index": 518,
+      "ball_position": {
+        "x": 588,
+        "y": 154
+      },
+      "confidence": 0.819,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:23.19",
+      "frame_index": 522,
+      "ball_position": {
+        "x": 592,
+        "y": 153
+      },
+      "confidence": 0.815,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:23.29",
+      "frame_index": 525,
+      "ball_position": {
+        "x": 592,
+        "y": 161
+      },
+      "confidence": 0.818,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:23.42",
+      "frame_index": 529,
+      "ball_position": {
+        "x": 581,
+        "y": 157
+      },
+      "confidence": 0.816,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:23.69",
+      "frame_index": 537,
+      "ball_position": {
+        "x": 110,
+        "y": 254
+      },
+      "confidence": 0.878,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:23.82",
+      "frame_index": 541,
+      "ball_position": {
+        "x": 101,
+        "y": 132
+      },
+      "confidence": 0.786,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:23.92",
+      "frame_index": 544,
+      "ball_position": {
+        "x": 166,
+        "y": 96
+      },
+      "confidence": 0.824,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:24.05",
+      "frame_index": 548,
+      "ball_position": {
+        "x": 176,
+        "y": 110
+      },
+      "confidence": 0.831,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:24.18",
+      "frame_index": 552,
+      "ball_position": {
+        "x": 146,
+        "y": 132
+      },
+      "confidence": 0.883,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:24.45",
+      "frame_index": 560,
+      "ball_position": {
+        "x": 509,
+        "y": 301
+      },
+      "confidence": 0.765,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:24.54",
+      "frame_index": 563,
+      "ball_position": {
+        "x": 585,
+        "y": 210
+      },
+      "confidence": 0.826,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:24.68",
+      "frame_index": 567,
+      "ball_position": {
+        "x": 605,
+        "y": 184
+      },
+      "confidence": 0.856,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:24.81",
+      "frame_index": 571,
+      "ball_position": {
+        "x": 600,
+        "y": 182
+      },
+      "confidence": 0.786,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:24.94",
+      "frame_index": 575,
+      "ball_position": {
+        "x": 589,
+        "y": 182
+      },
+      "confidence": 0.789,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:25.04",
+      "frame_index": 578,
+      "ball_position": {
+        "x": 588,
+        "y": 184
+      },
+      "confidence": 0.792,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:25.17",
+      "frame_index": 582,
+      "ball_position": {
+        "x": 586,
+        "y": 188
+      },
+      "confidence": 0.806,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:25.30",
+      "frame_index": 586,
+      "ball_position": {
+        "x": 538,
+        "y": 217
+      },
+      "confidence": 0.854,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:25.57",
+      "frame_index": 594,
+      "ball_position": {
+        "x": 50,
+        "y": 270
+      },
+      "confidence": 0.876,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:25.70",
+      "frame_index": 598,
+      "ball_position": {
+        "x": 88,
+        "y": 166
+      },
+      "confidence": 0.868,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:25.80",
+      "frame_index": 601,
+      "ball_position": {
+        "x": 113,
+        "y": 140
+      },
+      "confidence": 0.839,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:25.93",
+      "frame_index": 605,
+      "ball_position": {
+        "x": 161,
+        "y": 122
+      },
+      "confidence": 0.803,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:26.06",
+      "frame_index": 609,
+      "ball_position": {
+        "x": 138,
+        "y": 141
+      },
+      "confidence": 0.864,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:26.20",
+      "frame_index": 613,
+      "ball_position": {
+        "x": 125,
+        "y": 152
+      },
+      "confidence": 0.873,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:26.29",
+      "frame_index": 616,
+      "ball_position": {
+        "x": 120,
+        "y": 149
+      },
+      "confidence": 0.862,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:26.43",
+      "frame_index": 620,
+      "ball_position": {
+        "x": 102,
+        "y": 142
+      },
+      "confidence": 0.868,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:26.56",
+      "frame_index": 624,
+      "ball_position": {
+        "x": 102,
+        "y": 162
+      },
+      "confidence": 0.849,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:26.79",
+      "frame_index": 631,
+      "ball_position": {
+        "x": 626,
+        "y": 338
+      },
+      "confidence": 0.77,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:27.06",
+      "frame_index": 639,
+      "ball_position": {
+        "x": 630,
+        "y": 178
+      },
+      "confidence": 0.764,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:27.19",
+      "frame_index": 643,
+      "ball_position": {
+        "x": 610,
+        "y": 172
+      },
+      "confidence": 0.869,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:27.32",
+      "frame_index": 647,
+      "ball_position": {
+        "x": 552,
+        "y": 154
+      },
+      "confidence": 0.875,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:27.45",
+      "frame_index": 651,
+      "ball_position": {
+        "x": 536,
+        "y": 161
+      },
+      "confidence": 0.856,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:27.55",
+      "frame_index": 654,
+      "ball_position": {
+        "x": 550,
+        "y": 168
+      },
+      "confidence": 0.859,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:27.68",
+      "frame_index": 658,
+      "ball_position": {
+        "x": 565,
+        "y": 168
+      },
+      "confidence": 0.831,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:28.04",
+      "frame_index": 669,
+      "ball_position": {
+        "x": 94,
+        "y": 250
+      },
+      "confidence": 0.875,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:28.17",
+      "frame_index": 673,
+      "ball_position": {
+        "x": 125,
+        "y": 204
+      },
+      "confidence": 0.862,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:28.32",
+      "frame_index": 677,
+      "ball_position": {
+        "x": 157,
+        "y": 190
+      },
+      "confidence": 0.828,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:28.44",
+      "frame_index": 681,
+      "ball_position": {
+        "x": 164,
+        "y": 237
+      },
+      "confidence": 0.818,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:28.67",
+      "frame_index": 688,
+      "ball_position": {
+        "x": 161,
+        "y": 454
+      },
+      "confidence": 0.81,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:28.80",
+      "frame_index": 692,
+      "ball_position": {
+        "x": 104,
+        "y": 366
+      },
+      "confidence": 0.871,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:28.93",
+      "frame_index": 696,
+      "ball_position": {
+        "x": 116,
+        "y": 293
+      },
+      "confidence": 0.887,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.06",
+      "frame_index": 700,
+      "ball_position": {
+        "x": 86,
+        "y": 312
+      },
+      "confidence": 0.884,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.20",
+      "frame_index": 704,
+      "ball_position": {
+        "x": 96,
+        "y": 346
+      },
+      "confidence": 0.815,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.30",
+      "frame_index": 707,
+      "ball_position": {
+        "x": 109,
+        "y": 353
+      },
+      "confidence": 0.741,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.43",
+      "frame_index": 711,
+      "ball_position": {
+        "x": 102,
+        "y": 349
+      },
+      "confidence": 0.719,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.56",
+      "frame_index": 715,
+      "ball_position": {
+        "x": 74,
+        "y": 337
+      },
+      "confidence": 0.674,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.70",
+      "frame_index": 719,
+      "ball_position": {
+        "x": 53,
+        "y": 294
+      },
+      "confidence": 0.807,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:29.79",
+      "frame_index": 722,
+      "ball_position": {
+        "x": 4,
+        "y": 284
+      },
+      "confidence": 0.775,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:30.19",
+      "frame_index": 734,
+      "ball_position": {
+        "x": 114,
+        "y": 300
+      },
+      "confidence": 0.843,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:30.29",
+      "frame_index": 737,
+      "ball_position": {
+        "x": 65,
+        "y": 269
+      },
+      "confidence": 0.846,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:30.42",
+      "frame_index": 741,
+      "ball_position": {
+        "x": 12,
+        "y": 293
+      },
+      "confidence": 0.842,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:30.55",
+      "frame_index": 745,
+      "ball_position": {
+        "x": 105,
+        "y": 286
+      },
+      "confidence": 0.881,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:30.81",
+      "frame_index": 753,
+      "ball_position": {
+        "x": 166,
+        "y": 304
+      },
+      "confidence": 0.882,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:31.31",
+      "frame_index": 768,
+      "ball_position": {
+        "x": 58,
+        "y": 286
+      },
+      "confidence": 0.835,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:31.44",
+      "frame_index": 772,
+      "ball_position": {
+        "x": 481,
+        "y": 352
+      },
+      "confidence": 0.712,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:31.57",
+      "frame_index": 776,
+      "ball_position": {
+        "x": 588,
+        "y": 396
+      },
+      "confidence": 0.606,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:31.93",
+      "frame_index": 787,
+      "ball_position": {
+        "x": 532,
+        "y": 385
+      },
+      "confidence": 0.688,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:32.70",
+      "frame_index": 810,
+      "ball_position": {
+        "x": 437,
+        "y": 330
+      },
+      "confidence": 0.792,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:32.80",
+      "frame_index": 813,
+      "ball_position": {
+        "x": 462,
+        "y": 321
+      },
+      "confidence": 0.772,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:32.93",
+      "frame_index": 817,
+      "ball_position": {
+        "x": 486,
+        "y": 334
+      },
+      "confidence": 0.847,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:33.06",
+      "frame_index": 821,
+      "ball_position": {
+        "x": 465,
+        "y": 258
+      },
+      "confidence": 0.824,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:33.19",
+      "frame_index": 825,
+      "ball_position": {
+        "x": 461,
+        "y": 370
+      },
+      "confidence": 0.782,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:34.68",
+      "frame_index": 870,
+      "ball_position": {
+        "x": 369,
+        "y": 406
+      },
+      "confidence": 0.857,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:34.81",
+      "frame_index": 874,
+      "ball_position": {
+        "x": 365,
+        "y": 320
+      },
+      "confidence": 0.851,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:34.94",
+      "frame_index": 878,
+      "ball_position": {
+        "x": 333,
+        "y": 286
+      },
+      "confidence": 0.852,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.04",
+      "frame_index": 881,
+      "ball_position": {
+        "x": 293,
+        "y": 314
+      },
+      "confidence": 0.808,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.17",
+      "frame_index": 885,
+      "ball_position": {
+        "x": 276,
+        "y": 326
+      },
+      "confidence": 0.773,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.31",
+      "frame_index": 889,
+      "ball_position": {
+        "x": 292,
+        "y": 325
+      },
+      "confidence": 0.722,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.44",
+      "frame_index": 893,
+      "ball_position": {
+        "x": 308,
+        "y": 337
+      },
+      "confidence": 0.709,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.57",
+      "frame_index": 897,
+      "ball_position": {
+        "x": 321,
+        "y": 329
+      },
+      "confidence": 0.867,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.66",
+      "frame_index": 900,
+      "ball_position": {
+        "x": 310,
+        "y": 278
+      },
+      "confidence": 0.879,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.80",
+      "frame_index": 904,
+      "ball_position": {
+        "x": 292,
+        "y": 217
+      },
+      "confidence": 0.869,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:35.93",
+      "frame_index": 908,
+      "ball_position": {
+        "x": 282,
+        "y": 166
+      },
+      "confidence": 0.825,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.06",
+      "frame_index": 912,
+      "ball_position": {
+        "x": 274,
+        "y": 149
+      },
+      "confidence": 0.821,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.16",
+      "frame_index": 915,
+      "ball_position": {
+        "x": 265,
+        "y": 144
+      },
+      "confidence": 0.755,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.29",
+      "frame_index": 919,
+      "ball_position": {
+        "x": 248,
+        "y": 124
+      },
+      "confidence": 0.623,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.43",
+      "frame_index": 923,
+      "ball_position": {
+        "x": 230,
+        "y": 98
+      },
+      "confidence": 0.742,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.56",
+      "frame_index": 927,
+      "ball_position": {
+        "x": 208,
+        "y": 73
+      },
+      "confidence": 0.685,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.69",
+      "frame_index": 931,
+      "ball_position": {
+        "x": 173,
+        "y": 53
+      },
+      "confidence": 0.765,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.82",
+      "frame_index": 935,
+      "ball_position": {
+        "x": 138,
+        "y": 56
+      },
+      "confidence": 0.845,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:36.92",
+      "frame_index": 938,
+      "ball_position": {
+        "x": 122,
+        "y": 50
+      },
+      "confidence": 0.8,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.05",
+      "frame_index": 942,
+      "ball_position": {
+        "x": 114,
+        "y": 48
+      },
+      "confidence": 0.856,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.19",
+      "frame_index": 946,
+      "ball_position": {
+        "x": 133,
+        "y": 113
+      },
+      "confidence": 0.817,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.32",
+      "frame_index": 950,
+      "ball_position": {
+        "x": 148,
+        "y": 390
+      },
+      "confidence": 0.865,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:37.45",
+      "frame_index": 954,
+      "ball_position": {
+        "x": 185,
+        "y": 296
+      },
+      "confidence": 0.857,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.55",
+      "frame_index": 957,
+      "ball_position": {
+        "x": 185,
+        "y": 149
+      },
+      "confidence": 0.688,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.68",
+      "frame_index": 961,
+      "ball_position": {
+        "x": 178,
+        "y": 117
+      },
+      "confidence": 0.681,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.81",
+      "frame_index": 965,
+      "ball_position": {
+        "x": 205,
+        "y": 213
+      },
+      "confidence": 0.707,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:37.94",
+      "frame_index": 969,
+      "ball_position": {
+        "x": 209,
+        "y": 433
+      },
+      "confidence": 0.846,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.04",
+      "frame_index": 972,
+      "ball_position": {
+        "x": 212,
+        "y": 449
+      },
+      "confidence": 0.858,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:38.17",
+      "frame_index": 976,
+      "ball_position": {
+        "x": 210,
+        "y": 204
+      },
+      "confidence": 0.634,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.30",
+      "frame_index": 980,
+      "ball_position": {
+        "x": 180,
+        "y": 113
+      },
+      "confidence": 0.752,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.44",
+      "frame_index": 984,
+      "ball_position": {
+        "x": 189,
+        "y": 134
+      },
+      "confidence": 0.757,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.57",
+      "frame_index": 988,
+      "ball_position": {
+        "x": 222,
+        "y": 400
+      },
+      "confidence": 0.822,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.67",
+      "frame_index": 991,
+      "ball_position": {
+        "x": 221,
+        "y": 462
+      },
+      "confidence": 0.839,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.80",
+      "frame_index": 995,
+      "ball_position": {
+        "x": 232,
+        "y": 322
+      },
+      "confidence": 0.798,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:38.93",
+      "frame_index": 999,
+      "ball_position": {
+        "x": 201,
+        "y": 126
+      },
+      "confidence": 0.741,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.06",
+      "frame_index": 1003,
+      "ball_position": {
+        "x": 192,
+        "y": 120
+      },
+      "confidence": 0.8,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.20",
+      "frame_index": 1007,
+      "ball_position": {
+        "x": 228,
+        "y": 277
+      },
+      "confidence": 0.731,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.43",
+      "frame_index": 1014,
+      "ball_position": {
+        "x": 229,
+        "y": 412
+      },
+      "confidence": 0.821,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.56",
+      "frame_index": 1018,
+      "ball_position": {
+        "x": 210,
+        "y": 144
+      },
+      "confidence": 0.634,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.69",
+      "frame_index": 1022,
+      "ball_position": {
+        "x": 166,
+        "y": 90
+      },
+      "confidence": 0.745,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.82",
+      "frame_index": 1026,
+      "ball_position": {
+        "x": 209,
+        "y": 136
+      },
+      "confidence": 0.761,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:39.92",
+      "frame_index": 1029,
+      "ball_position": {
+        "x": 242,
+        "y": 308
+      },
+      "confidence": 0.874,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:40.19",
+      "frame_index": 1037,
+      "ball_position": {
+        "x": 221,
+        "y": 296
+      },
+      "confidence": 0.842,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:40.32",
+      "frame_index": 1041,
+      "ball_position": {
+        "x": 138,
+        "y": 104
+      },
+      "confidence": 0.829,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:40.42",
+      "frame_index": 1044,
+      "ball_position": {
+        "x": 116,
+        "y": 100
+      },
+      "confidence": 0.865,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:40.55",
+      "frame_index": 1048,
+      "ball_position": {
+        "x": 178,
+        "y": 232
+      },
+      "confidence": 0.753,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:40.68",
+      "frame_index": 1052,
+      "ball_position": {
+        "x": 153,
+        "y": 470
+      },
+      "confidence": 0.799,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:40.81",
+      "frame_index": 1056,
+      "ball_position": {
+        "x": 153,
+        "y": 454
+      },
+      "confidence": 0.855,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:40.95",
+      "frame_index": 1060,
+      "ball_position": {
+        "x": 122,
+        "y": 110
+      },
+      "confidence": 0.831,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:41.05",
+      "frame_index": 1063,
+      "ball_position": {
+        "x": 61,
+        "y": 28
+      },
+      "confidence": 0.844,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:41.18",
+      "frame_index": 1067,
+      "ball_position": {
+        "x": 70,
+        "y": 16
+      },
+      "confidence": 0.868,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:41.44",
+      "frame_index": 1075,
+      "ball_position": {
+        "x": 138,
+        "y": 452
+      },
+      "confidence": 0.844,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:41.54",
+      "frame_index": 1078,
+      "ball_position": {
+        "x": 160,
+        "y": 264
+      },
+      "confidence": 0.882,
+      "ball_bounced_this_frame": true
+    },
+    {
+      "timestamp": "00:00:41.80",
+      "frame_index": 1086,
+      "ball_position": {
+        "x": 116,
+        "y": 25
+      },
+      "confidence": 0.784,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:41.94",
+      "frame_index": 1090,
+      "ball_position": {
+        "x": 126,
+        "y": 354
+      },
+      "confidence": 0.8,
+      "ball_bounced_this_frame": false
+    },
+    {
+      "timestamp": "00:00:42.17",
+      "frame_index": 1097,
+      "ball_position": {
+        "x": 17,
+        "y": 54
+      },
+      "confidence": 0.816,
+      "ball_bounced_this_frame": false
+    }
+  ],
+  "export_fps": 8
+}

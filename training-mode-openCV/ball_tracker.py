@@ -42,27 +42,21 @@ def _orange_score(hsv_roi: np.ndarray) -> float:
     return 100.0 - (dh * 2 + ds * 0.1 + dv * 0.05)
 
 
-# Minimum orange score to accept a blo# Lowered to 52 for far-distance detection (ball appears smaller, less saturated)
-MIN_ORANGE_SCORE = 45.0
-
-# Processing resolution - higher = better for far balls (smaller in frame)
-PROCESS_RESOLUTION = 800
+# Minimum orange score to accept a blob (reject skin/faces/hands which score low)
+MIN_ORANGE_SCORE = 62.0
 
 
-def _find_best_ball_candidate(contours, small_h, small_w, hsv=None, allow_streak=False, predicted_xy=None, scale=1.0):
+def _find_best_ball_candidate(contours, small_h, small_w, hsv=None, allow_streak=False):
     """
     Pick best blob; if hsv is provided, prefer the blob closest to bright orange.
-    If predicted_xy is set (for motion tracking), boost candidates near predicted position.
     Returns (cx, cy, orange_score, circularity) or (None, None, 0.0, 0.0).
+    Does not filter by MIN_ORANGE_SCORE so we can still return low-confidence detections.
     """
-    min_area = 2
-    max_area_mult = 0.05  # Slightly larger for motion streaks
+    min_area = 12
+    max_area_mult = 0.03
     max_area = min(small_h, small_w) ** 2 * max_area_mult
-    min_circularity = 0.04 if (hsv is not None and allow_streak) else 0.14
+    min_circularity = 0.08 if (hsv is not None and allow_streak) else 0.25
     candidates = []
-    pred_x, pred_y = (predicted_xy[0] * scale, predicted_xy[1] * scale) if predicted_xy else (None, None)
-    max_pred_dist = min(small_h, small_w) * 0.15 if predicted_xy else float("inf")
-
     for c in contours:
         area = cv2.contourArea(c)
         if area < min_area or area > max_area:
@@ -81,7 +75,7 @@ def _find_best_ball_candidate(contours, small_h, small_w, hsv=None, allow_streak
         orange_s = 0.0
         score = area
         if hsv is not None:
-            r = max(2, int(np.sqrt(area) * 0.8))
+            r = max(2, int(np.sqrt(area) * 0.7))
             y0 = max(0, cy - r)
             y1 = min(hsv.shape[0], cy + r + 1)
             x0 = max(0, cx - r)
@@ -90,10 +84,6 @@ def _find_best_ball_candidate(contours, small_h, small_w, hsv=None, allow_streak
             orange_s = _orange_score(roi)
             if orange_s > 0:
                 score = orange_s * 1000 + area
-        if pred_x is not None and pred_y is not None:
-            dist = np.hypot(cx - pred_x, cy - pred_y)
-            if dist < max_pred_dist:
-                score += 2000 * (1 - dist / max_pred_dist)
         candidates.append((score, cx, cy, orange_s, circularity))
     if not candidates:
         return None, None, 0.0, 0.0
@@ -102,63 +92,49 @@ def _find_best_ball_candidate(contours, small_h, small_w, hsv=None, allow_streak
     return cx, cy, orange_s, circ
 
 
-def _detect_ball_in_frame(
-    frame: np.ndarray,
-    prev_xy: tuple[float, float] | None = None,
-    prev_velocity_px_per_sec: tuple[float, float] | None = None,
-    dt_sec: float | None = None,
-) -> tuple[int | None, int | None, float]:
+def _detect_ball_in_frame(frame: np.ndarray) -> tuple[int | None, int | None, float]:
     """
     Detect ball in a single frame using color (HSV) and contour/blob detection.
-    For real-time motion: pass prev_xy, prev_velocity_px_per_sec, dt_sec to predict position
-    and boost candidates near predicted location (temporal tracking).
+    Returns (x, y, confidence). Confidence 0-1 from orangeness and circularity; never stop tracking.
     """
     h, w = frame.shape[:2]
-    scale = PROCESS_RESOLUTION / max(h, w) if max(h, w) > PROCESS_RESOLUTION else 1.0
+    scale = 480 / max(h, w) if max(h, w) > 480 else 1.0
     small = cv2.resize(frame, None, fx=scale, fy=scale) if scale != 1.0 else frame
     small_h, small_w = small.shape[:2]
 
-    predicted_xy = None
-    if prev_xy and prev_velocity_px_per_sec and dt_sec and dt_sec > 0:
-        pred_x = prev_xy[0] + prev_velocity_px_per_sec[0] * dt_sec
-        pred_y = prev_xy[1] + prev_velocity_px_per_sec[1] * dt_sec
-        if 0 <= pred_x < w and 0 <= pred_y < h:
-            predicted_xy = (pred_x, pred_y)
-
     hsv = cv2.cvtColor(small, cv2.COLOR_BGR2HSV)
 
-    lower_orange = np.array([8, 100, 110])
-    upper_orange = np.array([28, 255, 255])
+    lower_orange = np.array([8, 165, 170])
+    upper_orange = np.array([22, 255, 255])
     mask_orange = cv2.inRange(hsv, lower_orange, upper_orange)
 
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
     mask_o = cv2.morphologyEx(mask_orange, cv2.MORPH_CLOSE, kernel)
     mask_o = cv2.morphologyEx(mask_o, cv2.MORPH_OPEN, kernel)
-    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (4, 4))
     mask_o = cv2.dilate(mask_o, kernel_dilate)
     contours_o, _ = cv2.findContours(mask_o, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     best_cx, best_cy, orange_s, circ = _find_best_ball_candidate(
-        contours_o, small_h, small_w, hsv, allow_streak=True,
-        predicted_xy=predicted_xy, scale=scale,
+        contours_o, small_h, small_w, hsv, allow_streak=True
     )
 
     if best_cx is None or best_cy is None:
-        lower_white = np.array([0, 0, 130])
-        upper_white = np.array([180, 65, 255])
+        lower_white = np.array([0, 0, 180])
+        upper_white = np.array([180, 45, 255])
         mask_white = cv2.inRange(hsv, lower_white, upper_white)
         mask_w = cv2.morphologyEx(mask_white, cv2.MORPH_CLOSE, kernel)
         mask_w = cv2.morphologyEx(mask_w, cv2.MORPH_OPEN, kernel)
         contours_w, _ = cv2.findContours(mask_w, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         best_cx, best_cy, orange_s, circ = _find_best_ball_candidate(
-            contours_w, small_h, small_w,
-            predicted_xy=predicted_xy, scale=scale,
+            contours_w, small_h, small_w
         )
 
     if best_cx is None or best_cy is None:
         return None, None, 0.0
 
+    # Confidence 0-1: orangeness (normalized 0-100 -> 0-1) and circularity (round = confident)
     orange_norm = max(0.0, min(1.0, orange_s / 100.0))
-    confidence = float(round(orange_norm * 0.6 + circ * 0.4, 3))
+    confidence = float(round(orange_norm * 0.65 + circ * 0.35, 3))
     confidence = max(0.0, min(1.0, confidence))
 
     if scale != 1.0:
@@ -167,58 +143,18 @@ def _detect_ball_in_frame(
     return best_cx, best_cy, confidence
 
 
-def process_frame(
-    frame_bgr: np.ndarray,
-    prev_xy: tuple[float, float] | None = None,
-    prev_velocity_px_per_sec: tuple[float, float] | None = None,
-    dt_sec: float | None = None,
-) -> tuple[int | None, int | None, float]:
+def process_frame(frame_bgr: np.ndarray) -> tuple[int | None, int | None, float]:
     """
-    Detect ball in a single frame. For real-time motion tracking, pass prev position,
-    velocity (px/s), and dt (sec) to predict where ball might be and boost nearby candidates.
-    """
-    return _detect_ball_in_frame(frame_bgr, prev_xy, prev_velocity_px_per_sec, dt_sec)
-.
+    Detect ball in a single frame (BGR image). For use with live camera feed.
     Returns (x, y, confidence). Never stops tracking; low confidence = uncertain detection.
     """
     return _detect_ball_in_frame(frame_bgr)
 
 
-def _add_bounce_to_detections(detections: list, window: int = 3, vy_threshold: float = 2.0, cooldown_frames: int = 10) -> None:
-    """
-    Post-pass: detect bounces from vertical velocity sign change (downward -> upward).
-    y increases downward; vy = current_y - previous_y; downward = positive vy, upward = negative.
-    Modifies each detection in place to add "ball_bounced_this_frame": bool.
-    """
-    for d in detections:
-        d["ball_bounced_this_frame"] = False
-
-    cooldown = 0
-    for i in range(window, len(detections)):
-        if cooldown > 0:
-            cooldown -= 1
-            continue
-        # Need window+1 consecutive positions (i-window .. i) for smoothed vy
-        positions = []
-        for j in range(i - window, i + 1):
-            pos = detections[j].get("ball_position")
-            if pos is None:
-                break
-            positions.append((pos["x"], pos["y"]))
-        if len(positions) != window + 1:
-            continue
-        # Smoothed vy over 2-frame steps: prev = (y_{i-1} - y_{i-3})/2, curr = (y_i - y_{i-2})/2
-        vy_prev = (positions[2][1] - positions[0][1]) / 2.0
-        vy_curr = (positions[3][1] - positions[1][1]) / 2.0
-        if vy_prev > vy_threshold and vy_curr < -vy_threshold:
-            detections[i]["ball_bounced_this_frame"] = True
-            cooldown = cooldown_frames
-
-
 def process_video(video_path: str | Path) -> dict:
     """
     Process a video file: detect ball per frame, track position, estimate speed.
-    Returns { "detections": [ { frame, timestamp, ball_position, ball_speed_px_per_sec, ball_bounced_this_frame }, ... ], "fps": float }.
+    Returns { "detections": [ { frame, timestamp, ball_position, ball_speed_px_per_sec }, ... ], "fps": float }.
     When ball is not visible, position and speed are null (no hallucination).
     """
     path = Path(video_path)
@@ -273,7 +209,6 @@ def process_video(video_path: str | Path) -> dict:
         frame_index += 1
 
     cap.release()
-    _add_bounce_to_detections(results)
     return {"detections": results, "fps": fps}
 
 

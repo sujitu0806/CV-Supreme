@@ -36,16 +36,6 @@ let lastPosition = null;
 let lastTimestampSec = null;
 let canvas = null;
 let liveDetections = [];
-/** Bounce detection (live): last N positions for vy; dark blue dot for 1–3 frames. */
-let positionHistory = [];
-let bounceYellowFramesLeft = 0;
-let bounceCooldownFrames = 0;
-/** Metadata export at 8 Hz when webcam is on. Only high-confidence frames (and bounce frames) are written. */
-let exportInterval = null;
-const EXPORT_INTERVAL_MS = 1000 / 8; // 8 frames per second (cap)
-const CONFIDENCE_EXPORT_MIN = 0.6; // only write frames with ball-tracking confidence above this
-const CONFIDENCE_BOUNCE_MIN = 0.5; // bounce frames included if confidence at least this
-let bounceDetectedSinceLastExport = false;
 
 function setStatus(text) {
   statusEl.textContent = text;
@@ -94,13 +84,8 @@ function getVideoDisplayRect(videoEl) {
 /** Confidence above this: green dot; below: red dot. */
 const CONFIDENCE_HIGH = 0.6;
 
-/** Bounce: vy threshold (px) and min change to avoid noise; cooldown frames after a bounce. */
-const VY_BOUNCE_THRESHOLD = 2;
-const BOUNCE_COOLDOWN_FRAMES = 10;
-const BOUNCE_YELLOW_FRAMES = 2;
-
-/** Draw a dot at (x, y) in video coords on overlay; green if high confidence, red if low, dark blue on bounce. */
-function drawDotOnOverlay(overlay, videoEl, x, y, confidence, isBounce) {
+/** Draw a dot at (x, y) in video coords on overlay; green if high confidence, red if low. */
+function drawDotOnOverlay(overlay, videoEl, x, y, confidence) {
   if (!overlay || !videoEl || x == null || y == null) return;
   const rect = getVideoDisplayRect(videoEl);
   const cw = videoEl.clientWidth || 1;
@@ -112,14 +97,8 @@ function drawDotOnOverlay(overlay, videoEl, x, y, confidence, isBounce) {
   const px = rect.x + (x / rect.vw) * rect.width;
   const py = rect.y + (y / rect.vh) * rect.height;
   const r = Math.max(6, Math.min(rect.width, rect.height) * 0.02);
-  let fillStyle = '#00ff00';
-  if (isBounce) {
-    fillStyle = '#00008b';
-  } else {
-    const highConf = confidence != null ? confidence >= CONFIDENCE_HIGH : true;
-    fillStyle = highConf ? '#00ff00' : '#e00';
-  }
-  ctx.fillStyle = fillStyle;
+  const highConf = confidence != null ? confidence >= CONFIDENCE_HIGH : true;
+  ctx.fillStyle = highConf ? '#00ff00' : '#e00';
   ctx.beginPath();
   ctx.arc(px, py, r, 0, Math.PI * 2);
   ctx.fill();
@@ -211,19 +190,6 @@ function stopLiveCamera() {
   liveVideo.style.display = 'none';
   livePlaceholder.style.display = 'flex';
   clearLiveOverlay();
-  positionHistory = [];
-  bounceYellowFramesLeft = 0;
-  bounceCooldownFrames = 0;
-  if (exportInterval) {
-    clearInterval(exportInterval);
-    exportInterval = null;
-  }
-  fetch(`${API_BASE}/end_export`, { method: 'POST' })
-    .then((r) => r.json().catch(() => ({})))
-    .then((d) => {
-      if (d.ok && d.path) setStatus(`Export saved: ${d.path} (${d.frames_written ?? 0} frames)`);
-    })
-    .catch(() => {});
   btnStartCamera.disabled = false;
   btnStopCamera.disabled = true;
   btnStartTracking.disabled = true;
@@ -235,39 +201,8 @@ function stopLiveTracking() {
     clearInterval(trackingInterval);
     trackingInterval = null;
   }
-  if (exportInterval) {
-    clearInterval(exportInterval);
-    exportInterval = null;
-  }
   btnStartTracking.disabled = !liveStream;
   btnStopTracking.disabled = true;
-}
-
-/** Send one metadata frame at 8 Hz when confidence is high or frame is a bounce. Cap ~8/sec. */
-function flushExportFrame() {
-  const confidence = lastPosition != null ? (liveDetections[liveDetections.length - 1]?.confidence ?? 0) : 0;
-  const ballBounced = bounceDetectedSinceLastExport || bounceYellowFramesLeft > 0;
-  bounceDetectedSinceLastExport = false;
-  const highConfidence = confidence > CONFIDENCE_EXPORT_MIN;
-  const bounceWithConfidence = ballBounced && confidence >= CONFIDENCE_BOUNCE_MIN;
-  if (!highConfidence && !bounceWithConfidence) return;
-
-  const ts = lastTimestampSec != null ? lastTimestampSec : performance.now() / 1000;
-  const h = Math.floor(ts / 3600);
-  const m = Math.floor((ts % 3600) / 60);
-  const s = ts % 60;
-  const timestampStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${s.toFixed(2)}`;
-  fetch(`${API_BASE}/export_frame`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      timestamp: timestampStr,
-      frame_index: liveFrameIndex,
-      ball_position: lastPosition ?? null,
-      confidence,
-      ball_bounced_this_frame: ballBounced,
-    }),
-  }).catch(() => {});
 }
 
 async function captureAndSendFrame() {
@@ -303,30 +238,8 @@ async function captureAndSendFrame() {
       lastTimestampSec = now;
       if (data.ball_position) {
         lastPosition = data.ball_position;
-        const { x, y } = data.ball_position;
-        positionHistory.push({ x, y });
-        if (positionHistory.length > 4) positionHistory = positionHistory.slice(-4);
-
-        let isBounce = bounceYellowFramesLeft > 0;
-        if (bounceCooldownFrames > 0) bounceCooldownFrames -= 1;
-        if (positionHistory.length >= 4 && bounceCooldownFrames === 0) {
-          const p = positionHistory;
-          const vyPrev = (p[2].y - p[0].y) / 2;
-          const vyCurr = (p[3].y - p[1].y) / 2;
-          if (vyPrev > VY_BOUNCE_THRESHOLD && vyCurr < -VY_BOUNCE_THRESHOLD) {
-            bounceYellowFramesLeft = BOUNCE_YELLOW_FRAMES;
-            bounceCooldownFrames = BOUNCE_COOLDOWN_FRAMES;
-            isBounce = true;
-            bounceDetectedSinceLastExport = true;
-          }
-        }
-        if (bounceYellowFramesLeft > 0) {
-          isBounce = true;
-          bounceYellowFramesLeft -= 1;
-        }
-        drawDotOnOverlay(liveOverlay, liveVideo, x, y, data.confidence, isBounce);
+        drawDotOnOverlay(liveOverlay, liveVideo, data.ball_position.x, data.ball_position.y, data.confidence);
       } else {
-        positionHistory = [];
         clearLiveOverlay();
       }
       liveDetections.push({
@@ -367,18 +280,7 @@ btnStartCamera.addEventListener('click', async () => {
     lastPosition = null;
     lastTimestampSec = null;
     liveDetections = [];
-    positionHistory = [];
-    bounceYellowFramesLeft = 0;
-    bounceCooldownFrames = 0;
-    bounceDetectedSinceLastExport = false;
-    try {
-      const r = await fetch(`${API_BASE}/start_export`, { method: 'POST' });
-      const d = await r.json().catch(() => ({}));
-      if (d.ok) setStatus(`Camera on. Export: ${d.filename || 'started'}. Click Start tracking.`);
-      else setStatus('Camera on. Click Start tracking to run ball detection.');
-    } catch (_) {
-      setStatus('Camera on. Click Start tracking to run ball detection.');
-    }
+    setStatus('Camera on. Click Start tracking to run ball detection.');
   } catch (e) {
     setStatus('');
     showError(e?.message || 'Camera access failed');
@@ -397,11 +299,9 @@ btnStartTracking.addEventListener('click', () => {
   stopLiveTracking();
   // High sampling rate (33 ms ≈ 30 fps) for frequent tracking
   trackingInterval = setInterval(captureAndSendFrame, 33);
-  // Metadata export at 8 Hz (includes ball position and ball_bounced_this_frame)
-  exportInterval = setInterval(flushExportFrame, EXPORT_INTERVAL_MS);
   btnStartTracking.disabled = true;
   btnStopTracking.disabled = false;
-  setStatus('Tracking… sending frames to backend. Exporting metadata at 8 Hz.');
+  setStatus('Tracking… sending frames to backend.');
 });
 
 btnStopTracking.addEventListener('click', () => {
@@ -432,8 +332,7 @@ function showPreviewWithDot(file) {
     );
     const det = lastProcessedData.detections[frameIndex];
     if (det?.ball_position) {
-      const isBounce = det.ball_bounced_this_frame === true;
-      drawDotOnOverlay(previewOverlay, previewVideo, det.ball_position.x, det.ball_position.y, det.confidence, isBounce);
+      drawDotOnOverlay(previewOverlay, previewVideo, det.ball_position.x, det.ball_position.y, det.confidence);
     } else {
       previewOverlay.getContext('2d').clearRect(0, 0, cw, ch);
     }
