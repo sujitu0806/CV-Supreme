@@ -116,10 +116,10 @@ export async function start(options = {}) {
         cameraFacing: 'environment',
       },
       processing: {
-        clip_length_seconds: 1,
-        delay_seconds: 1,
-        fps: 30,
-        sampling_ratio: 0.1,
+        clip_length_seconds: 0.6,
+        delay_seconds: 0.7,
+        fps: 45,
+        sampling_ratio: 0.7,
       },
       onResult(result) {
         resultCount += 1;
@@ -158,31 +158,39 @@ export async function start(options = {}) {
         try {
           onRawResult(data);
         } catch (_) {}
-        // Treat as a shot if shot_detected is true OR any metadata field is present (partial detection still counts)
-        const explicitShot = data.shot_detected === true;
-        const hasServe = data.serve_type?.value && String(data.serve_type.value).trim();
-        const hasSpin = data.spin_type?.value && String(data.spin_type.value).trim();
-        const hasLanding = (data.ball_landing?.zone && String(data.ball_landing.zone).trim()) || (data.ball_landing?.angle && String(data.ball_landing.angle).trim());
-        const hasPosition = (data.opponent_position?.distance_from_table && String(data.opponent_position.distance_from_table).trim()) || (data.opponent_position?.lateral_position && String(data.opponent_position.lateral_position).trim());
-        const hasJoints = (data.joint_angles?.shoulder && String(data.joint_angles.shoulder).trim()) || (data.joint_angles?.elbow && String(data.joint_angles.elbow).trim()) || (data.joint_angles?.wrist && String(data.joint_angles.wrist).trim());
-        const impliedShot = hasServe || hasSpin || hasLanding || hasPosition || hasJoints;
-        if (!explicitShot && !impliedShot) return;
+        // Paddle-focused: emit when paddle visible AND strike detected, or any paddle primitive present
+        const paddleVisible = data.paddle_visible === true;
+        const strikeDetected = data.strike_detected === true;
+        const hasHandedness = data.handedness?.value && String(data.handedness.value).trim();
+        const hasPaddleSide = data.paddle_side?.value && String(data.paddle_side.value).trim();
+        const hasSpeed = data.speed?.value && String(data.speed.value).trim();
+        const hasFollowThrough = data.follow_through?.value && String(data.follow_through.value).trim();
+        const hasMotion = data.motion?.horizontal_direction?.value || data.motion?.vertical_component?.value || data.motion?.plane?.value;
+        const hasFace = data.face_orientation?.vertical_angle?.value || data.face_orientation?.lateral_angle?.value;
+        const impliedStrike = hasHandedness || hasPaddleSide || hasSpeed || hasFollowThrough || hasMotion || hasFace;
+        if (!paddleVisible && !strikeDetected && !impliedStrike) return;
         const observation = {
           shot_timestamp: formatTimestamp(),
-          serve_type: data.serve_type ?? { value: '', confidence: 0 },
-          spin_type: data.spin_type ?? { value: '', confidence: 0 },
-          ball_landing: data.ball_landing ?? { zone: '', angle: '', confidence: 0 },
-          opponent_position: data.opponent_position ?? {
-            distance_from_table: '',
-            lateral_position: '',
-            confidence: 0,
+          paddle_visible: !!paddleVisible,
+          strike_detected: !!strikeDetected,
+          person_position_in_frame: data.person_position_in_frame ?? { value: '', confidence: 0 },
+          handedness: data.handedness ?? { value: '', confidence: 0 },
+          paddle_distance: data.paddle_distance ?? { value: '', confidence: 0 },
+          paddle_side: data.paddle_side ?? { value: '', confidence: 0 },
+          face_orientation: data.face_orientation ?? {
+            vertical_angle: { value: '', confidence: 0 },
+            lateral_angle: { value: '', confidence: 0 },
           },
-          joint_angles: data.joint_angles ?? {
-            shoulder: '',
-            elbow: '',
-            wrist: '',
-            confidence: 0,
+          motion: data.motion ?? {
+            horizontal_direction: { value: '', confidence: 0 },
+            vertical_component: { value: '', confidence: 0 },
+            plane: { value: '', confidence: 0 },
           },
+          speed: data.speed ?? { value: '', confidence: 0 },
+          follow_through: data.follow_through ?? { value: '', confidence: 0 },
+          rotation: data.rotation ?? { value: '', confidence: 0 },
+          strike_height: data.strike_height ?? '',
+          swing_timing: data.swing_timing ?? '',
         };
         emitShot(observation);
       },

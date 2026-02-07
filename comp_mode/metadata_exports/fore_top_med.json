@@ -1,0 +1,1365 @@
+{
+  "sessionId": "1770433456569",
+  "startedAt": "2026-02-07T03:04:16.569Z",
+  "endedAt": "2026-02-07T03:04:48.405Z",
+  "shots": [
+    {
+      "shot_timestamp": "22:04:23.839",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.68
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.65
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:24.008",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:25.390",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "right_to_left",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.63
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.66
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:27.051",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "angled_up",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.71
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.74
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.69
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:29.782",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:30.817",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "right_to_left",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.63
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.66
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:32.282",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "angled_up",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.71
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.74
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.69
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:33.432",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:34.516",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.78
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:35.543",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.68
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.65
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:36.594",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:36.955",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:37.589",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.78
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:38.610",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.68
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.65
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:39.723",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:40.727",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.78
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.72
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.75
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.7
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.64
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:42.937",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "left",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.72
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.81
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.71
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.7
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:43.329",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:44.019",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "left",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.72
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.81
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.63
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.71
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.7
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.62
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:44.532",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:45.033",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.88
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.82
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "angled_up",
+          "confidence": 0.68
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "left_to_right",
+          "confidence": 0.77
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.62
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.73
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.76
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.71
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.63
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:45.750",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "left",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "mostly_vertical",
+          "confidence": 0.7
+        },
+        "lateral_angle": {
+          "value": "outward",
+          "confidence": 0.65
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "right_to_left",
+          "confidence": 0.78
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.72
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.75
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.7
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.64
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    },
+    {
+      "shot_timestamp": "22:04:46.162",
+      "paddle_visible": true,
+      "strike_detected": false,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.85
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.9
+      },
+      "paddle_distance": {
+        "value": "medium",
+        "confidence": 0.75
+      },
+      "paddle_side": {
+        "value": "red",
+        "confidence": 0.85
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "",
+          "confidence": 0
+        },
+        "lateral_angle": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "",
+          "confidence": 0
+        },
+        "vertical_component": {
+          "value": "",
+          "confidence": 0
+        },
+        "plane": {
+          "value": "",
+          "confidence": 0
+        }
+      },
+      "speed": {
+        "value": "",
+        "confidence": 0
+      },
+      "follow_through": {
+        "value": "",
+        "confidence": 0
+      },
+      "rotation": {
+        "value": "",
+        "confidence": 0
+      },
+      "strike_height": "",
+      "swing_timing": ""
+    }
+  ],
+  "updatedAt": "2026-02-07T03:04:48.405Z"
+}
