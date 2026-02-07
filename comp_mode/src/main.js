@@ -84,16 +84,21 @@ function formatTimestamp() {
  * @returns {Promise<MediaStream>}
  */
 export async function getPreviewStream() {
+  const opts = { video: { width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false };
   try {
     return await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
-      audio: false,
+      ...opts,
+      video: { ...opts.video, facingMode: 'environment' },
     });
   } catch {
-    return navigator.mediaDevices.getUserMedia({
-      video: { width: { ideal: 1280 }, height: { ideal: 720 } },
-      audio: false,
-    });
+    try {
+      return await navigator.mediaDevices.getUserMedia(opts);
+    } catch (e2) {
+      return navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false,
+      });
+    }
   }
 }
 

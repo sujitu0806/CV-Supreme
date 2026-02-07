@@ -11,6 +11,9 @@ let videoEl = null;
 let rafId = null;
 /** @type {PosePipeline | null} */
 let pipeline = null;
+/** @type {number} */
+let poseIntervalMs = 0;
+let lastPoseTs = 0;
 
 const poseCallbacks = new Set();
 
@@ -38,13 +41,17 @@ function emitPoseData(data) {
 async function processLoop() {
   if (!videoEl || !pipeline || rafId === null) return;
 
-  try {
-    const ts = performance.now();
-    const data = await pipeline.processFrame(videoEl, ts);
-    if (data) emitPoseData(data);
-  } catch (e) {
-    // Don't stop loop on single-frame errors (e.g. MediaPipe hiccup)
-    if (rafId !== null) console.warn('[pose-runner] frame error:', e?.message);
+  const ts = performance.now();
+  const shouldRun = poseIntervalMs <= 0 || ts - lastPoseTs >= poseIntervalMs;
+
+  if (shouldRun) {
+    try {
+      lastPoseTs = ts;
+      const data = await pipeline.processFrame(videoEl, ts);
+      if (data) emitPoseData(data);
+    } catch (e) {
+      if (rafId !== null) console.warn('[pose-runner] frame error:', e?.message);
+    }
   }
 
   rafId = requestAnimationFrame(processLoop);
@@ -60,6 +67,8 @@ export async function startPosePipeline(video, config = {}) {
   if (!video) return;
 
   try {
+    poseIntervalMs = config.poseIntervalMs ?? 0;
+    lastPoseTs = 0;
     if (pipeline) {
       pipeline.resetSession();
       if (config.dominantHand) pipeline.setDominantHand(config.dominantHand);
