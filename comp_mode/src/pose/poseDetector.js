@@ -26,9 +26,9 @@ export async function initPoseLandmarker() {
         baseOptions: { modelAssetPath: POSE_MODEL_URL },
         runningMode: 'VIDEO',
         numPoses: 1,
-        minPoseDetectionConfidence: 0.25,
-        minPosePresenceConfidence: 0.25,
-        minTrackingConfidence: 0.25,
+        minPoseDetectionConfidence: 0.2,
+        minPosePresenceConfidence: 0.2,
+        minTrackingConfidence: 0.2,
       });
       mediapipeLoaded = true;
     } catch (e) {

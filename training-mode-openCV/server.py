@@ -19,10 +19,12 @@ import numpy as np
 from ball_tracker import process_video, process_frame
 
 app = Flask(__name__)
-# Keep uploads inside this directory
 BASE = Path(__file__).resolve().parent
 UPLOAD_DIR = BASE / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
+
+# Per-stream state for motion prediction (prev position, velocity for temporal tracking)
+_track_state = {"prev_xy": None, "prev_ts": None, "velocity": None}
 
 
 @app.route("/health", methods=["GET"])
@@ -92,12 +94,21 @@ def process_frame_endpoint():
     prev_y = request.form.get("previous_y", type=float)
     prev_ts = request.form.get("previous_timestamp_sec", type=float)
 
+    prev_xy = None
+    velocity = None
+    dt_sec = None
+    if prev_x is not None and prev_y is not None and prev_ts is not None:
+        prev_xy = (float(prev_x), float(prev_y))
+        dt_sec = timestamp_sec - prev_ts
+        if dt_sec > 0:
+            velocity = _track_state.get("velocity")
+
     try:
         buf = np.frombuffer(f.read(), dtype=np.uint8)
         frame_bgr = cv2.imdecode(buf, cv2.IMREAD_COLOR)
         if frame_bgr is None:
             return jsonify({"ok": False, "error": "Could not decode image"}), 400
-        x, y, confidence = process_frame(frame_bgr)
+        x, y, confidence = process_frame(frame_bgr, prev_xy=prev_xy, prev_velocity_px_per_sec=velocity, dt_sec=dt_sec)
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)}), 500
 
@@ -116,6 +127,19 @@ def process_frame_endpoint():
     m = int((s % 3600) // 60)
     sec = s % 60
     timestamp_str = f"{h:02d}:{m:02d}:{sec:05.2f}"
+
+    if ball_position and prev_x is not None and prev_y is not None and prev_ts is not None:
+        dt = timestamp_sec - prev_ts
+        if dt > 0:
+            _track_state["prev_xy"] = (float(x), float(y))
+            _track_state["prev_ts"] = timestamp_sec
+            _track_state["velocity"] = ((x - prev_x) / dt, (y - prev_y) / dt)
+    elif ball_position:
+        _track_state["prev_xy"] = (float(x), float(y))
+        _track_state["prev_ts"] = timestamp_sec
+    else:
+        _track_state["prev_xy"] = (prev_x, prev_y) if prev_x is not None else None
+        _track_state["prev_ts"] = prev_ts
 
     return jsonify({
         "ok": True,

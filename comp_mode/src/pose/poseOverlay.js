@@ -1,9 +1,10 @@
 /**
  * Pose overlay visualization — draws on canvas over video.
- * Separate from pose detection and angle math. Ping pong–specific ranges.
+ * Displays forearm, wrist, paddle angles relative to vertical.
+ * Labels positioned near joints; temporal filtering; hidden when confidence low.
  */
 
-import { JOINT_DEFINITIONS, UPPER_BODY_JOINTS, PADDLE_ARM_CONNECTIONS } from './landmarks.js';
+import { JOINT_DEFINITIONS, UPPER_BODY_JOINTS, PADDLE_ARM_CONNECTIONS, LANDMARKS } from './landmarks.js';
 import { PING_PONG_JOINT_CONFIG } from './pingPongRanges.js';
 import {
   getZoneBoundaries,
@@ -15,8 +16,9 @@ import {
   TABLE_TOP_Y,
   TABLE_BOTTOM_Y,
 } from './tableZones.js';
+import { ExponentialSmoother } from './smoothing.js';
 
-const MIN_VISIBILITY = 0.4;
+const MIN_VISIBILITY = 0.5;
 
 /** Backward compat: [min, max] for legacy consumers */
 export const DEFAULT_ANGLE_RANGES = Object.fromEntries(
@@ -28,7 +30,9 @@ const COLORS = {
   yellow: '#eab308',
   red: '#ef4444',
   skeleton: 'rgba(255,255,255,0.6)',
-  textBg: 'rgba(0,0,0,0.6)',
+  textBg: 'rgba(0,0,0,0.85)',
+  labelText: '#ffffff',
+  labelStroke: '#000000',
 };
 
 /**
@@ -40,9 +44,17 @@ const COLORS = {
  * @property {string} [playerStyle=default] - fallback when no stroke detected
  * @property {'left'|'right'} [dominantHand=right] - Only show paddle arm
  * @property {number} [textOffset=12] - Pixels from joint
- * @property {number} [minLandmarkConfidence=0.4]
+ * @property {number} [minLandmarkConfidence=0.5]
  * @property {boolean} [showZones=false] - Table zones (CENTER/LEFT/RIGHT)
+ * @property {boolean} [showAngleLabels=true] - Forearm, wrist, paddle angles near joints
  */
+
+/** Angle from horizontal to angle from vertical (0° = vertical, 90° = horizontal). */
+function angleFromVertical(angleToHorizontal) {
+  if (angleToHorizontal == null || !Number.isFinite(angleToHorizontal)) return null;
+  const a = ((angleToHorizontal % 180) + 180) % 180;
+  return Math.abs(a - 90);
+}
 
 /**
  * Map normalized landmark (0–1) to canvas pixel coords.
@@ -87,6 +99,7 @@ export class PoseOverlay {
     this.showNumeric = config.showNumeric !== false;
     this.showArcs = config.showArcs !== false;
     this.showHints = config.showHints !== false;
+    this.showAngleLabels = config.showAngleLabels !== false;
     this.dominantHand = config.dominantHand ?? 'right';
     this.playerStyle = config.playerStyle ?? 'default';
     this.pingPongConfig = { ...PING_PONG_JOINT_CONFIG };
@@ -94,6 +107,7 @@ export class PoseOverlay {
     this.minConfidence = config.minLandmarkConfidence ?? MIN_VISIBILITY;
     this.showZones = config.showZones ?? false;
     this.zoneTransitionTracker = new ZoneTransitionTracker();
+    this.angleLabelSmoother = new ExponentialSmoother(0.25);
   }
 
   /**
@@ -104,6 +118,7 @@ export class PoseOverlay {
     if (config.showNumeric != null) this.showNumeric = config.showNumeric;
     if (config.showArcs != null) this.showArcs = config.showArcs;
     if (config.showHints != null) this.showHints = config.showHints;
+    if (config.showAngleLabels != null) this.showAngleLabels = config.showAngleLabels;
     if (config.playerStyle != null) this.playerStyle = config.playerStyle;
     if (config.dominantHand != null) this.dominantHand = config.dominantHand;
     if (config.showZones != null) this.showZones = config.showZones;
@@ -132,8 +147,9 @@ export class PoseOverlay {
    * @param {Array<{x: number, y: number, visibility?: number}>} landmarks - Normalized 0–1
    * @param {HTMLVideoElement} video - For dimensions
    * @param {Record<string, boolean>} [asymmetryFlags] - Joint pair keys that are asymmetric
+   * @param {{ faceAngle?: number|null, detected?: boolean }} [paddle] - Paddle face angle (from hand detector)
    */
-  render(data, landmarks, video, asymmetryFlags = {}) {
+  render(data, landmarks, video, asymmetryFlags = {}, paddle = {}) {
     const ctx = this.ctx;
     const w = video.videoWidth || this.canvas.width || 640;
     const h = video.videoHeight || this.canvas.height || 480;
@@ -142,6 +158,17 @@ export class PoseOverlay {
 
     ctx.clearRect(0, 0, w, h);
     if (!landmarks?.length) return;
+
+    const elbowIdx = this.dominantHand === 'right' ? LANDMARKS.RIGHT_ELBOW : LANDMARKS.LEFT_ELBOW;
+    const wristIdx = this.dominantHand === 'right' ? LANDMARKS.RIGHT_WRIST : LANDMARKS.LEFT_WRIST;
+    const indexIdx = this.dominantHand === 'right' ? LANDMARKS.RIGHT_INDEX : LANDMARKS.LEFT_INDEX;
+
+    const le = landmarks[elbowIdx];
+    const lw = landmarks[wristIdx];
+    const li = landmarks[indexIdx];
+
+    const hasConfidence = le?.visibility >= this.minConfidence && lw?.visibility >= this.minConfidence && li?.visibility >= this.minConfidence;
+    if (!hasConfidence) return;
 
     const scale = Math.min(this.canvas.width / w, this.canvas.height / h);
     const offsetX = (this.canvas.width - w * scale) / 2;
@@ -152,7 +179,10 @@ export class PoseOverlay {
       y: offsetY + y * h * scale,
     });
 
-    // Skeleton: only paddle arm (hand holding paddle)
+    const fontScale = Math.max(0.85, Math.min(1.3, w / 560));
+    const fontSize = Math.round(22 * fontScale);
+    const labelFontSize = Math.round(11 * fontScale);
+
     const skeletonConnections = PADDLE_ARM_CONNECTIONS[this.dominantHand] ?? PADDLE_ARM_CONNECTIONS.right;
     ctx.strokeStyle = COLORS.skeleton;
     ctx.lineWidth = 4;
@@ -168,12 +198,67 @@ export class PoseOverlay {
       ctx.stroke();
     }
 
+    const anglesH = data?.jointAnglesHorizontal ?? {};
     const angles = data?.jointAngles ?? {};
-    const fontScale = Math.max(0.7, Math.min(1.4, w / 640));
-    const fontSize = Math.round(22 * fontScale);
+    const forearmKey = this.dominantHand === 'right' ? 'rightElbow' : 'leftElbow';
+    const wristKey = this.dominantHand === 'right' ? 'rightWrist' : 'leftWrist';
+    const handKey = this.dominantHand === 'right' ? 'rightHand' : 'leftHand';
+
+    const rawForearmVert = angleFromVertical(anglesH[forearmKey]);
+    const rawWristVert = angleFromVertical(anglesH[handKey]);
+    const rawPaddleVert = paddle?.faceAngle != null ? (90 - paddle.faceAngle) : null;
+
+    const forearmVert = rawForearmVert != null ? this.angleLabelSmoother.smooth('forearm', rawForearmVert) : null;
+    const wristVert = rawWristVert != null ? this.angleLabelSmoother.smooth('wrist', rawWristVert) : null;
+    const paddleVert = rawPaddleVert != null ? this.angleLabelSmoother.smooth('paddle', rawPaddleVert) : null;
+
+    const drawAngleLabel = (label, value, anchorX, anchorY) => {
+      if (value == null) return;
+      const v = Math.round(value);
+      ctx.font = `bold ${fontSize}px system-ui, sans-serif`;
+      const valueText = `${v}°`;
+      const valueW = ctx.measureText(valueText).width;
+      ctx.font = `${labelFontSize}px system-ui, sans-serif`;
+      const labelW = ctx.measureText(label).width;
+      const pad = 12;
+      const boxW = Math.max(valueW, labelW) + pad * 2;
+      const boxH = fontSize + labelFontSize + pad;
+
+      const tx = anchorX;
+      const ty = anchorY;
+
+      ctx.fillStyle = COLORS.textBg;
+      ctx.strokeStyle = COLORS.labelStroke;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(tx - boxW / 2, ty - boxH + 4, boxW, boxH);
+      ctx.fillRect(tx - boxW / 2, ty - boxH + 4, boxW, boxH);
+      ctx.fillStyle = COLORS.labelText;
+      ctx.font = `${labelFontSize}px system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(label, tx, ty - fontSize - 2);
+      ctx.font = `bold ${fontSize}px system-ui, sans-serif`;
+      ctx.fillText(valueText, tx, ty - 4);
+      ctx.textAlign = 'left';
+    };
+
+    const elbowP = px(le.x, le.y);
+    const wristP = px(lw.x, lw.y);
+    const forearmMidY = (elbowP.y + wristP.y) / 2;
+    const forearmMidX = (elbowP.x + wristP.x) / 2;
+
+    if (this.showAngleLabels) {
+      const offset = 24 * scale;
+      const isLeft = wristP.x < elbowP.x;
+      drawAngleLabel('Forearm', forearmVert, forearmMidX + (isLeft ? -offset : offset), forearmMidY);
+      drawAngleLabel('Wrist', wristVert, wristP.x + (isLeft ? -offset : offset), wristP.y);
+      if (paddle?.detected && paddleVert != null) {
+        drawAngleLabel('Paddle', paddleVert, wristP.x + (isLeft ? -offset : offset), wristP.y + 36 * scale);
+      }
+    }
 
     const paddleArmJoints = this.dominantHand === 'right' ? ['rightElbow', 'rightShoulder', 'rightWrist'] : ['leftElbow', 'leftShoulder', 'leftWrist'];
     const jointsToShow = this.joints.filter((j) => paddleArmJoints.includes(j));
+    const anglesData = angles;
 
     for (const jointName of jointsToShow) {
       const def = JOINT_DEFINITIONS[jointName];
@@ -191,7 +276,7 @@ export class PoseOverlay {
       const b = px(lb.x, lb.y);
       const c = px(lc.x, lc.y);
 
-      const angle = angles[jointName];
+      const angle = anglesData[jointName];
       const color = COLORS.skeleton;
 
       if (this.showArcs && angle != null) {
@@ -205,13 +290,15 @@ export class PoseOverlay {
         const tx = b.x + this.textOffset;
         const ty = b.y - this.textOffset;
         ctx.fillStyle = COLORS.textBg;
-        ctx.fillRect(tx - 4, ty - fontSize, tw + 8, fontSize + 6);
-        ctx.fillStyle = color;
+        ctx.strokeStyle = COLORS.labelStroke;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(tx - 6, ty - fontSize, tw + 12, fontSize + 8);
+        ctx.fillRect(tx - 6, ty - fontSize, tw + 12, fontSize + 8);
+        ctx.fillStyle = COLORS.labelText;
         ctx.fillText(text, tx, ty + 2);
       }
     }
 
-    // Table zones overlay (CENTER/LEFT/RIGHT)
     if (this.showZones) {
       this.renderZones(ctx, landmarks, px, scale, offsetX, offsetY, w, h);
     }
@@ -286,8 +373,9 @@ export class PoseOverlay {
     ctx.fillText(transText, boxX + pad, boxY + 44);
   }
 
-  /** Reset zone transition count (e.g. on session start). */
+  /** Reset zone transition count and angle label smoothing (e.g. on session start). */
   resetZoneTransitions() {
     this.zoneTransitionTracker.reset();
+    this.angleLabelSmoother?.reset?.();
   }
 }
