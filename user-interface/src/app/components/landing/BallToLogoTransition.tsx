@@ -8,7 +8,7 @@ import Link from "next/link";
 const OFFSET_RIGHT = 65;
 const OFFSET_DOWN = 80;
 const TEXT_OFFSET_X = -60;
-const TEXT_OFFSET_Y = 20;
+const TEXT_OFFSET_Y = 30;
 const BUTTON_OFFSET_X = -60;
 const BUTTON_OFFSET_Y = 0;
 

@@ -65,10 +65,6 @@ export class PosePipeline {
 
     const { landmarks, worldLandmarks } = pose;
 
-    // Store landmarks over time
-    this.landmarkHistory.push({ timestamp: timestampMs, landmarks, worldLandmarks: worldLandmarks ?? null });
-    if (this.landmarkHistory.length > this.maxHistoryLength) this.landmarkHistory.shift();
-
     const lm = worldLandmarks && this.use3DAngles ? worldLandmarks : landmarks;
     const use3D = !!worldLandmarks && this.use3DAngles;
     const lmFor2D = landmarks; // use landmarks (have visibility) for confidence guards
@@ -90,6 +86,17 @@ export class PosePipeline {
     );
 
     const symmetry = this.symmetryAnalyzer.analyze(smoothed2D, romSimple);
+
+    // Store full MediaPipe frame data for export (landmarks + joint angles + symmetry)
+    this.landmarkHistory.push({
+      timestamp: timestampMs,
+      landmarks,
+      worldLandmarks: worldLandmarks ?? null,
+      jointAngles: { ...smoothed2D },
+      jointAnglesHorizontal: { ...smoothedHorizontal },
+      symmetry: symmetry ? { ...symmetry } : null,
+    });
+    if (this.landmarkHistory.length > this.maxHistoryLength) this.landmarkHistory.shift();
 
     return {
       timestamp: timestampMs,

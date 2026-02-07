@@ -1,0 +1,68 @@
+{
+  "sessionId": "1770484871203",
+  "startedAt": "2026-02-07T17:21:11.203Z",
+  "shots": [
+    {
+      "shot_timestamp": "12:21:18.345",
+      "paddle_visible": true,
+      "strike_detected": true,
+      "person_position_in_frame": {
+        "value": "centered",
+        "confidence": 0.75
+      },
+      "handedness": {
+        "value": "right_hand",
+        "confidence": 0.8
+      },
+      "paddle_distance": {
+        "value": "close",
+        "confidence": 0.7
+      },
+      "paddle_side": {
+        "value": "uncertain",
+        "confidence": 0.55
+      },
+      "face_orientation": {
+        "vertical_angle": {
+          "value": "closed_0_to_45",
+          "confidence": 0.65
+        },
+        "lateral_angle": {
+          "value": "inward",
+          "confidence": 0.6
+        },
+        "vertical_angle_degrees_estimate": 30
+      },
+      "motion": {
+        "horizontal_direction": {
+          "value": "right_to_left",
+          "confidence": 0.7
+        },
+        "vertical_component": {
+          "value": "upward",
+          "confidence": 0.6
+        },
+        "plane": {
+          "value": "diagonal",
+          "confidence": 0.7
+        }
+      },
+      "speed": {
+        "value": "fast",
+        "confidence": 0.75
+      },
+      "follow_through": {
+        "value": "long_forward",
+        "confidence": 0.65
+      },
+      "rotation": {
+        "value": "wrist_snap",
+        "confidence": 0.6
+      },
+      "strike_height": "",
+      "swing_timing": "",
+      "strokeSpeedMps": 0.33930716301749575
+    }
+  ],
+  "updatedAt": "2026-02-07T17:21:18.348Z"
+}
