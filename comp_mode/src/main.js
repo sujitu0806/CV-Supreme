@@ -158,11 +158,19 @@ export async function start(options = {}) {
         try {
           onRawResult(data);
         } catch (_) {}
-        if (data.shot_detected !== true) return;
+        // Treat as a shot if shot_detected is true OR any metadata field is present (partial detection still counts)
+        const explicitShot = data.shot_detected === true;
+        const hasServe = data.serve_type?.value && String(data.serve_type.value).trim();
+        const hasSpin = data.spin_type?.value && String(data.spin_type.value).trim();
+        const hasLanding = (data.ball_landing?.zone && String(data.ball_landing.zone).trim()) || (data.ball_landing?.angle && String(data.ball_landing.angle).trim());
+        const hasPosition = (data.opponent_position?.distance_from_table && String(data.opponent_position.distance_from_table).trim()) || (data.opponent_position?.lateral_position && String(data.opponent_position.lateral_position).trim());
+        const hasJoints = (data.joint_angles?.shoulder && String(data.joint_angles.shoulder).trim()) || (data.joint_angles?.elbow && String(data.joint_angles.elbow).trim()) || (data.joint_angles?.wrist && String(data.joint_angles.wrist).trim());
+        const impliedShot = hasServe || hasSpin || hasLanding || hasPosition || hasJoints;
+        if (!explicitShot && !impliedShot) return;
         const observation = {
           shot_timestamp: formatTimestamp(),
-          serve_type: data.serve_type ?? { value: 'unknown', confidence: 0 },
-          spin_type: data.spin_type ?? { value: 'unknown', confidence: 0 },
+          serve_type: data.serve_type ?? { value: '', confidence: 0 },
+          spin_type: data.spin_type ?? { value: '', confidence: 0 },
           ball_landing: data.ball_landing ?? { zone: '', angle: '', confidence: 0 },
           opponent_position: data.opponent_position ?? {
             distance_from_table: '',

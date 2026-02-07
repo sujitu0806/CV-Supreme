@@ -1,14 +1,13 @@
 /**
  * JSON Schema for Overshoot outputSchema.
- * When shot_detected is false, only shot_detected is required.
- * When shot_detected is true, all other fields should be filled with value + confidence where applicable.
+ * Only shot_detected is required. All other fields are optional—partial data still counts as a detection.
  */
 export const SHOT_OUTPUT_SCHEMA = {
   type: 'object',
   properties: {
     shot_detected: {
       type: 'boolean',
-      description: 'True if the opponent struck the ball in this clip, false otherwise.',
+      description: 'True if the person made a hitting or striking motion (hand, arm, or paddle) in this clip, false otherwise.',
     },
     serve_type: {
       type: 'object',

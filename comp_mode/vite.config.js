@@ -15,6 +15,8 @@ function readBody(req) {
 
 export default defineConfig({
   root: '.',
+  // Load .env from repo root so one API key works for comp_mode and training-mode
+  envDir: '..',
   plugins: [
     {
       name: 'metadata-export-api',

@@ -20,11 +20,11 @@ All code lives in `training-mode/`. This mode is **modular and self-contained**;
 
 2. API key (add when available):
    - Get an API key from [Overshoot Platform](https://platform.overshoot.ai/api-keys).
-   - Create `.env` in `training-mode/` with:
+   - Create a `.env` file at the **repo root** (the `TartanHacks/` folder) with:
      ```
      VITE_OVERSHOOT_API_KEY=your_key_here
      ```
-   - Until then, the app uses the placeholder `OVERSHOOT_API_KEY = "<INSERT_API_KEY_HERE>"` and API calls will fail until a real key is set.
+   - Both comp_mode and training-mode load this file. Until it’s set, the app uses a placeholder and API calls will fail.
 
 3. Run the dev server:
    ```bash

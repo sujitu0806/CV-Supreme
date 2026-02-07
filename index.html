@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ping Pong Trainer — Comp & Training</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      color: #1a1a1a;
+      background: #f5f5f5;
+    }
+    body { max-width: 720px; margin: 0 auto; padding: 1.5rem; }
+    h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
+    .subtitle { font-size: 0.9rem; color: #555; margin: 0 0 1rem; }
+    .mode-toggle {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .mode-toggle button {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border: none;
+      background: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #555;
+    }
+    .mode-toggle button.active {
+      background: #1a1a1a;
+      color: #fff;
+      font-weight: 600;
+    }
+    .mode-toggle button:not(.active):hover { background: #f0f0f0; }
+    .camera-wrap {
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 16/10;
+      max-height: 280px;
+    }
+    .camera-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .camera-wrap .placeholder {
+      display: flex; align-items: center; justify-content: center; height: 100%;
+      color: #888; font-size: 0.9rem;
+    }
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 1rem;
+    }
+    button.ctrl { padding: 0.5rem 1rem; font-size: 0.9rem; cursor: pointer; border: 1px solid #ccc; border-radius: 6px; background: #fff; }
+    button.ctrl:hover { background: #f0f0f0; }
+    button.ctrl:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status { font-size: 0.875rem; color: #555; }
+    .error-msg { font-size: 0.875rem; color: #c00; margin-top: 0.5rem; }
+    .panel { margin-top: 1.5rem; padding: 1rem; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; }
+    .panel h2 { font-size: 1rem; margin: 0 0 0.5rem; }
+    .panel .none { color: #888; font-style: italic; }
+    .panel pre { font-size: 0.75rem; overflow: auto; max-height: 180px; margin: 0.5rem 0 0; padding: 0.5rem; background: #f8f8f8; border-radius: 4px; }
+    .mode-section { display: none; }
+    .mode-section.active { display: block; }
+    .metadata-grid { display: grid; gap: 0.5rem 1rem; font-size: 0.85rem; }
+    .metadata-grid dt { font-weight: 600; color: #333; }
+    .metadata-grid dd { margin: 0; color: #555; }
+    #shot-list, .obs-list { list-style: none; padding: 0; margin: 0; }
+    #shot-list li, .observation-block {
+      padding: 0.75rem; margin-bottom: 0.5rem; background: #fafafa; border-radius: 8px; border: 1px solid #e0e0e0; font-size: 0.8rem;
+    }
+    .observation-block .ts { font-weight: 600; color: #333; margin-bottom: 0.35rem; }
+    .observation-block .row { margin: 0.2rem 0; color: #555; }
+    .simple-test-label { font-size: 0.85rem; color: #555; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .debug-panel .ok { color: #060; }
+    .debug-panel .fail { color: #c00; }
+    .export-hint { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <h1>Ping Pong Trainer</h1>
+  <p class="subtitle">One app, one API key. Switch mode to analyze opponent (Comp) or both players (Training).</p>
+
+  <div class="mode-toggle" role="tablist">
+    <button type="button" id="mode-comp" class="active" aria-selected="true">Comp Mode</button>
+    <button type="button" id="mode-training" aria-selected="false">Training Mode</button>
+  </div>
+
+  <div class="camera-wrap">
+    <video id="camera-preview" autoplay playsinline muted></video>
+    <div id="camera-placeholder" class="placeholder">Camera preview when you Start</div>
+  </div>
+
+  <div class="controls">
+    <button type="button" id="btn-start" class="ctrl">Start</button>
+    <button type="button" id="btn-stop" class="ctrl" disabled>Stop</button>
+    <span id="status">Stopped</span>
+    <span id="comp-extra-controls" class="mode-section active">
+      <button type="button" id="btn-export" class="ctrl">Download copy</button>
+      <label class="simple-test-label"><input type="checkbox" id="simple-test" /> Simple test</label>
+    </span>
+  </div>
+  <div id="error-area" class="error-msg" style="display: none;"></div>
+
+  <section id="comp-section" class="mode-section active">
+    <div id="last-analysis" style="display: none; font-size: 0.8rem; color: #666; margin-top: 0.5rem;"></div>
+    <div class="panel debug-panel" style="margin-top: 1rem;">
+      <h2>Overshoot API debug</h2>
+      <div id="debug-content"><p class="none">Start the stream to see API response count and last raw result.</p></div>
+    </div>
+    <div class="panel" style="margin-top: 1rem;">
+      <h2>Extracted metadata (latest shot)</h2>
+      <div id="metadata-display"><p class="none">No shots detected yet.</p></div>
+      <pre id="metadata-json" style="display: none;"></pre>
+    </div>
+    <div class="panel" style="margin-top: 1rem;">
+      <h2>Last 10 shots</h2>
+      <ul id="shot-list"></ul>
+    </div>
+    <p class="export-hint">Session auto-saved to <code>comp_mode/metadata_exports/</code>. Use "Download copy" to save JSON.</p>
+  </section>
+
+  <section id="training-section" class="mode-section">
+    <div class="panel">
+      <h2>Observations</h2>
+      <p class="subtitle" style="margin: 0 0 0.5rem;">Ball placement, spin, shot type, player locations (both players).</p>
+      <div id="observations-list"></div>
+    </div>
+    <div class="panel debug-panel" style="margin-top: 1rem;">
+      <h2>Last API result (debug)</h2>
+      <pre id="training-debug-pre">—</pre>
+    </div>
+  </section>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

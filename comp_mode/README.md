@@ -13,13 +13,13 @@ Analyzes a **live** table tennis match from the camera: detects when the **oppon
 
 2. **API key**
 
-   Get an API key from [Overshoot Platform](https://platform.overshoot.ai/api-keys). Copy `.env.example` to `.env` and set:
+   Put your Overshoot API key in a `.env` file at the **repo root** (the `TartanHacks/` folder), not inside `comp_mode/`:
 
    ```
    VITE_OVERSHOOT_API_KEY=your_key_here
    ```
 
-   If you don’t set it, the app will use a placeholder and the vision API will not work until you add the key.
+   Get a key at [Overshoot Platform](https://platform.overshoot.ai/api-keys). This same file is used by training-mode. If you don’t set it, the app will use a placeholder and the vision API will not work.
 
 3. **Run**
 
