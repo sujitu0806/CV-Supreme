@@ -1,6 +1,7 @@
 node_modules/
 dist/
 uploads/
+metadata-export/*.json
 *.pyc
 __pycache__/
 .env
