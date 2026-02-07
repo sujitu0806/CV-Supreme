@@ -72,13 +72,14 @@ STEP 3 — STATIC PADDLE CONTEXT
 ========================
 Extract context that does NOT require knowing the shot outcome.
 
---- Person position in frame ---
-Where is the opponent (person) located in the camera frame?
-Use the CAMERA’s / VIEWER’s perspective (as someone watching the video):
-- "centered" — person is roughly in the center of the frame
-- "left" — person is mostly on the left side of the frame (viewer’s left)
-- "right" — person is mostly on the right side of the frame (viewer’s right)
-- "uncertain"
+--- Person position in frame (use THRESHOLDS) ---
+Divide the frame width into three equal vertical bands (left 33%, center 33%, right 33%) from the VIEWER’s perspective.
+Where does the CENTER OF MASS of the person (torso/body) fall?
+- "left" — center of mass is in the LEFT third of the frame (leftmost 0–33% of frame width)
+- "centered" — center of mass is in the MIDDLE third (33–67% of frame width)
+- "right" — center of mass is in the RIGHT third (67–100% of frame width)
+- "uncertain" — only if you truly cannot judge
+Do NOT default to "centered". Actively decide which third contains most of the person.
 
 --- Handedness ---
 Which hand is holding the paddle?
@@ -86,12 +87,16 @@ Which hand is holding the paddle?
 - "right_hand"
 - "uncertain"
 
---- Paddle distance from camera ---
-Approximate distance of the paddle at strike moment:
-- "close" (dominates frame, near camera)
-- "medium"
-- "far" (small in frame, near table or body)
-- "uncertain"
+--- Paddle distance from camera (use SENSITIVE bands) ---
+At the strike moment, how large does the paddle (or paddle+hand) appear in the frame?
+Use the paddle’s apparent size relative to frame height as the main cue:
+- "very_close" — paddle/hand occupies a large part of the frame (e.g. paddle length > ~25% of frame height); arm and paddle in clear detail
+- "close" — paddle clearly prominent (e.g. ~15–25% of frame height); easily visible
+- "medium" — paddle visible but not dominant (e.g. ~8–15% of frame height); mid-range
+- "far" — paddle small (e.g. ~4–8% of frame height); table or body dominates
+- "very_far" — paddle quite small (e.g. < ~4% of frame height); near table or distant
+Reserve "medium" only when truly between close and far. Prefer "close" or "far" when the paddle is clearly not in the middle range.
+- "uncertain" — only if occlusion or motion blur prevents judgment
 
 --- Paddle side ---
 If visible, identify which side of the paddle faces the camera:
@@ -110,12 +115,24 @@ For each field you include:
 - Provide a confidence score (0.0–1.0)
 - Use "uncertain" or omit fields if evidence is weak
 
---- Paddle face orientation (near contact moment) ---
-Vertical angle relative to table:
-- "angled_up"
-- "angled_down"
-- "mostly_vertical"
-- "uncertain"
+--- Paddle face vertical angle (near contact) — CRITICAL: ESTIMATE DEGREES FIRST ---
+You MUST output "vertical_angle_degrees_estimate" as a number from 0 to 180. This is the angle of the paddle FACE to the TABLE PLANE (horizontal). Then set "vertical_angle" to the band that contains that number.
+
+How to read the angle from the CAMERA view (front-facing the opponent):
+- 0° = paddle face lying flat on the table (face horizontal).
+- 90° = paddle vertical, edge toward ceiling (face perpendicular to table).
+- LARGE angle (120°–180°), BACKSPIN: The TOP EDGE of the paddle is tilted FORWARD — toward the camera or toward the net. The face appears to be "closing" or angled so it would chop down over the ball. The face is tilted AWAY from vertical in the direction of "face pointing somewhat down/forward." Use 135–180 when this is strong.
+- SMALL angle (0°–60°), TOPSPIN: The TOP EDGE of the paddle is tilted BACK — away from the camera, toward the ceiling or the player's body. The face "opens" upward. Use 0–45 when the face is clearly tilted back.
+
+Do NOT default to closed_0_to_45. Actively decide: is the top edge forward (→ large angle, backspin) or back (→ small angle, topspin)?
+
+Bands (set "vertical_angle" to match your vertical_angle_degrees_estimate):
+- "strongly_open_135_to_180" — 135°–180°. Top edge forward; BACKSPIN. Use when paddle is clearly closed/chopping.
+- "open_90_to_135" — 90°–135°. Between vertical and strongly open.
+- "vertical_near_90" — ~80°–100°. Paddle roughly vertical.
+- "neutral_45_to_90" — 45°–90°. Between closed and vertical.
+- "closed_0_to_45" — 0°–45°. Top edge back; TOPSPIN. Use only when face is tilted back/up.
+- "uncertain" — only if angle is not discernible (still try to output a number if possible).
 
 Lateral orientation:
 - "inward" (toward player’s body)
@@ -186,7 +203,7 @@ Example (illustrative only):
     "confidence": 0.86
   },
   "paddle_distance": {
-    "value": "medium",
+    "value": "close",
     "confidence": 0.73
   },
   "paddle_side": {
@@ -195,9 +212,10 @@ Example (illustrative only):
   },
   "face_orientation": {
     "vertical_angle": {
-      "value": "angled_up",
+      "value": "closed_0_to_45",
       "confidence": 0.69
     },
+    "vertical_angle_degrees_estimate": 35,
     "lateral_angle": {
       "value": "inward",
       "confidence": 0.66
@@ -237,6 +255,7 @@ RULES
 - Focus on observable paddle motion only
 - Do NOT name shot types or spins
 - Do NOT hallucinate ball trajectory
-- Conservative estimates are preferred
+- USE THE THRESHOLDS: person position (left/center/right thirds), paddle distance (size bands), vertical angle (degree ranges). Do not default to "medium" or "centered" or "mostly_vertical" without actively checking the criteria.
+- When in doubt, prefer a specific band over "uncertain" if you have a reasonable estimate
 - Motion primitives are more important than completeness
 `;

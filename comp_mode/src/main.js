@@ -51,6 +51,21 @@ function emitShot(observation) {
 }
 
 /**
+ * Map degrees (0-180) to vertical angle band. Use when model gives numeric estimate so we don't rely on its band string.
+ * @param {number} deg
+ * @returns {string}
+ */
+function degreesToVerticalAngleBand(deg) {
+  if (typeof deg !== 'number' || Number.isNaN(deg)) return '';
+  if (deg >= 135) return 'strongly_open_135_to_180';
+  if (deg >= 90) return 'open_90_to_135';
+  if (deg >= 80 && deg <= 100) return 'vertical_near_90';
+  if (deg >= 45) return 'neutral_45_to_90';
+  if (deg >= 0) return 'closed_0_to_45';
+  return '';
+}
+
+/**
  * Format current time as HH:MM:SS.mmm for shot_timestamp.
  */
 function formatTimestamp() {
@@ -169,6 +184,10 @@ export async function start(options = {}) {
         const hasFace = data.face_orientation?.vertical_angle?.value || data.face_orientation?.lateral_angle?.value;
         const impliedStrike = hasHandedness || hasPaddleSide || hasSpeed || hasFollowThrough || hasMotion || hasFace;
         if (!paddleVisible && !strikeDetected && !impliedStrike) return;
+        const degEst = data.face_orientation?.vertical_angle_degrees_estimate;
+        const derivedBand = typeof degEst === 'number' && !Number.isNaN(degEst) ? degreesToVerticalAngleBand(degEst) : '';
+        const verticalAngleValue = derivedBand || data.face_orientation?.vertical_angle?.value || '';
+        const verticalAngleConf = data.face_orientation?.vertical_angle?.confidence ?? (derivedBand ? 0.7 : 0);
         const observation = {
           shot_timestamp: formatTimestamp(),
           paddle_visible: !!paddleVisible,
@@ -177,9 +196,10 @@ export async function start(options = {}) {
           handedness: data.handedness ?? { value: '', confidence: 0 },
           paddle_distance: data.paddle_distance ?? { value: '', confidence: 0 },
           paddle_side: data.paddle_side ?? { value: '', confidence: 0 },
-          face_orientation: data.face_orientation ?? {
-            vertical_angle: { value: '', confidence: 0 },
-            lateral_angle: { value: '', confidence: 0 },
+          face_orientation: {
+            vertical_angle: { value: verticalAngleValue, confidence: verticalAngleConf },
+            lateral_angle: data.face_orientation?.lateral_angle ?? { value: '', confidence: 0 },
+            vertical_angle_degrees_estimate: degEst ?? null,
           },
           motion: data.motion ?? {
             horizontal_direction: { value: '', confidence: 0 },

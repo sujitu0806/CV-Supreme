@@ -28,6 +28,7 @@ export const SHOT_OUTPUT_SCHEMA = {
       type: 'object',
       properties: {
         vertical_angle: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
+        vertical_angle_degrees_estimate: { type: 'number', description: 'Optional estimate in degrees (0-180) of paddle face to table' },
         lateral_angle: { type: 'object', properties: { value: { type: 'string' }, confidence: { type: 'number' } } },
       },
     },
