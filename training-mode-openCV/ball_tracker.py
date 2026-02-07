@@ -42,8 +42,7 @@ def _orange_score(hsv_roi: np.ndarray) -> float:
     return 100.0 - (dh * 2 + ds * 0.1 + dv * 0.05)
 
 
-# Minimum orange score to accept a blob (reject skin/faces/hands which score low)
-# Lowered to 52 for far-distance detection (ball appears smaller, less saturated)
+# Minimum orange score to accept a blo# Lowered to 52 for far-distance detection (ball appears smaller, less saturated)
 MIN_ORANGE_SCORE = 45.0
 
 # Processing resolution - higher = better for far balls (smaller in frame)
@@ -179,6 +178,10 @@ def process_frame(
     velocity (px/s), and dt (sec) to predict where ball might be and boost nearby candidates.
     """
     return _detect_ball_in_frame(frame_bgr, prev_xy, prev_velocity_px_per_sec, dt_sec)
+.
+    Returns (x, y, confidence). Never stops tracking; low confidence = uncertain detection.
+    """
+    return _detect_ball_in_frame(frame_bgr)
 
 
 def process_video(video_path: str | Path) -> dict:
