@@ -5,6 +5,16 @@
 
 import { JOINT_DEFINITIONS, UPPER_BODY_JOINTS, PADDLE_ARM_CONNECTIONS } from './landmarks.js';
 import { PING_PONG_JOINT_CONFIG } from './pingPongRanges.js';
+import {
+  getZoneBoundaries,
+  getCurrentZone,
+  getPaddleWristX,
+  ZoneTransitionTracker,
+  ZONE_COLORS,
+  BOUNDARY_COLOR,
+  TABLE_TOP_Y,
+  TABLE_BOTTOM_Y,
+} from './tableZones.js';
 
 const MIN_VISIBILITY = 0.4;
 
@@ -31,6 +41,7 @@ const COLORS = {
  * @property {'left'|'right'} [dominantHand=right] - Only show paddle arm
  * @property {number} [textOffset=12] - Pixels from joint
  * @property {number} [minLandmarkConfidence=0.4]
+ * @property {boolean} [showZones=false] - Table zones (CENTER/LEFT/RIGHT)
  */
 
 /**
@@ -81,6 +92,8 @@ export class PoseOverlay {
     this.pingPongConfig = { ...PING_PONG_JOINT_CONFIG };
     this.textOffset = config.textOffset ?? 12;
     this.minConfidence = config.minLandmarkConfidence ?? MIN_VISIBILITY;
+    this.showZones = config.showZones ?? false;
+    this.zoneTransitionTracker = new ZoneTransitionTracker();
   }
 
   /**
@@ -93,6 +106,7 @@ export class PoseOverlay {
     if (config.showHints != null) this.showHints = config.showHints;
     if (config.playerStyle != null) this.playerStyle = config.playerStyle;
     if (config.dominantHand != null) this.dominantHand = config.dominantHand;
+    if (config.showZones != null) this.showZones = config.showZones;
   }
 
   /** Clear the overlay. */
@@ -197,5 +211,83 @@ export class PoseOverlay {
       }
     }
 
+    // Table zones overlay (CENTER/LEFT/RIGHT)
+    if (this.showZones) {
+      this.renderZones(ctx, landmarks, px, scale, offsetX, offsetY, w, h);
+    }
+  }
+
+  /**
+   * Draw table zones: semi-transparent rectangles, hip boundaries, zone name, transition count.
+   */
+  renderZones(ctx, landmarks, px, scale, offsetX, offsetY, w, h) {
+    const bounds = getZoneBoundaries(landmarks, this.minConfidence);
+    const wristX = getPaddleWristX(landmarks, this.dominantHand, this.minConfidence);
+    if (!bounds) return;
+
+    const { leftHipX, rightHipX } = bounds;
+    const zone = wristX != null ? getCurrentZone(wristX, leftHipX, rightHipX) : null;
+    this.zoneTransitionTracker.update(zone);
+
+    const topY = TABLE_TOP_Y;
+    const bottomY = TABLE_BOTTOM_Y;
+
+    const rect = (x1, y1, x2, y2, fill) => {
+      const left = offsetX + x1 * w * scale;
+      const top = offsetY + y1 * h * scale;
+      const width = (x2 - x1) * w * scale;
+      const height = (y2 - y1) * h * scale;
+      ctx.fillStyle = fill;
+      ctx.fillRect(left, top, width, height);
+    };
+
+    const draws = [
+      { zone: 'LEFT', x1: 0, x2: leftHipX, fill: zone === 'LEFT' ? ZONE_COLORS.LEFT_ACTIVE : ZONE_COLORS.LEFT },
+      { zone: 'CENTER', x1: leftHipX, x2: rightHipX, fill: zone === 'CENTER' ? ZONE_COLORS.CENTER_ACTIVE : ZONE_COLORS.CENTER },
+      { zone: 'RIGHT', x1: rightHipX, x2: 1, fill: zone === 'RIGHT' ? ZONE_COLORS.RIGHT_ACTIVE : ZONE_COLORS.RIGHT },
+    ];
+    for (const d of draws) rect(d.x1, topY, d.x2, bottomY, d.fill);
+
+    // Vertical lines at hip boundaries
+    ctx.strokeStyle = BOUNDARY_COLOR;
+    ctx.lineWidth = 2;
+    for (const x of [leftHipX, rightHipX]) {
+      const px1 = offsetX + x * w * scale;
+      const py1 = offsetY + topY * h * scale;
+      const py2 = offsetY + bottomY * h * scale;
+      ctx.beginPath();
+      ctx.moveTo(px1, py1);
+      ctx.lineTo(px1, py2);
+      ctx.stroke();
+    }
+
+    // Zone name and transition count HUD
+    const fontScale = Math.max(0.7, Math.min(1.4, w / 640));
+    const hudFont = Math.round(16 * fontScale);
+    ctx.font = `bold ${hudFont}px system-ui, sans-serif`;
+    const zoneText = zone ? `Zone: ${zone}` : 'Zone: —';
+    const transText = `Transitions: ${this.zoneTransitionTracker.getTransitionCount()}`;
+    const m1 = ctx.measureText(zoneText);
+    const m2 = ctx.measureText(transText);
+    const pad = 12;
+    const boxW = Math.max(m1.width, m2.width) + pad * 2;
+    const boxH = 52;
+    const boxX = offsetX + 12;
+    const boxY = offsetY + 12;
+
+    ctx.fillStyle = 'rgba(30,30,30,0.9)';
+    ctx.fillRect(boxX, boxY, boxW, boxH);
+    ctx.strokeStyle = '#555';
+    ctx.strokeRect(boxX, boxY, boxW, boxH);
+    ctx.fillStyle = '#fff';
+    ctx.fillText(zoneText, boxX + pad, boxY + 22);
+    ctx.font = `${Math.round(14 * fontScale)}px system-ui, sans-serif`;
+    ctx.fillStyle = '#ccc';
+    ctx.fillText(transText, boxX + pad, boxY + 44);
+  }
+
+  /** Reset zone transition count (e.g. on session start). */
+  resetZoneTransitions() {
+    this.zoneTransitionTracker.reset();
   }
 }
