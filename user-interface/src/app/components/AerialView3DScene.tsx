@@ -11,6 +11,9 @@ import { shots3D } from "../data/mock";
 const TABLE_WIDTH = 1.525;
 const TABLE_LENGTH = 2.74;
 
+/** Zone colors: 1 lightest, 2 medium, 3 darkest — subtler pinks */
+const ZONE_COLORS = ["#fef7f9", "#fcecf2", "#fadde8"];
+
 /**
  * Fixed coordinate system (angles stable regardless of camera):
  * - X: out of screen, Y: paddle handle (toward hand), Z: vertical
@@ -66,6 +69,7 @@ function CoordinateAxes() {
   );
 }
 
+/** Green sphere = point won. Red cube = point lost. Only these two shapes are used. */
 function ShotMarker({
   shot,
   onClick,
@@ -75,10 +79,8 @@ function ShotMarker({
 }) {
   const meshRef = useRef<Mesh>(null);
   const { x, z } = toThreeCoords(shot.x, shot.y);
-  const isYou = shot.player === "you";
-  const color = shot.won ? "#22c55e" : "#ef4444";
-  const opponentColor = shot.won ? "#15803d" : "#b91c1c";
   const radius = 0.045;
+  const color = shot.won ? "#22c55e" : "#ef4444";
 
   const handleClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -87,41 +89,70 @@ function ShotMarker({
 
   return (
     <group position={[x, radius, z]}>
-      {isYou ? (
-        <mesh
-          ref={meshRef}
-          onClick={handleClick}
-          onPointerOver={(e) => (e.stopPropagation(), (document.body.style.cursor = "pointer"))}
-          onPointerOut={() => (document.body.style.cursor = "auto")}
-          castShadow
-          receiveShadow
-        >
-          <sphereGeometry args={[radius, 20, 20]} />
-          <meshStandardMaterial color={color} />
-        </mesh>
-      ) : (
-        <mesh
-          ref={meshRef}
-          onClick={handleClick}
-          onPointerOver={(e) => (e.stopPropagation(), (document.body.style.cursor = "pointer"))}
-          onPointerOut={() => (document.body.style.cursor = "auto")}
-          castShadow
-          receiveShadow
-        >
-          <cylinderGeometry args={[radius * 0.9, radius * 0.9, radius * 0.8, 16]} />
-          <meshStandardMaterial color={opponentColor} />
-        </mesh>
-      )}
+      <mesh
+        ref={meshRef}
+        onClick={handleClick}
+        onPointerOver={(e) => (e.stopPropagation(), (document.body.style.cursor = "pointer"))}
+        onPointerOut={() => (document.body.style.cursor = "auto")}
+        castShadow
+        receiveShadow
+      >
+        {shot.won ? (
+          <>
+            <sphereGeometry args={[radius, 20, 20]} />
+            <meshStandardMaterial color={color} />
+          </>
+        ) : (
+          <>
+            <boxGeometry args={[radius * 2, radius * 2, radius * 2]} />
+            <meshStandardMaterial color={color} />
+          </>
+        )}
+      </mesh>
     </group>
   );
 }
 
-function TableSurface() {
+function TableSurface({ showZones = true }: { showZones?: boolean }) {
+  if (!showZones) {
+    return (
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+        <planeGeometry args={[TABLE_WIDTH, TABLE_LENGTH]} />
+        <meshStandardMaterial color="#fef3c7" />
+      </mesh>
+    );
+  }
+  const halfW = TABLE_WIDTH / 2;
+  const thirdL = TABLE_LENGTH / 3;
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-      <planeGeometry args={[TABLE_WIDTH, TABLE_LENGTH]} />
-      <meshStandardMaterial color="#fef3c7" />
-    </mesh>
+    <group>
+      {/* Left side: 3 zones 1,2,3 */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-halfW / 2, 0.001, -thirdL]} receiveShadow>
+        <planeGeometry args={[halfW, thirdL]} />
+        <meshStandardMaterial color={ZONE_COLORS[0]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-halfW / 2, 0.001, 0]} receiveShadow>
+        <planeGeometry args={[halfW, thirdL]} />
+        <meshStandardMaterial color={ZONE_COLORS[1]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-halfW / 2, 0.001, thirdL]} receiveShadow>
+        <planeGeometry args={[halfW, thirdL]} />
+        <meshStandardMaterial color={ZONE_COLORS[2]} />
+      </mesh>
+      {/* Right side: 3 zones 3,2,1 */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[halfW / 2, 0.001, -thirdL]} receiveShadow>
+        <planeGeometry args={[halfW, thirdL]} />
+        <meshStandardMaterial color={ZONE_COLORS[2]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[halfW / 2, 0.001, 0]} receiveShadow>
+        <planeGeometry args={[halfW, thirdL]} />
+        <meshStandardMaterial color={ZONE_COLORS[1]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[halfW / 2, 0.001, thirdL]} receiveShadow>
+        <planeGeometry args={[halfW, thirdL]} />
+        <meshStandardMaterial color={ZONE_COLORS[0]} />
+      </mesh>
+    </group>
   );
 }
 
@@ -163,9 +194,11 @@ function Net() {
 export function AerialView3DScene({
   shots = shots3D,
   onShotSelect,
+  showZones = true,
 }: {
   shots?: Shot3D[];
   onShotSelect: (shot: Shot3D) => void;
+  showZones?: boolean;
 }) {
   return (
     <Canvas
@@ -186,7 +219,7 @@ export function AerialView3DScene({
         shadow-camera-bottom={-4}
       />
       <group position={[0, 0, 0]}>
-        <TableSurface />
+        <TableSurface showZones={showZones} />
         <TableBorder />
         <Net />
         <TableGrid />

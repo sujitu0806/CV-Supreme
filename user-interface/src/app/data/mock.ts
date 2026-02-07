@@ -8,16 +8,25 @@ export const trainingFeedback = {
   playerPositioning: "Mid-distance from table (good for rallies)",
 };
 
-/** Suggested drills for Training Mode */
-export const suggestedDrills = [
-  "Practice your short serve placement — aim for the corners to open up angles.",
-  "Work on transitioning from backspin to topspin; your loop is strong, keep mixing it in.",
-  "Drill cross-court consistency: 10 loops in a row to the same spot builds muscle memory.",
+/** Competition Mode: opponent-based live feedback (strengths + action, weaknesses + tips) */
+export const competitionFeedback = {
+  opponentStrength: "Aggressive on backhand — attacks quickly with power",
+  neededAction: "Avoid feeding to backhand; use short placements to limit their power.",
+  opponentWeakness: "Slow on forehand — recovery delay on wide balls",
+  recommendedTips: "Target forehand to exploit slow recovery; use wide angles to extend their reach.",
+};
+
+/** Suggested drills for Competition Mode — based on opponent aggressive backhand & slow forehand */
+export const competitionDrills = [
+  "Drill short serves to forehand — keep opponent away from their strong backhand.",
+  "Practice forehand-to-forehand rallies to exploit opponent's slow recovery.",
+  "Work on wide-angled forehand placements; opponent struggles to recover quickly.",
+  "Drill mixing short backhand-side placements with long forehand corners to disrupt rhythm.",
 ];
 
 export const trainingSession = {
   sessionId: "train_001",
-  duration: "12:34",
+  duration: "2:24",
   shots: [
     { zone: "deep right corner", spin: "topspin", shotType: "loop", confidence: 0.92 },
     { zone: "mid-table", spin: "backspin", shotType: "push", confidence: 0.88 },
@@ -25,6 +34,8 @@ export const trainingSession = {
     { zone: "deep left corner", spin: "topspin", shotType: "drive", confidence: 0.87 },
     { zone: "center", spin: "flat", shotType: "block", confidence: 0.91 },
     { zone: "mid-table", spin: "backspin", shotType: "chop", confidence: 0.84 },
+    { zone: "deep center", spin: "topspin", shotType: "loop", confidence: 0.89 },
+    { zone: "near net", spin: "backspin", shotType: "serve", confidence: 0.93 },
   ],
   playerLocations: {
     player_a: { distance: "mid-distance", lateral: "center" },
@@ -49,7 +60,7 @@ export const player2Strategy = {
 
 export const competitionMatch = {
   matchId: "comp_042",
-  score: { player_a: 11, player_b: 9 },
+  score: { player_a: 6, player_b: 7 },
   rallies: [
     { shotDetected: true, serveType: "short backspin", spin: "backspin", zone: "near net", rallyLength: 4 },
     { shotDetected: true, serveType: "not a serve", spin: "topspin", zone: "deep right corner", rallyLength: 7 },
@@ -110,6 +121,23 @@ export interface Shot3D {
   paddleAngle?: number;
 }
 
+/** Competition mode: 5 green spheres (points won) + 8 red cubes (points lost). */
+export const compShots3D: Shot3D[] = [
+  { id: "c1", player: "you", x: 0.3, y: 0.5, won: true, spinType: "topspin", shotType: "forehand", strokeSpeedMps: 2.4, wristPitch: 28, paddleAngle: 45 },
+  { id: "c2", player: "opponent", x: 1.2, y: 0.8, won: false, spinType: "backspin", shotType: "backhand", strokeSpeedMps: 1.8, wristPitch: 42, paddleAngle: 85 },
+  { id: "c3", player: "you", x: 1.0, y: 0.3, won: true, spinType: "topspin", shotType: "serve", strokeSpeedMps: 3.1, wristPitch: 22, paddleAngle: 22 },
+  { id: "c4", player: "opponent", x: 0.2, y: 1.5, won: false, spinType: "sidespin", shotType: "forehand", strokeSpeedMps: 2.0, wristPitch: 35, paddleAngle: 45 },
+  { id: "c5", player: "you", x: 1.3, y: 1.1, won: false, spinType: "flat", shotType: "smash", strokeSpeedMps: 4.2, wristPitch: 18, paddleAngle: 12 },
+  { id: "c6", player: "opponent", x: 0.75, y: 0.9, won: false, spinType: "backspin", shotType: "push", strokeSpeedMps: 1.2, wristPitch: 48, paddleAngle: 92 },
+  { id: "c7", player: "you", x: 0.5, y: 2.0, won: true, spinType: "topspin", shotType: "loop", strokeSpeedMps: 2.8, wristPitch: 25, paddleAngle: 38 },
+  { id: "c8", player: "opponent", x: 1.1, y: 1.8, won: false, spinType: "topspin", shotType: "drive", strokeSpeedMps: 2.5, wristPitch: 32, paddleAngle: 55 },
+  { id: "c9", player: "you", x: 0.15, y: 0.2, won: true, spinType: "backspin", shotType: "serve", strokeSpeedMps: 2.2, wristPitch: 38, paddleAngle: 78 },
+  { id: "c10", player: "opponent", x: 1.35, y: 2.4, won: false, spinType: "flat", shotType: "block", strokeSpeedMps: 1.5, wristPitch: 45, paddleAngle: 65 },
+  { id: "c11", player: "you", x: 0.6, y: 1.2, won: false, spinType: "topspin", shotType: "loop", strokeSpeedMps: 2.1, wristPitch: 30, paddleAngle: 50 },
+  { id: "c12", player: "opponent", x: 0.9, y: 0.6, won: false, spinType: "backspin", shotType: "chop", strokeSpeedMps: 1.0, wristPitch: 50, paddleAngle: 88 },
+  { id: "c13", player: "you", x: 0.4, y: 1.9, won: true, spinType: "flat", shotType: "block", strokeSpeedMps: 1.6, wristPitch: 40, paddleAngle: 60 },
+];
+// Training mode: 6 green spheres + 7 red cubes
 export const shots3D: Shot3D[] = [
   { id: "1", player: "you", x: 0.3, y: 0.5, won: true, spinType: "topspin", shotType: "forehand", strokeSpeedMps: 2.4, wristPitch: 28, paddleAngle: 45 },
   { id: "2", player: "opponent", x: 1.2, y: 0.8, won: false, spinType: "backspin", shotType: "backhand", strokeSpeedMps: 1.8, wristPitch: 42, paddleAngle: 85 },
@@ -121,6 +149,41 @@ export const shots3D: Shot3D[] = [
   { id: "8", player: "opponent", x: 1.1, y: 1.8, won: false, spinType: "topspin", shotType: "drive", strokeSpeedMps: 2.5, wristPitch: 32, paddleAngle: 55 },
   { id: "9", player: "you", x: 0.15, y: 0.2, won: true, spinType: "backspin", shotType: "serve", strokeSpeedMps: 2.2, wristPitch: 38, paddleAngle: 78 },
   { id: "10", player: "opponent", x: 1.35, y: 2.4, won: true, spinType: "flat", shotType: "block", strokeSpeedMps: 1.5, wristPitch: 45, paddleAngle: 65 },
+  { id: "11", player: "you", x: 0.6, y: 1.2, won: false, spinType: "topspin", shotType: "loop", strokeSpeedMps: 2.1, wristPitch: 30, paddleAngle: 50 },
+  { id: "12", player: "opponent", x: 0.9, y: 0.6, won: false, spinType: "backspin", shotType: "chop", strokeSpeedMps: 1.0, wristPitch: 50, paddleAngle: 88 },
+  { id: "13", player: "you", x: 0.4, y: 1.9, won: false, spinType: "flat", shotType: "block", strokeSpeedMps: 1.6, wristPitch: 40, paddleAngle: 60 },
+];
+
+/** Default past rounds shown on Past Rounds page (can be deleted) */
+export interface PastRoundDisplay {
+  id: string;
+  mode: "training" | "competition";
+  shots: Shot[];
+  score: string;
+  tipsSummary: string[];
+  loggedAt: string;
+  isPlaceholder?: boolean;
+}
+
+export const defaultPastRounds: PastRoundDisplay[] = [
+  {
+    id: "past_train_1",
+    mode: "training",
+    shots: aerialShots.slice(0, 8),
+    score: "6–7",
+    tipsSummary: ["Short backspin serve recommended", "Attack opponent backhand", "Work on wide forehand recovery"],
+    loggedAt: new Date(Date.now() - 86400000).toISOString(),
+    isPlaceholder: true,
+  },
+  {
+    id: "past_comp_1",
+    mode: "competition",
+    shots: aerialShots.slice(0, 13),
+    score: "5–8",
+    tipsSummary: ["Avoid feeding to backhand", "Target forehand for slow recovery", "Mix short and long placements"],
+    loggedAt: new Date(Date.now() - 172800000).toISOString(),
+    isPlaceholder: true,
+  },
 ];
 
 export const courtZones = [

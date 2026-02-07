@@ -19,7 +19,7 @@ const BALL_SPEED = 0.6;
 const BALL_CENTER_OFFSET = 16;
 
 /** Video before ball hits right edge. After hit, aerial view replaces second video. */
-const VIDEO_BEFORE_RIGHT_EDGE = "/temp vid.mp4";
+const VIDEO_BEFORE_RIGHT_EDGE = "/perm vid.mp4";
 
 export function LandingHero() {
   const [phase, setPhase] = useState<Phase>("video");
@@ -103,8 +103,8 @@ export function LandingHero() {
       )}
 
       <MosaicBackground
-        isVisible={phase === "mosaic" || phase === "logo"}
-        opacity={phase === "mosaic" ? 1 : 0.6}
+        isVisible={phase === "logo"}
+        opacity={0.6}
       />
 
       {phase !== "logo" && (

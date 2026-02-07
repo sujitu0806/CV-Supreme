@@ -5,9 +5,12 @@ import {
   competitionMatch,
   player1Strategy,
   player2Strategy,
+  shots3D,
 } from "../data/mock";
 import { AerialView3D } from "../components/AerialView3D";
 import { CameraEmbed } from "../components/CameraEmbed";
+import { addLoggedRound } from "../data/loggedRoundsStore";
+import { shot3DToShot } from "../data/loggedRoundsStore";
 
 type PlayerRole = "You" | "Opponent";
 
@@ -15,8 +18,19 @@ export default function TrainingPage() {
   const { score } = competitionMatch;
   const [player1Role, setPlayer1Role] = useState<PlayerRole>("You");
   const [player2Role, setPlayer2Role] = useState<PlayerRole>("Opponent");
+  const [logged, setLogged] = useState(false);
 
   const roleOptions: PlayerRole[] = ["You", "Opponent"];
+
+  const handleLogSession = () => {
+    const result = addLoggedRound({
+      mode: "training",
+      shots: shots3D.map(shot3DToShot),
+      score: `${score.player_a}–${score.player_b}`,
+      advice: `${player1Strategy.shotAdvice}. ${player1Strategy.serveSuggestion}. ${player2Strategy.weakness}.`,
+    });
+    if (result) setLogged(true);
+  };
 
   return (
     <div className="mosaic-bg min-h-screen px-4 py-12">
@@ -26,8 +40,19 @@ export default function TrainingPage() {
           Real-time strategy assistance — play smart.
         </p>
 
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={handleLogSession}
+            disabled={logged}
+            className="rounded-lg border border-orange-300 bg-orange-100 px-4 py-2 text-sm font-medium text-orange-700 transition-colors hover:bg-orange-200 disabled:opacity-50"
+          >
+            {logged ? "Session logged" : "Log session"}
+          </button>
+        </div>
+
         {/* Score bar with role dropdowns */}
-        <div className="mt-6 flex items-center justify-between gap-4 rounded-lg border border-orange-200 bg-white px-6 py-4 shadow-sm">
+        <div className="mt-4 flex items-center justify-between gap-4 rounded-lg border border-orange-200 bg-white px-6 py-4 shadow-sm">
           <div className="flex items-center gap-4">
             <div>
               <p className="text-xs font-medium text-zinc-500">Player 1 (left)</p>
@@ -87,7 +112,7 @@ export default function TrainingPage() {
           <div className="space-y-6">
             <CameraEmbed mode="training" />
             <div className="rounded-xl border border-orange-200 bg-white p-6 shadow-sm">
-              <AerialView3D />
+              <AerialView3D showZones={false} />
             </div>
           </div>
 

@@ -43,18 +43,37 @@ body {
   background-size: 48px 48px;
 }
 
-/* Floating tile animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-6px) rotate(0.5deg); }
+/* Floating mosaic tile animations (varied drift) */
+@keyframes mosaic-float-1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(8px, -6px); }
+  50% { transform: translate(-4px, -12px); }
+  75% { transform: translate(6px, -4px); }
 }
 
-.tile-float {
-  animation: float 6s ease-in-out infinite;
+@keyframes mosaic-float-2 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-10px, 8px); }
+  66% { transform: translate(6px, 4px); }
 }
 
-.tile-float-delay-1 { animation-delay: -2s; }
-.tile-float-delay-2 { animation-delay: -4s; }
+@keyframes mosaic-float-3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-8px, -8px); }
+}
+
+@keyframes mosaic-float-4 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(12px, 4px); }
+  50% { transform: translate(4px, 10px); }
+  75% { transform: translate(-6px, 6px); }
+}
+
+@keyframes mosaic-float-5 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-6px, -10px); }
+  66% { transform: translate(10px, -2px); }
+}
 
 /* Snapping hover effect */
 .tile-snap {

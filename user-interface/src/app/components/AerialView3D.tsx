@@ -12,9 +12,10 @@ const Scene = dynamic(
 
 interface AerialView3DProps {
   shots?: Shot3D[];
+  showZones?: boolean;
 }
 
-export function AerialView3D({ shots = shots3D }: AerialView3DProps) {
+export function AerialView3D({ shots = shots3D, showZones = true }: AerialView3DProps) {
   const [selectedShot, setSelectedShot] = useState<Shot3D | null>(null);
 
   return (
@@ -26,7 +27,7 @@ export function AerialView3D({ shots = shots3D }: AerialView3DProps) {
         Coordinate system: X = out of screen, Y = along table width, Z = vertical.
       </p>
       <div className="relative h-[400px] w-full overflow-hidden rounded-xl border border-orange-200 bg-zinc-900">
-        <Scene shots={shots} onShotSelect={setSelectedShot} />
+        <Scene shots={shots} onShotSelect={setSelectedShot} showZones={showZones} />
         {selectedShot && (
           <div
             className="absolute left-4 top-4 z-10 min-w-[220px] rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm shadow-lg"
@@ -69,20 +70,16 @@ export function AerialView3D({ shots = shots3D }: AerialView3DProps) {
         )}
       </div>
       <p className="mt-2 text-center text-xs text-zinc-500">
-        Drag to rotate • Scroll to zoom • Right-drag to pan • Click spheres for details
+        Drag to rotate • Scroll to zoom • Right-drag to pan • Click markers for details
       </p>
-      <div className="mt-3 flex flex-wrap justify-center gap-4">
+      <div className="mt-3 flex flex-wrap justify-center gap-6">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-emerald-500" />
-          <span className="text-xs text-zinc-600">You won</span>
+          <span className="text-xs text-zinc-600">Point won (green sphere)</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="h-3 w-3 rounded-full bg-red-500" />
-          <span className="text-xs text-zinc-600">You lost</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="h-3 w-3 rounded-sm bg-emerald-700" style={{ width: 10, height: 8 }} />
-          <span className="text-xs text-zinc-600">Opponent (cylinder)</span>
+          <div className="h-2.5 w-2.5 rounded-sm bg-red-500" />
+          <span className="text-xs text-zinc-600">Point lost (red cube)</span>
         </div>
       </div>
     </div>

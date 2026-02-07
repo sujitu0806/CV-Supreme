@@ -117,24 +117,24 @@ function AppearingBall({ shot, index }: { shot: Shot3D; index: number }) {
   });
 
   const { x, z } = toThreeCoords(shot.x, shot.y);
-  const isYou = shot.player === "you";
-  const color = shot.won ? "#22c55e" : "#ef4444";
-  const opponentColor = shot.won ? "#15803d" : "#b91c1c";
   const radius = 0.045;
+  const color = shot.won ? "#22c55e" : "#ef4444";
 
   return (
     <group ref={groupRef} position={[x, radius, z]}>
-      {isYou ? (
-        <mesh castShadow receiveShadow>
-          <sphereGeometry args={[radius, 20, 20]} />
-          <meshStandardMaterial color={color} />
-        </mesh>
-      ) : (
-        <mesh castShadow receiveShadow>
-          <cylinderGeometry args={[radius * 0.9, radius * 0.9, radius * 0.8, 16]} />
-          <meshStandardMaterial color={opponentColor} />
-        </mesh>
-      )}
+      <mesh castShadow receiveShadow>
+        {shot.won ? (
+          <>
+            <sphereGeometry args={[radius, 20, 20]} />
+            <meshStandardMaterial color={color} />
+          </>
+        ) : (
+          <>
+            <boxGeometry args={[radius * 2, radius * 2, radius * 2]} />
+            <meshStandardMaterial color={color} />
+          </>
+        )}
+      </mesh>
     </group>
   );
 }

@@ -7,6 +7,8 @@ import { aerialShots } from "../data/mock";
 const TABLE_WIDTH = 360;
 const TABLE_HEIGHT = 200;
 const DOT_SIZE = 10;
+/** Subtler pinks */
+const ZONE_COLORS = ["#fef7f9", "#fcecf2", "#fadde8"];
 
 export default function StatisticsPage() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -31,13 +33,26 @@ export default function StatisticsPage() {
               width={TABLE_WIDTH}
               height={TABLE_HEIGHT}
             >
-              {/* Table surface */}
+              {/* Zone overlays: 3 zones per side */}
+              <rect x={0} y={0} width={TABLE_WIDTH / 2} height={TABLE_HEIGHT / 3} fill={ZONE_COLORS[0]} />
+              <text x={TABLE_WIDTH / 4 - 4} y={TABLE_HEIGHT / 6 + 4} className="fill-zinc-500 text-[10px] font-medium">1</text>
+              <rect x={0} y={TABLE_HEIGHT / 3} width={TABLE_WIDTH / 2} height={TABLE_HEIGHT / 3} fill={ZONE_COLORS[1]} />
+              <text x={TABLE_WIDTH / 4 - 4} y={TABLE_HEIGHT / 2 + 4} className="fill-zinc-500 text-[10px] font-medium">2</text>
+              <rect x={0} y={(TABLE_HEIGHT * 2) / 3} width={TABLE_WIDTH / 2} height={TABLE_HEIGHT / 3} fill={ZONE_COLORS[2]} />
+              <text x={TABLE_WIDTH / 4 - 4} y={(TABLE_HEIGHT * 5) / 6 + 4} className="fill-zinc-500 text-[10px] font-medium">3</text>
+              <rect x={TABLE_WIDTH / 2} y={0} width={TABLE_WIDTH / 2} height={TABLE_HEIGHT / 3} fill={ZONE_COLORS[2]} />
+              <text x={(TABLE_WIDTH * 3) / 4 - 4} y={TABLE_HEIGHT / 6 + 4} className="fill-zinc-500 text-[10px] font-medium">3</text>
+              <rect x={TABLE_WIDTH / 2} y={TABLE_HEIGHT / 3} width={TABLE_WIDTH / 2} height={TABLE_HEIGHT / 3} fill={ZONE_COLORS[1]} />
+              <text x={(TABLE_WIDTH * 3) / 4 - 4} y={TABLE_HEIGHT / 2 + 4} className="fill-zinc-500 text-[10px] font-medium">2</text>
+              <rect x={TABLE_WIDTH / 2} y={(TABLE_HEIGHT * 2) / 3} width={TABLE_WIDTH / 2} height={TABLE_HEIGHT / 3} fill={ZONE_COLORS[0]} />
+              <text x={(TABLE_WIDTH * 3) / 4 - 4} y={(TABLE_HEIGHT * 5) / 6 + 4} className="fill-zinc-500 text-[10px] font-medium">1</text>
+              {/* Table border */}
               <rect
                 x={0}
                 y={0}
                 width={TABLE_WIDTH}
                 height={TABLE_HEIGHT}
-                fill="#fef3c7"
+                fill="transparent"
                 stroke="#fb923c"
                 strokeWidth={3}
                 rx={4}

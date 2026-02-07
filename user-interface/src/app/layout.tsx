@@ -50,7 +50,7 @@ export default function RootLayout({
                 href="/leaderboard"
                 className="rounded-full border border-zinc-300 bg-zinc-100 px-5 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-orange-400 hover:bg-orange-100 hover:text-orange-700"
               >
-                Leaderboard
+                Past Rounds
               </Link>
             </nav>
           </div>
