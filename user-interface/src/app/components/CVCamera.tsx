@@ -11,10 +11,10 @@ import {
 import { ExponentialSmoother } from "@/lib/pose/smoothing";
 
 const OPENCV_API = "/api/opencv";
-const POSE_INTERVAL_MS = 100; // ~10 fps, balanced for laptops
-const OPENCV_INTERVAL_MS = 120;
-const MAX_OPENCV_SIZE = 400;
-const MIN_LANDMARK_VISIBILITY = 0.5;
+const POSE_INTERVAL_MS = 90; // ~11 fps, balanced for accuracy
+const OPENCV_INTERVAL_MS = 110;
+const MAX_OPENCV_SIZE = 560;
+const MIN_LANDMARK_VISIBILITY = 0.55;
 
 type BallPosition = { x: number; y: number } | null;
 
@@ -40,7 +40,7 @@ export function CVCamera() {
   const jointAnglesRef = useRef<Record<string, number>>({});
   const angleSmootherRef = useRef<ExponentialSmoother | null>(null);
   const posePendingRef = useRef(false);
-  if (!angleSmootherRef.current) angleSmootherRef.current = new ExponentialSmoother(0.2);
+  if (!angleSmootherRef.current) angleSmootherRef.current = new ExponentialSmoother(0.35);
   landmarksRef.current = landmarks;
   jointAnglesRef.current = jointAngles;
 
@@ -137,7 +137,7 @@ export function CVCamera() {
       ctx.drawImage(video, 0, 0, vw, vh, 0, 0, tw, th);
 
       const blob = await new Promise<Blob | null>((resolve) =>
-        c.toBlob(resolve, "image/jpeg", 0.55)
+        c.toBlob(resolve, "image/jpeg", 0.65)
       );
       if (!blob) {
         opencvPendingRef.current = false;

@@ -52,7 +52,7 @@ def _find_best_ball_candidate(contours, small_h, small_w, hsv=None, allow_streak
     Returns (cx, cy, orange_score, circularity) or (None, None, 0.0, 0.0).
     Does not filter by MIN_ORANGE_SCORE so we can still return low-confidence detections.
     """
-    min_area = 12
+    min_area = 8  # Balance: filter noise, keep close/mid-range balls
     max_area_mult = 0.03
     max_area = min(small_h, small_w) ** 2 * max_area_mult
     min_circularity = 0.08 if (hsv is not None and allow_streak) else 0.25
@@ -98,20 +98,23 @@ def _detect_ball_in_frame(frame: np.ndarray) -> tuple[int | None, int | None, fl
     Returns (x, y, confidence). Confidence 0-1 from orangeness and circularity; never stop tracking.
     """
     h, w = frame.shape[:2]
-    scale = 480 / max(h, w) if max(h, w) > 480 else 1.0
+    # Use 640px to preserve distant balls (smaller targets need more resolution)
+    scale = 640 / max(h, w) if max(h, w) > 640 else 1.0
     small = cv2.resize(frame, None, fx=scale, fy=scale) if scale != 1.0 else frame
     small_h, small_w = small.shape[:2]
 
     hsv = cv2.cvtColor(small, cv2.COLOR_BGR2HSV)
 
-    lower_orange = np.array([8, 165, 170])
-    upper_orange = np.array([22, 255, 255])
+    # Wider HSV for distant balls (often washed out: lower S, V)
+    lower_orange = np.array([5, 120, 120])
+    upper_orange = np.array([25, 255, 255])
     mask_orange = cv2.inRange(hsv, lower_orange, upper_orange)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    # Smaller kernels preserve small blobs (distant balls)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     mask_o = cv2.morphologyEx(mask_orange, cv2.MORPH_CLOSE, kernel)
     mask_o = cv2.morphologyEx(mask_o, cv2.MORPH_OPEN, kernel)
-    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (4, 4))
+    kernel_dilate = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     mask_o = cv2.dilate(mask_o, kernel_dilate)
     contours_o, _ = cv2.findContours(mask_o, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     best_cx, best_cy, orange_s, circ = _find_best_ball_candidate(
@@ -119,14 +122,14 @@ def _detect_ball_in_frame(frame: np.ndarray) -> tuple[int | None, int | None, fl
     )
 
     if best_cx is None or best_cy is None:
-        lower_white = np.array([0, 0, 180])
-        upper_white = np.array([180, 45, 255])
+        lower_white = np.array([0, 0, 170])
+        upper_white = np.array([180, 50, 255])
         mask_white = cv2.inRange(hsv, lower_white, upper_white)
         mask_w = cv2.morphologyEx(mask_white, cv2.MORPH_CLOSE, kernel)
         mask_w = cv2.morphologyEx(mask_w, cv2.MORPH_OPEN, kernel)
         contours_w, _ = cv2.findContours(mask_w, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         best_cx, best_cy, orange_s, circ = _find_best_ball_candidate(
-            contours_w, small_h, small_w
+            contours_w, small_h, small_w, hsv=hsv, allow_streak=True
         )
 
     if best_cx is None or best_cy is None:
