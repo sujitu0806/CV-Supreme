@@ -2,15 +2,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-### Camera embed (Competition & Training pages)
+### Camera + OpenCV (Competition & Training pages)
 
-The Competition and Training pages embed the main CV app's camera view (ball tracking, pose overlay, paddle analysis). To use it:
+The Competition and Training pages show a live camera feed with **OpenCV ball tracking** overlaid. To use it:
 
-1. Run the main CV app: `npm run dev` (Vite on http://localhost:5173)
-2. Run the OpenCV backend: `cd training-mode-openCV && python server.py` (port 5000)
-3. Run this app: `cd user-interface && npm run dev` (Next.js on http://localhost:3000)
+1. Run the OpenCV backend: `cd training-mode-openCV && python server.py` (port 5000)
+2. Run this app: `cd user-interface && npm run dev` (Next.js on http://localhost:3000)
 
-Set `NEXT_PUBLIC_CV_APP_URL` in `.env.local` if the main app runs on a different URL (see `.env.example`).
+The Next.js app proxies `/api/opencv` to the Flask server. Ball position and speed are displayed in real time.
 
 ### Development server
 

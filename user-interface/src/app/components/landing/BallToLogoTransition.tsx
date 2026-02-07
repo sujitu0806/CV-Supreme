@@ -8,9 +8,7 @@ import Link from "next/link";
 const OFFSET_RIGHT = 65;
 const OFFSET_DOWN = 80;
 const TEXT_OFFSET_X = -60;
-const TEXT_OFFSET_Y = 30;
-const BUTTON_OFFSET_X = -60;
-const BUTTON_OFFSET_Y = 0;
+const TEXT_OFFSET_Y = 20;
 
 export function BallToLogoTransition({
   isActive,
@@ -25,10 +23,8 @@ export function BallToLogoTransition({
 
   const centerX = `calc(${lastBallX}% + ${ballCenterOffset + OFFSET_RIGHT}px)`;
   const centerY = `calc(50% + ${OFFSET_DOWN}px)`;
-  const textTop = `calc(50% + ${OFFSET_DOWN + 60 + TEXT_OFFSET_Y}px)`;
-  const textLeft = `calc(${lastBallX}% + ${ballCenterOffset + OFFSET_RIGHT + TEXT_OFFSET_X}px)`;
-  const buttonTop = `calc(50% + ${OFFSET_DOWN + 60 + TEXT_OFFSET_Y + 48 + BUTTON_OFFSET_Y}px)`;
-  const buttonLeft = `calc(${lastBallX}% + ${ballCenterOffset + OFFSET_RIGHT + BUTTON_OFFSET_X}px)`;
+  const blockTop = `calc(50% + ${OFFSET_DOWN + 60 + TEXT_OFFSET_Y}px)`;
+  const blockLeft = `calc(${lastBallX}% + ${ballCenterOffset + OFFSET_RIGHT + TEXT_OFFSET_X}px)`;
 
   return (
     <div className="absolute inset-0 z-[25] overflow-y-auto [perspective:1200px]">
@@ -57,33 +53,28 @@ export function BallToLogoTransition({
         </div>
       </div>
 
-      {/* Tagline with offset */}
+      {/* Tagline + buttons: text on top, buttons side by side below */}
       <div
-        className="absolute flex w-full max-w-sm -translate-x-1/2 flex-col items-center"
-        style={{ left: textLeft, top: textTop }}
+        className="absolute flex -translate-x-1/2 flex-col items-center gap-4 animate-logo-content"
+        style={{ left: blockLeft, top: blockTop }}
       >
-        <p className="shrink-0 text-center text-lg font-bold tracking-tight text-orange-600 md:text-xl animate-logo-content">
+        <p className="shrink-0 text-center text-lg font-bold tracking-tight text-orange-600 md:text-xl">
           See the game. Change the game.
         </p>
-      </div>
-
-      {/* Buttons with offset */}
-      <div
-        className="absolute flex -translate-x-1/2 flex-wrap justify-center gap-4 animate-logo-content"
-        style={{ left: buttonLeft, top: buttonTop }}
-      >
-        <Link
-          href="/training"
-          className="pointer-events-auto rounded-full border border-zinc-300 bg-zinc-100 px-8 py-3 font-medium text-zinc-700 transition-colors hover:border-orange-400 hover:bg-orange-100 hover:text-orange-700"
-        >
-          Training Mode
-        </Link>
-        <Link
-          href="/competition"
-          className="pointer-events-auto rounded-full border border-zinc-300 bg-zinc-100 px-8 py-3 font-medium text-zinc-700 transition-colors hover:border-orange-400 hover:bg-orange-100 hover:text-orange-700"
-        >
-          Competition Mode
-        </Link>
+        <div className="flex flex-row flex-wrap justify-center gap-4">
+          <Link
+            href="/training"
+            className="pointer-events-auto rounded-full border border-zinc-300 bg-zinc-100 px-8 py-3 font-medium text-zinc-700 transition-colors hover:border-orange-400 hover:bg-orange-100 hover:text-orange-700"
+          >
+            Training Mode
+          </Link>
+          <Link
+            href="/competition"
+            className="pointer-events-auto rounded-full border border-zinc-300 bg-zinc-100 px-8 py-3 font-medium text-zinc-700 transition-colors hover:border-orange-400 hover:bg-orange-100 hover:text-orange-700"
+          >
+            Competition Mode
+          </Link>
+        </div>
       </div>
     </div>
   );
