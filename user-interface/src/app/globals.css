@@ -65,6 +65,16 @@ body {
   transform: scale(1.02);
 }
 
+/* Aerial view fade-in on landing */
+@keyframes aerial-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-aerial-fade-in {
+  animation: aerial-fade-in 0.7s ease-out forwards;
+}
+
 /*
  * Landing: ball grows from 50px to full size (120px), emphasizing impact.
  */

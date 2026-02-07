@@ -5,6 +5,7 @@ import { BackgroundVideo } from "./BackgroundVideo";
 import { MosaicBackground } from "./MosaicBackground";
 import { Ball } from "./Ball";
 import { BallToLogoTransition } from "@/app/components/landing/BallToLogoTransition";
+import { LandingAerialView } from "./LandingAerialView";
 
 type Phase = "video" | "mosaic" | "logo";
 
@@ -17,9 +18,8 @@ const BALL_SPEED = 0.6;
 /** Small ball is h-8 w-8 (32px), center offset = 16px */
 const BALL_CENTER_OFFSET = 16;
 
-/** Video before/after ball hits right edge. For now both use temp vid. */
+/** Video before ball hits right edge. After hit, aerial view replaces second video. */
 const VIDEO_BEFORE_RIGHT_EDGE = "/temp vid.mp4";
-const VIDEO_AFTER_RIGHT_EDGE = "/temp vid.mp4";
 
 export function LandingHero() {
   const [phase, setPhase] = useState<Phase>("video");
@@ -92,11 +92,15 @@ export function LandingHero() {
       aria-label="Landing hero"
     >
       <BackgroundVideo
-        isVisible={phase === "video" || phase === "mosaic" || phase === "logo"}
-        opacity={hasHitRightEdge ? 0.6 : 0.9}
-        src={hasHitRightEdge ? VIDEO_AFTER_RIGHT_EDGE : VIDEO_BEFORE_RIGHT_EDGE}
-        videoKey={hasHitRightEdge ? "after" : "before"}
+        isVisible={(phase === "video" || phase === "mosaic" || phase === "logo") && !hasHitRightEdge}
+        opacity={0.9}
+        src={VIDEO_BEFORE_RIGHT_EDGE}
+        videoKey="before"
       />
+
+      {hasHitRightEdge && (
+        <LandingAerialView />
+      )}
 
       <MosaicBackground
         isVisible={phase === "mosaic" || phase === "logo"}

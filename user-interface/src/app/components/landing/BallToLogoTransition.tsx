@@ -5,12 +5,12 @@ import Link from "next/link";
 /**
  * Mosaic → Logo transition: ball spins about vertical axis, logo pasted on revealed side.
  */
-const OFFSET_RIGHT = 50;
-const OFFSET_DOWN = 50;
-const TEXT_OFFSET_X = -50;
-const TEXT_OFFSET_Y = -20;
-const BUTTON_OFFSET_X = -50;
-const BUTTON_OFFSET_Y = 10;
+const OFFSET_RIGHT = 65;
+const OFFSET_DOWN = 80;
+const TEXT_OFFSET_X = -60;
+const TEXT_OFFSET_Y = 20;
+const BUTTON_OFFSET_X = -60;
+const BUTTON_OFFSET_Y = 0;
 
 export function BallToLogoTransition({
   isActive,
@@ -34,7 +34,7 @@ export function BallToLogoTransition({
     <div className="absolute inset-0 z-[25] overflow-y-auto [perspective:1200px]">
       {/* Ball */}
       <div
-        className="pointer-events-none absolute h-[120px] w-[120px] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]"
+        className="pointer-events-none absolute h-[156px] w-[156px] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]"
         style={{ left: centerX, top: centerY }}
       >
         <div
@@ -43,14 +43,14 @@ export function BallToLogoTransition({
         >
           <div
             className="absolute left-1/2 top-1/2 flex items-center justify-center animate-logo-on-ball [backface-visibility:hidden] [transform-style:preserve-3d]"
-            style={{ transform: "translate(-50%, -50%) translateZ(55px) scale(0.92)" }}
+            style={{ transform: "translate(-50%, -50%) translateZ(72px) scale(0.92)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.png.png"
               alt="CV Supreme"
-              width={100}
-              height={100}
+              width={130}
+              height={130}
               className="object-contain drop-shadow-sm"
             />
           </div>
@@ -62,7 +62,7 @@ export function BallToLogoTransition({
         className="absolute flex w-full max-w-sm -translate-x-1/2 flex-col items-center"
         style={{ left: textLeft, top: textTop }}
       >
-        <p className="shrink-0 text-center text-lg text-zinc-600 md:text-xl animate-logo-content">
+        <p className="shrink-0 text-center text-lg font-bold tracking-tight text-orange-600 md:text-xl animate-logo-content">
           See the game. Change the game.
         </p>
       </div>
