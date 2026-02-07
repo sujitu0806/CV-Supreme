@@ -7,10 +7,15 @@ import { Line, OrbitControls } from "@react-three/drei";
 import type { Shot3D } from "../data/mock";
 import { shots3D } from "../data/mock";
 
+/** Ping pong table: 1.525m × 2.74m (ITTF standard) */
 const TABLE_WIDTH = 1.525;
 const TABLE_LENGTH = 2.74;
 
-/** Convert meter coords (0,0 = left-near) to Three.js (center origin, Y-up) */
+/**
+ * Fixed coordinate system (angles stable regardless of camera):
+ * - X: out of screen, Y: paddle handle (toward hand), Z: vertical
+ * Converts table coords (x,y in meters) to Three.js (center origin, Y-up).
+ */
 function toThreeCoords(x: number, y: number) {
   return {
     x: x - TABLE_WIDTH / 2,
@@ -19,33 +24,46 @@ function toThreeCoords(x: number, y: number) {
 }
 
 function TableGrid() {
-  const gridSize = 0.2;
+  const gridSize = 0.22;
+  const halfW = TABLE_WIDTH / 2;
+  const halfL = TABLE_LENGTH / 2;
   const lines: React.ReactNode[] = [];
 
   for (let i = 0; i <= TABLE_WIDTH / gridSize; i++) {
-    const x = i * gridSize - TABLE_WIDTH / 2;
+    const x = i * gridSize - halfW;
     lines.push(
       <Line
         key={`v-${i}`}
-        points={[[x, 0.01, -TABLE_LENGTH / 2], [x, 0.01, TABLE_LENGTH / 2]]}
-        color="#78716c"
-        lineWidth={0.5}
+        points={[[x, 0.02, -halfL], [x, 0.02, halfL]]}
+        color="#57534e"
+        lineWidth={1.2}
       />
     );
   }
   for (let i = 0; i <= TABLE_LENGTH / gridSize; i++) {
-    const z = i * gridSize - TABLE_LENGTH / 2;
+    const z = i * gridSize - halfL;
     lines.push(
       <Line
         key={`h-${i}`}
-        points={[[-TABLE_WIDTH / 2, 0.01, z], [TABLE_WIDTH / 2, 0.01, z]]}
-        color="#78716c"
-        lineWidth={0.5}
+        points={[[-halfW, 0.02, z], [halfW, 0.02, z]]}
+        color="#57534e"
+        lineWidth={1.2}
       />
     );
   }
 
   return <group>{lines}</group>;
+}
+
+function CoordinateAxes() {
+  const axLen = 0.4;
+  return (
+    <group position={[-TABLE_WIDTH / 2 - 0.15, 0.02, TABLE_LENGTH / 2 + 0.1]}>
+      <Line points={[[0, 0, 0], [axLen, 0, 0]]} color="#dc2626" lineWidth={2} />
+      <Line points={[[0, 0, 0], [0, axLen, 0]]} color="#16a34a" lineWidth={2} />
+      <Line points={[[0, 0, 0], [0, 0, -axLen]]} color="#2563eb" lineWidth={2} />
+    </group>
+  );
 }
 
 function ShotMarker({
@@ -58,9 +76,9 @@ function ShotMarker({
   const meshRef = useRef<Mesh>(null);
   const { x, z } = toThreeCoords(shot.x, shot.y);
   const isYou = shot.player === "you";
-  const color = shot.won ? "#10b981" : "#ef4444";
-  const opponentColor = shot.won ? "#047857" : "#b91c1c";
-  const radius = 0.04;
+  const color = shot.won ? "#22c55e" : "#ef4444";
+  const opponentColor = shot.won ? "#15803d" : "#b91c1c";
+  const radius = 0.045;
 
   const handleClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -78,7 +96,7 @@ function ShotMarker({
           castShadow
           receiveShadow
         >
-          <sphereGeometry args={[radius, 16, 16]} />
+          <sphereGeometry args={[radius, 20, 20]} />
           <meshStandardMaterial color={color} />
         </mesh>
       ) : (
@@ -90,7 +108,7 @@ function ShotMarker({
           castShadow
           receiveShadow
         >
-          <boxGeometry args={[radius * 1.6, radius * 1.6, radius * 1.6]} />
+          <cylinderGeometry args={[radius * 0.9, radius * 0.9, radius * 0.8, 16]} />
           <meshStandardMaterial color={opponentColor} />
         </mesh>
       )}
@@ -172,6 +190,7 @@ export function AerialView3DScene({
         <TableBorder />
         <Net />
         <TableGrid />
+        <CoordinateAxes />
         {shots.map((shot) => (
           <ShotMarker
             key={shot.id}

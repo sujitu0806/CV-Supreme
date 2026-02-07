@@ -4,6 +4,7 @@ import {
   suggestedDrills,
 } from "../data/mock";
 import { AerialView3D } from "../components/AerialView3D";
+import { CameraEmbed } from "../components/CameraEmbed";
 
 export default function CompetitionPage() {
   return (
@@ -14,21 +15,9 @@ export default function CompetitionPage() {
           Real-time feedback as you practice — you&apos;ve got this!
         </p>
 
-        {/* 1. Live video placeholder + aerial view */}
+        {/* 1. Live video embed + aerial view */}
         <div className="mt-8 space-y-6">
-          <div className="overflow-hidden rounded-xl border-2 border-dashed border-orange-200 bg-zinc-100">
-            <div className="flex aspect-video w-full items-center justify-center bg-gradient-to-br from-zinc-200 to-zinc-100">
-              <div className="text-center">
-                <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-                  <svg className="h-8 w-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <p className="text-sm font-medium text-zinc-500">Live video feed (coming soon)</p>
-                <p className="mt-1 text-xs text-zinc-400">CV integration will analyze your shots in real time</p>
-              </div>
-            </div>
-          </div>
+          <CameraEmbed mode="comp" />
           <div className="rounded-xl border border-orange-200 bg-white p-6 shadow-sm">
             <AerialView3D />
           </div>
