@@ -151,10 +151,41 @@ def process_frame(frame_bgr: np.ndarray) -> tuple[int | None, int | None, float]
     return _detect_ball_in_frame(frame_bgr)
 
 
+def _add_bounce_to_detections(detections: list, window: int = 3, vy_threshold: float = 2.0, cooldown_frames: int = 10) -> None:
+    """
+    Post-pass: detect bounces from vertical velocity sign change (downward -> upward).
+    y increases downward; vy = current_y - previous_y; downward = positive vy, upward = negative.
+    Modifies each detection in place to add "ball_bounced_this_frame": bool.
+    """
+    for d in detections:
+        d["ball_bounced_this_frame"] = False
+
+    cooldown = 0
+    for i in range(window, len(detections)):
+        if cooldown > 0:
+            cooldown -= 1
+            continue
+        # Need window+1 consecutive positions (i-window .. i) for smoothed vy
+        positions = []
+        for j in range(i - window, i + 1):
+            pos = detections[j].get("ball_position")
+            if pos is None:
+                break
+            positions.append((pos["x"], pos["y"]))
+        if len(positions) != window + 1:
+            continue
+        # Smoothed vy over 2-frame steps: prev = (y_{i-1} - y_{i-3})/2, curr = (y_i - y_{i-2})/2
+        vy_prev = (positions[2][1] - positions[0][1]) / 2.0
+        vy_curr = (positions[3][1] - positions[1][1]) / 2.0
+        if vy_prev > vy_threshold and vy_curr < -vy_threshold:
+            detections[i]["ball_bounced_this_frame"] = True
+            cooldown = cooldown_frames
+
+
 def process_video(video_path: str | Path) -> dict:
     """
     Process a video file: detect ball per frame, track position, estimate speed.
-    Returns { "detections": [ { frame, timestamp, ball_position, ball_speed_px_per_sec }, ... ], "fps": float }.
+    Returns { "detections": [ { frame, timestamp, ball_position, ball_speed_px_per_sec, ball_bounced_this_frame }, ... ], "fps": float }.
     When ball is not visible, position and speed are null (no hallucination).
     """
     path = Path(video_path)
@@ -209,6 +240,7 @@ def process_video(video_path: str | Path) -> dict:
         frame_index += 1
 
     cap.release()
+    _add_bounce_to_detections(results)
     return {"detections": results, "fps": fps}
 
 
