@@ -173,6 +173,7 @@ export async function start(options = {}) {
           shot_timestamp: formatTimestamp(),
           paddle_visible: !!paddleVisible,
           strike_detected: !!strikeDetected,
+          person_position_in_frame: data.person_position_in_frame ?? { value: '', confidence: 0 },
           handedness: data.handedness ?? { value: '', confidence: 0 },
           paddle_distance: data.paddle_distance ?? { value: '', confidence: 0 },
           paddle_side: data.paddle_side ?? { value: '', confidence: 0 },

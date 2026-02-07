@@ -7,6 +7,11 @@ export const SHOT_OUTPUT_SCHEMA = {
   properties: {
     paddle_visible: { type: 'boolean', description: 'True if paddle is visible in the clip' },
     strike_detected: { type: 'boolean', description: 'True if a striking motion of the paddle was detected' },
+    person_position_in_frame: {
+      type: 'object',
+      properties: { value: { type: 'string' }, confidence: { type: 'number' } },
+      description: 'Where the person is in the frame: centered, left, or right (camera/viewer perspective)',
+    },
     handedness: {
       type: 'object',
       properties: { value: { type: 'string' }, confidence: { type: 'number' } },

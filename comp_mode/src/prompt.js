@@ -72,6 +72,14 @@ STEP 3 — STATIC PADDLE CONTEXT
 ========================
 Extract context that does NOT require knowing the shot outcome.
 
+--- Person position in frame ---
+Where is the opponent (person) located in the camera frame?
+Use the CAMERA’s / VIEWER’s perspective (as someone watching the video):
+- "centered" — person is roughly in the center of the frame
+- "left" — person is mostly on the left side of the frame (viewer’s left)
+- "right" — person is mostly on the right side of the frame (viewer’s right)
+- "uncertain"
+
 --- Handedness ---
 Which hand is holding the paddle?
 - "left_hand"
@@ -116,8 +124,11 @@ Lateral orientation:
 - "uncertain"
 
 --- Motion direction ---
-Dominant paddle movement:
-- Horizontal direction: "left_to_right", "right_to_left", "none"
+Dominant paddle movement. All directions use the CAMERA / VIEWER perspective (as seen on the video):
+- Horizontal direction:
+  - "left_to_right" — paddle moves from the LEFT side of the frame toward the RIGHT side (viewer’s left → viewer’s right)
+  - "right_to_left" — paddle moves from the RIGHT side of the frame toward the LEFT (viewer’s right → viewer’s left)
+  - "none"
 - Vertical component: "upward", "downward", "minimal"
 - Motion plane: "mostly_horizontal", "mostly_vertical", "diagonal"
 
@@ -166,6 +177,10 @@ Example (illustrative only):
 {
   "paddle_visible": true,
   "strike_detected": true,
+  "person_position_in_frame": {
+    "value": "centered",
+    "confidence": 0.82
+  },
   "handedness": {
     "value": "right_hand",
     "confidence": 0.86

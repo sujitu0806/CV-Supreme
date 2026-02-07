@@ -28,6 +28,7 @@
  * @property {string} shot_timestamp
  * @property {boolean} paddle_visible
  * @property {boolean} strike_detected
+ * @property {ValueConfidence} person_position_in_frame - centered | left | right (camera/viewer perspective)
  * @property {ValueConfidence} handedness
  * @property {ValueConfidence} paddle_distance
  * @property {ValueConfidence} paddle_side - red (forehand face) or black (backhand face)

@@ -130,6 +130,7 @@ function renderCompMetadata(shot) {
     metadataJson.style.display = 'none';
     return;
   }
+  const posInFrame = shot.person_position_in_frame?.value ?? '—';
   const hand = shot.handedness?.value ?? '—';
   const side = shot.paddle_side?.value ?? '—';
   const dist = shot.paddle_distance?.value ?? '—';
@@ -148,6 +149,7 @@ function renderCompMetadata(shot) {
       <dt>Timestamp</dt><dd>${shot.shot_timestamp}</dd>
       <dt>Paddle visible</dt><dd>${shot.paddle_visible ? 'yes' : 'no'}</dd>
       <dt>Strike detected</dt><dd>${shot.strike_detected ? 'yes' : 'no'}</dd>
+      <dt>Person in frame</dt><dd>${posInFrame}</dd>
       <dt>Handedness</dt><dd>${hand}</dd>
       <dt>Paddle side (red/black)</dt><dd>${side}</dd>
       <dt>Paddle distance</dt><dd>${dist}</dd>
@@ -171,11 +173,12 @@ function renderShots() {
   const shots = compMode.shots || [];
   const recent = shots.slice(-MAX_SHOTS).reverse();
   shotList.innerHTML = recent.map((s) => {
+    const pos = s.person_position_in_frame?.value ?? '—';
     const side = s.paddle_side?.value ?? '—';
     const speed = s.speed?.value ?? '—';
     const follow = s.follow_through?.value ?? '—';
     const hand = s.handedness?.value ?? '—';
-    return `<li><strong>${s.shot_timestamp}</strong> Side: ${side} · Speed: ${speed} · Follow: ${follow} · Hand: ${hand}</li>`;
+    return `<li><strong>${s.shot_timestamp}</strong> Frame: ${pos} · Side: ${side} · Speed: ${speed} · Follow: ${follow} · Hand: ${hand}</li>`;
   }).join('');
   renderCompMetadata(shots[shots.length - 1]);
 }
