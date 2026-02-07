@@ -1,6 +1,7 @@
 /**
  * Live Competition Mode: per-shot metadata extraction via Overshoot.
  * Processes live camera stream; emits one structured observation per detected opponent shot.
+ * Also runs MediaPipe Pose pipeline for joint angles, ROM, and symmetry.
  */
 
 import { RealtimeVision } from '@overshoot/sdk';
@@ -246,3 +247,6 @@ export async function stop(options = {}) {
   vision = null;
   onStatus('stopped');
 }
+
+// Pose pipeline: joint angles, ROM, symmetry (MediaPipe Pose)
+export { startPosePipeline, stopPosePipeline, onPoseData, getPosePipeline } from './poseRunner.js';

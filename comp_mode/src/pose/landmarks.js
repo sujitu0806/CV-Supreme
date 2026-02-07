@@ -1,0 +1,103 @@
+/**
+ * MediaPipe Pose landmark indices.
+ * See: https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker
+ */
+
+export const LANDMARKS = {
+  // Upper body
+  LEFT_SHOULDER: 11,
+  RIGHT_SHOULDER: 12,
+  LEFT_ELBOW: 13,
+  RIGHT_ELBOW: 14,
+  LEFT_WRIST: 15,
+  RIGHT_WRIST: 16,
+  LEFT_INDEX: 19,
+  RIGHT_INDEX: 20,
+  LEFT_PINKY: 17,
+  RIGHT_PINKY: 18,
+  LEFT_THUMB: 21,
+  RIGHT_THUMB: 22,
+
+  // Lower body
+  LEFT_HIP: 23,
+  RIGHT_HIP: 24,
+  LEFT_KNEE: 25,
+  RIGHT_KNEE: 26,
+  LEFT_ANKLE: 27,
+  RIGHT_ANKLE: 28,
+};
+
+/** Joint definitions for angle computation: [proximal, joint, distal] */
+export const JOINT_DEFINITIONS = {
+  leftElbow: [LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_ELBOW, LANDMARKS.LEFT_WRIST],
+  rightElbow: [LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_ELBOW, LANDMARKS.RIGHT_WRIST],
+  leftWrist: [LANDMARKS.LEFT_ELBOW, LANDMARKS.LEFT_WRIST, LANDMARKS.LEFT_INDEX],
+  rightWrist: [LANDMARKS.RIGHT_ELBOW, LANDMARKS.RIGHT_WRIST, LANDMARKS.RIGHT_INDEX],
+  leftKnee: [LANDMARKS.LEFT_HIP, LANDMARKS.LEFT_KNEE, LANDMARKS.LEFT_ANKLE],
+  rightKnee: [LANDMARKS.RIGHT_HIP, LANDMARKS.RIGHT_KNEE, LANDMARKS.RIGHT_ANKLE],
+  leftShoulder: [LANDMARKS.LEFT_HIP, LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_ELBOW],
+  rightShoulder: [LANDMARKS.RIGHT_HIP, LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_ELBOW],
+  leftHip: [LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_HIP, LANDMARKS.LEFT_KNEE],
+  rightHip: [LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_HIP, LANDMARKS.RIGHT_KNEE],
+};
+
+/** Left/right pairs for symmetry analysis */
+export const SYMMETRY_PAIRS = [
+  ['leftElbow', 'rightElbow'],
+  ['rightElbow', 'leftElbow'],
+  ['leftKnee', 'rightKnee'],
+  ['rightKnee', 'leftKnee'],
+  ['leftShoulder', 'rightShoulder'],
+  ['rightShoulder', 'leftShoulder'],
+  ['leftHip', 'rightHip'],
+  ['rightHip', 'leftHip'],
+];
+
+/** Canonical pairs (each pair listed once) */
+export const SYMMETRY_PAIRS_CANONICAL = [
+  ['leftElbow', 'rightElbow'],
+  ['leftKnee', 'rightKnee'],
+  ['leftShoulder', 'rightShoulder'],
+  ['leftHip', 'rightHip'],
+];
+
+/** Segment definitions for angle-to-horizontal: [startIdx, endIdx] per joint */
+export const SEGMENT_FOR_HORIZONTAL = {
+  leftElbow: [LANDMARKS.LEFT_ELBOW, LANDMARKS.LEFT_WRIST],
+  rightElbow: [LANDMARKS.RIGHT_ELBOW, LANDMARKS.RIGHT_WRIST],
+  leftKnee: [LANDMARKS.LEFT_KNEE, LANDMARKS.LEFT_ANKLE],
+  rightKnee: [LANDMARKS.RIGHT_KNEE, LANDMARKS.RIGHT_ANKLE],
+  leftShoulder: [LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_ELBOW],
+  rightShoulder: [LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_ELBOW],
+  leftHip: [LANDMARKS.LEFT_HIP, LANDMARKS.LEFT_KNEE],
+  rightHip: [LANDMARKS.RIGHT_HIP, LANDMARKS.RIGHT_KNEE],
+  leftWrist: [LANDMARKS.LEFT_ELBOW, LANDMARKS.LEFT_WRIST],
+  rightWrist: [LANDMARKS.RIGHT_ELBOW, LANDMARKS.RIGHT_WRIST],
+};
+
+/** Skeleton connections for overlay: [fromIdx, toIdx] */
+export const SKELETON_CONNECTIONS = [
+  [LANDMARKS.LEFT_SHOULDER, LANDMARKS.RIGHT_SHOULDER],
+  [LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_ELBOW],
+  [LANDMARKS.LEFT_ELBOW, LANDMARKS.LEFT_WRIST],
+  [LANDMARKS.LEFT_WRIST, LANDMARKS.LEFT_INDEX],
+  [LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_ELBOW],
+  [LANDMARKS.RIGHT_ELBOW, LANDMARKS.RIGHT_WRIST],
+  [LANDMARKS.RIGHT_WRIST, LANDMARKS.RIGHT_INDEX],
+  [LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_HIP],
+  [LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_HIP],
+  [LANDMARKS.LEFT_HIP, LANDMARKS.RIGHT_HIP],
+  [LANDMARKS.LEFT_HIP, LANDMARKS.LEFT_KNEE],
+  [LANDMARKS.LEFT_KNEE, LANDMARKS.LEFT_ANKLE],
+  [LANDMARKS.RIGHT_HIP, LANDMARKS.RIGHT_KNEE],
+  [LANDMARKS.RIGHT_KNEE, LANDMARKS.RIGHT_ANKLE],
+];
+
+/** Upper-body racket-sport joints (primary focus) */
+export const UPPER_BODY_JOINTS = ['leftElbow', 'rightElbow', 'leftShoulder', 'rightShoulder', 'leftWrist', 'rightWrist'];
+
+/** Skeleton connections for paddle arm only: shoulder→elbow→wrist→index */
+export const PADDLE_ARM_CONNECTIONS = {
+  right: [[LANDMARKS.RIGHT_SHOULDER, LANDMARKS.RIGHT_ELBOW], [LANDMARKS.RIGHT_ELBOW, LANDMARKS.RIGHT_WRIST], [LANDMARKS.RIGHT_WRIST, LANDMARKS.RIGHT_INDEX]],
+  left: [[LANDMARKS.LEFT_SHOULDER, LANDMARKS.LEFT_ELBOW], [LANDMARKS.LEFT_ELBOW, LANDMARKS.LEFT_WRIST], [LANDMARKS.LEFT_WRIST, LANDMARKS.LEFT_INDEX]],
+};
